@@ -9,7 +9,6 @@ import "./App.css";
 
 // Import drawing utility here
 import { drawRectangle } from "./utilities";
-import Navbar from "./components/Navbar";
 
 function App() {
   const webcamRef = useRef(null);
@@ -23,7 +22,7 @@ function App() {
     //  Loop and detect
     setInterval(() => {
       detect(net);
-    });
+    }, 16.7);
   };
 
   const detect = async (net) => {
@@ -63,7 +62,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <h1>Paw Tracks</h1>
       <header className="App-header">
         <Webcam
           ref={webcamRef}
