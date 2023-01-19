@@ -8,7 +8,8 @@ import Webcam from "react-webcam";
 import "./App.css";
 
 // Import drawing utility here
-import { drawRect } from "./utilities";
+import { drawRectangle } from "./utilities";
+import Navbar from "./components/Navbar";
 
 function App() {
   const webcamRef = useRef(null);
@@ -16,13 +17,13 @@ function App() {
 
   // Main function
   const runCoco = async () => {
-    // 3. TODO - Load network 
+    // Load network 
     const net = await cocossd.load();
 
-    //  Loop and detect hands
+    //  Loop and detect
     setInterval(() => {
       detect(net);
-    }, 10);
+    });
   };
 
   const detect = async (net) => {
@@ -46,7 +47,7 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
-      // 4. TODO - Make Detections
+      // Make Detections
       const obj = await net.detect(video);
       console.log(obj);
 
@@ -54,7 +55,7 @@ function App() {
       const canvas = canvasRef.current.getContext("2d");
 
       // Update drawing utility
-      drawRect(obj, canvas);
+      drawRectangle(obj, canvas);
     }
   };
 
@@ -62,6 +63,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
         <Webcam
           ref={webcamRef}
