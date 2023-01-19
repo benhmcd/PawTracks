@@ -62,7 +62,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Paw Tracks</h1>
+      <h1>
+        <img src='/pawTracksLogo192.png' alt='logo' height='32px' width='32px'/>
+        Paw Tracks
+        </h1>
       <header className="App-header">
         <Webcam
           ref={webcamRef}
