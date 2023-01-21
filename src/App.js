@@ -10,12 +10,16 @@ import "./App.css";
 // Import drawing utility here
 import { drawRectangle } from "./utilities";
 
-// Import Amplify Package 
+// Import Amplify Package's and Auth
 import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+
+// Amplify DataStore
+import { DataStore } from '@aws-amplify/datastore';
+import { LoginList } from './models';
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -30,7 +34,12 @@ function App({ signOut, user }) {
   const runCoco = async () => {
     // Load network 
     const net = await cocossd.load();
-
+    // Save login to database
+    await DataStore.save(
+      new LoginList({
+      "UID": user.username
+    })
+    );
     //  Loop and detect
     setInterval(() => {
       detect(net);
