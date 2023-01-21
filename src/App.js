@@ -89,7 +89,7 @@ function App({ signOut, user }) {
     <div className="App">
       <h1>
         <img src='/pawTracksLogo192.png' alt='logo' height='32px' width='32px'/>
-        Paw Tracks: Hello {user.username} : {models.length}
+        Paw Tracks: Hello {user.username}
         </h1>
         <button onClick={signOut}>Sign out</button>
       <header className="App-header">
