@@ -24,8 +24,6 @@ import { LoginList } from './models';
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
-
-
 function App({ signOut, user }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -40,12 +38,18 @@ function App({ signOut, user }) {
       "UID": user.username
     })
     );
+
+    // get login list
+    const models = await DataStore.query(LoginList);
+    console.log(models.length)
     //  Loop and detect
     setInterval(() => {
       detect(net);
     }, 16.7);
   };
 
+
+  
   const detect = async (net) => {
     // Check data is available
     if (
@@ -85,7 +89,7 @@ function App({ signOut, user }) {
     <div className="App">
       <h1>
         <img src='/pawTracksLogo192.png' alt='logo' height='32px' width='32px'/>
-        Paw Tracks: Hello World {user.username}
+        Paw Tracks: Hello {user.username} : {models.length}
         </h1>
         <button onClick={signOut}>Sign out</button>
       <header className="App-header">
