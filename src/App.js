@@ -73,7 +73,7 @@ function App({ signOut, user }) {
 
       // Make Detections
       const obj = await net.detect(video);
-      console.log(obj);
+      console.debug(obj);
 
       // Draw mesh
       const canvas = canvasRef.current.getContext("2d");
