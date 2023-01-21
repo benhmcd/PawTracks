@@ -10,7 +10,18 @@ import "./App.css";
 // Import drawing utility here
 import { drawRectangle } from "./utilities";
 
-function App() {
+// Import Amplify Package 
+import { Amplify, Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+
+
+function App({ signOut, user }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -64,8 +75,9 @@ function App() {
     <div className="App">
       <h1>
         <img src='/pawTracksLogo192.png' alt='logo' height='32px' width='32px'/>
-        Paw Tracks
+        Paw Tracks: Hello World {user.username}
         </h1>
+        <button onClick={signOut}>Sign out</button>
       <header className="App-header">
         <Webcam
           ref={webcamRef}
@@ -102,4 +114,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
