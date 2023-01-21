@@ -13,10 +13,11 @@ import { drawRectangle } from "./utilities";
 // Import Amplify Package 
 import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+
+Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 
