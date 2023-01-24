@@ -1,6 +1,30 @@
+import React, { useRef, useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import { setUncaughtExceptionCaptureCallback } from "process";
+import * as tf from "@tensorflow/tfjs";
 
-export const runCoco = async () => {
+// Import required model here
+import * as cocossd from "@tensorflow-models/coco-ssd";
+import Webcam from "react-webcam";
+
+// Import Amplify Package's and Auth
+import { Amplify, Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+
+// Amplify DataStore
+import { DataStore } from '@aws-amplify/datastore';
+import { LoginList } from './models';
+
+Amplify.configure(awsconfig);
+Amplify.configure(awsExports);
+
+const webcamRef = useRef(null);
+    const canvasRef = useRef(null);
+
+export const runCoco = async (user) => {
     // Load network 
     const net = await cocossd.load();
 
@@ -22,8 +46,7 @@ export const runCoco = async () => {
 }
 
 export const detect = async (net) => {
-    const webcamRef = useRef(null);
-    const canvasRef = useRef(null);
+    
 
     // Check data is available
     if (
@@ -91,7 +114,7 @@ export const drawRectangle = (detections, canvas) => {
         }
     })
 }
-export const videoFeed = () => {
+export const videoFeed = (user, signOut) => {
     return (
         <div className="App">
             <h1>
