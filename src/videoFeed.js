@@ -10,7 +10,7 @@ import Webcam from "react-webcam";
 // Import Amplify Package's and Auth
 import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 
