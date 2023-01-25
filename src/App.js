@@ -3,19 +3,14 @@ import React, { useRef, useState, useEffect } from "react";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import "./App.css";
 
-// Import drawing utility here
-import { videoFeed, runCoco, detect, drawRectangle } from "./videoFeed";
+import Home from "./componenets/Home/Home"
+
 
 function App({}) {
-  // Main function
-  runCoco();
-  detect()
-
-  useEffect(() => { runCoco() }, []);
 
   return (
     <div className="App">
-      < videoFeed />
+      <Home />
     </div>
   );
 }
