@@ -109,7 +109,7 @@ function Hero() {
         canvas.strokeStyle = color
         canvas.beginPath()
         canvas.fillText(text, x + 15, y + 30)
-        //canvas.rect(x, y, width, height)
+        canvas.rect(x, y, width, height)
         canvas.stroke()
     };
 
