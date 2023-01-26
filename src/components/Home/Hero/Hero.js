@@ -48,6 +48,9 @@ function Hero() {
 
             // Update drawing utilitiy
             drawRectangle(detections, canvas)
+
+            // Check for dog on bed
+            petOnBed(detections)
         }
     };
 
@@ -71,8 +74,33 @@ function Hero() {
                 var color = '#687864'
                 setStyle(text, x, y, width, height, color, canvas);
             }
-
         })
+    };
+
+    function petOnBed (detections) {
+        var dogBox;
+        var bedBox; 
+        detections.forEach(prediction => {
+            if (prediction['class'] == 'dog') {
+                dogBox = prediction['bbox']
+            }
+            if (prediction['class'] == 'bed') {
+                bedBox = prediction['bbox']
+            }
+        })
+
+        if ((!(dogBox == "undefined" || dogBox == null)) && (!(bedBox == "undefined" || bedBox == null)))  {
+            alert("THERE IS A DOG: " + dogBox + " AND THERE IS A BED: " + bedBox)
+            
+            if (bedBox[0] < dogBox[0] && bedBox[1] < dogBox[1]) {
+                if (((dogBox[0] + dogBox[2]) < (bedBox[0] + bedBox[2]))
+                && ((dogBox[1] + dogBox[3]) < (bedBox[1] + bedBox[3]))) {
+                    alert("THE DOG IS ON THE BED!!!!")
+                }
+            }
+        } else {
+            alert("OMG IT DIDNT WORK")
+        }
     };
 
     function setStyle(text, x, y, width, height, color, canvas) {
