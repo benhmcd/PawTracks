@@ -15,7 +15,7 @@ import Clips from "./pages/Clips/Clips";
 import Footer from "./pages/Footer/Footer"
 import NotFound from "./pages/NotFound/NotFound"
 
-// Import Amplify Package's and Auth
+// Import Amplify Package's and Auth.
 import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
