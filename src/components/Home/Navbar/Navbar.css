@@ -70,6 +70,7 @@ header .nav-btn{
         transition-property: width;
         transition: 1s;
         transform: translateX(30vh);
+        z-index: 7;
     }
 }
 
