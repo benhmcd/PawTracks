@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 
 import "./App.css";
 
-import Home from "./componenets/Home/Home"
+import Home from "../src/components/Home/Home"
 
 // Import Amplify Package's and Auth
 import { Amplify, Auth } from 'aws-amplify';
@@ -20,15 +20,14 @@ Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
-
   // Main function
-  async function saveLogin(){
+  async function saveLogin() {
 
     // Save login to database TODO:Remove, this is a poc of impimentation
     await DataStore.save(
       new LoginList({
-      "UID": user.username
-    })
+        "UID": user.username
+      })
     );
 
     // get login list TODO:Remove, this is a poc of impimentation
@@ -36,7 +35,6 @@ function App({ signOut, user }) {
     console.log(models.length)
   };
 
-function App({}) {
   return (
     <div className="App">
       <Home />

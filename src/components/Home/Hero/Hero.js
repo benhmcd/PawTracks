@@ -98,8 +98,6 @@ function Hero() {
                     alert("THE DOG IS ON THE BED!!!!")
                 }
             }
-        } else {
-            alert("OMG IT DIDNT WORK")
         }
     };
 
