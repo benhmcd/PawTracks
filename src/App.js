@@ -3,11 +3,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import "./App.css";
 
-import Home from "./componenets/Home/Home"
+import Home from "./components/Home/Home"
 
 
 function App({}) {
-
   return (
     <div className="App">
       <Home />
