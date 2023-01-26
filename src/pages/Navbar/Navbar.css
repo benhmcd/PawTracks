@@ -14,28 +14,29 @@
     --textColor: #000000;
 }
 
-header {
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 100px;
     padding: 0 2rem;
     background-color: var(--mainColor);
     color: var(--textColor);
 }
 
-nav a{
+.nav-items{
     margin: 0 2rem;
     color: var(--textColor);
     text-decoration: none;
     font-weight: 200;
+    font-size: 1.5rem;
 }
 
-nav a:hover{
+.nav-items:hover{
     text-decoration: underline;
 }
 
-header .nav-btn{
+.navbar .nav-btn{
     padding: 5px;
     cursor: pointer;
     background: transparent;
@@ -50,12 +51,12 @@ header .nav-btn{
 }
 
 @media only screen and (max-width: 1024px){
-    header .nav-btn{
+    .navbar .nav-btn{
         visibility: visible;
         opacity: 1;
     }
 
-    header nav{
+    .navbar nav{
         position: fixed;
         top: 0;
         right: 0;
@@ -74,7 +75,7 @@ header .nav-btn{
     }
 }
 
-header .responsive_nav{
+.navbar .responsive_nav{
     transform: none;
 }
 
@@ -82,24 +83,19 @@ nav .nav-close-btn{
     position: absolute;
 }
 
-nav a{
-    font-size: 1.5rem;
-}
-
-
 #header-logo{
     height: 72px;
     width: 72px;
+    float: left;
+    margin: 5px;
 }
 
 #pawTracksLogo{
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 28px;
     float: right;
-    padding: 28px 0;
-}
-.h1 img {
-    float: left;
-    background: #F7F9FB;
+    margin: 28px 0;
+    text-decoration: none;
+    color: var(--textColor);
 }

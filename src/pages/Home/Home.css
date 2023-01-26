@@ -26,3 +26,10 @@
     border-radius: 9px;
     box-shadow: 4px 4px;
 }
+
+@media only screen and (max-width: 1024px){
+    .video-prop{
+        width: 320px;
+        height: 240px;
+    }
+}

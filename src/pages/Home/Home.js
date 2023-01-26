@@ -1,10 +1,11 @@
-import './Hero.css';
+import './Home.css';
 import React, { useRef, useEffect } from 'react';
+
 import Webcam from "react-webcam";
 
 import * as cocossd from "@tensorflow-models/coco-ssd";
 
-function Hero() {
+function Home() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
@@ -16,7 +17,7 @@ function Hero() {
         // Loop & detect
         setInterval(() => {
             detect(net);
-        }, 16.7);
+        }, 10.7);
     };
 
     async function detect(net) {
@@ -41,7 +42,7 @@ function Hero() {
 
             // Make Detections
             const detections = await net.detect(video);
-            console.log(detections);
+            console.debug(detections);
 
             // Draw mesh
             const canvas = canvasRef.current.getContext("2d");
@@ -90,12 +91,10 @@ function Hero() {
         })
 
         if ((!(dogBox == "undefined" || dogBox == null)) && (!(bedBox == "undefined" || bedBox == null)))  {
-            alert("THERE IS A DOG: " + dogBox + " AND THERE IS A BED: " + bedBox)
-            
             if (bedBox[0] < dogBox[0] && bedBox[1] < dogBox[1]) {
                 if (((dogBox[0] + dogBox[2]) < (bedBox[0] + bedBox[2]))
                 && ((dogBox[1] + dogBox[3]) < (bedBox[1] + bedBox[3]))) {
-                    alert("THE DOG IS ON THE BED!!!!")
+                    //alert("THE DOG IS ON THE BED!!!!")
                 }
             }
         }
@@ -117,12 +116,12 @@ function Hero() {
 
     return (
         <>
-            <div id="hero-container">
-                <canvas id="video-canvas" ref={canvasRef}/>
-                <Webcam id="webcam" ref={webcamRef} muted={true}/>
+            <div id="home-container">
+                <canvas className='video-prop' id="video-canvas" ref={canvasRef}/>
+                <Webcam className='video-prop' id="webcam" ref={webcamRef} muted={true}/>
             </div>
         </>
     )
 }
 
-export default Hero
+export default Home
