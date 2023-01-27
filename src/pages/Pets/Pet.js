@@ -10,8 +10,9 @@ function Pet() {
     return (
         <>
             <h1>Single Pet Page: {name}</h1>
-            <body><PetCreateForm /></body>
+            <PetCreateForm />
         </>
+        
     )
     
 }

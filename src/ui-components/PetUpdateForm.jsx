@@ -60,9 +60,9 @@ export default function PetUpdateForm(props) {
   }, [idProp, pet]);
   React.useEffect(resetStateValues, [petRecord]);
   const validations = {
-    name: [],
-    weight: [],
-    type: [],
+    name: [{ type: "Required" }],
+    weight: [{ type: "Required" }],
+    type: [{ type: "Required" }],
     desc: [],
   };
   const runValidationTasks = async (
@@ -142,7 +142,7 @@ export default function PetUpdateForm(props) {
     >
       <TextField
         label="Name"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={name}
         onChange={(e) => {
@@ -169,7 +169,7 @@ export default function PetUpdateForm(props) {
       ></TextField>
       <TextField
         label="Weight"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"

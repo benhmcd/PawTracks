@@ -17,9 +17,9 @@ type EagerPet = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly name?: string | null;
-  readonly weight?: number | null;
-  readonly type?: PetType | keyof typeof PetType | null;
+  readonly name: string;
+  readonly weight: number;
+  readonly type: PetType | keyof typeof PetType;
   readonly desc?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -31,9 +31,9 @@ type LazyPet = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly name?: string | null;
-  readonly weight?: number | null;
-  readonly type?: PetType | keyof typeof PetType | null;
+  readonly name: string;
+  readonly weight: number;
+  readonly type: PetType | keyof typeof PetType;
   readonly desc?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

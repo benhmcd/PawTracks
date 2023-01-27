@@ -14,14 +14,14 @@ export const schema = {
                     "name": "name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "weight": {
                     "name": "weight",
                     "isArray": false,
                     "type": "Int",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "type": {
@@ -30,7 +30,7 @@ export const schema = {
                     "type": {
                         "enum": "PetType"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "desc": {
@@ -185,5 +185,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.3.5",
-    "version": "896d0982518ea93288e990966f8a9d1c"
+    "version": "e2521d5c867ef602b3b3dd7b5aaed684"
 };

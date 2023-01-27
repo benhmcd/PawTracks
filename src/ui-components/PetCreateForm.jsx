@@ -17,6 +17,12 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
+import { Navigate, useNavigate } from "react-router";
+
+function navigateHome(){
+  useNavigate('../pets')
+};
+
 export default function PetCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -47,9 +53,9 @@ export default function PetCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    name: [],
-    weight: [],
-    type: [],
+    name: [{ type: "Required" }],
+    weight: [{ type: "Required" }],
+    type: [{ type: "Required" }],
     desc: [],
   };
   const runValidationTasks = async (
@@ -128,7 +134,7 @@ export default function PetCreateForm(props) {
     >
       <TextField
         label="Name"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={name}
         onChange={(e) => {
@@ -155,7 +161,7 @@ export default function PetCreateForm(props) {
       ></TextField>
       <TextField
         label="Weight"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"
@@ -282,9 +288,12 @@ export default function PetCreateForm(props) {
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
+            //onClick={navigateHome}   
           ></Button>
         </Flex>
       </Flex>
-    </Grid>
+    </Grid> 
   );
+ 
+
 }

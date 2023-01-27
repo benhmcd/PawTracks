@@ -15,6 +15,9 @@ import Clips from "./pages/Clips/Clips";
 import Footer from "./pages/Footer/Footer"
 import NotFound from "./pages/NotFound/NotFound"
 
+// // help function
+// import {getPets} from "./components"
+
 // Import Amplify Package's and Auth
 import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -33,21 +36,16 @@ Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   // Main function
-  
-  async function saveLogin() {
-
-    // Save login to database TODO:Remove, this is a poc of impimentation
-    await DataStore.save(
-      new LoginList({
-        "UID": user.username
-      })
-    )
+ // getPets()
+  useEffect(()=>{
     saveLogin()
+  })
+
+  async function saveLogin() {
+    // Save login to database TODO:Remove, this is a poc of impimentation 
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
     console.log(models.length)
-    
-    
   };
 
   return (
