@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as tf from "@tensorflow/tfjs";
 import "./App.css";
 
-import Home from "../src/components/Home/Home"
+import Home from "./pages/Home/Home"
 import Trick from "./pages/Tricks/Trick";
 import Tricks from "./pages/Tricks/Tricks";
 import Navbar from "./pages/Navbar/Navbar";
