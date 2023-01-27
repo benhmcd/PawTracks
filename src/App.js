@@ -26,11 +26,14 @@ import awsExports from './aws-exports';
 import { DataStore } from '@aws-amplify/datastore';
 import { LoginList } from './models';
 
+
+
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   // Main function
+  
   async function saveLogin() {
 
     // Save login to database TODO:Remove, this is a poc of impimentation
@@ -38,17 +41,20 @@ function App({ signOut, user }) {
       new LoginList({
         "UID": user.username
       })
-    );
-
+    )
+    saveLogin()
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
     console.log(models.length)
+    
+    
   };
 
   return (
+    
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar> </Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/pets' element={<Pets />} />
@@ -61,6 +67,7 @@ function App({ signOut, user }) {
         </Routes>
         <Footer />
       </Router>
+      <button onClick={signOut}>Sign out</button>
     </div>
   );
 }

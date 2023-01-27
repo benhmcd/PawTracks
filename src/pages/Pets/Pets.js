@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { PetCreateForm } from '../../ui-components';
 
 function Pets() {
 
@@ -7,7 +8,7 @@ function Pets() {
         <>
             <h1>Pets</h1>
             <br />
-            <Link to='/pets/koda'> Koda </Link>
+            <Link to='/pets/addPet'> Add Pets </Link>
         </>
     )
 }

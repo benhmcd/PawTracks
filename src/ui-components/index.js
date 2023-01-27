@@ -6,4 +6,6 @@
 
 export { default as studioTheme } from "./studioTheme";
 export { default as LoginListCreateForm } from "./LoginListCreateForm";
+export { default as PetCreateForm } from "./PetCreateForm";
+export { default as PetUpdateForm } from "./PetUpdateForm";
 export { default as LoginListUpdateForm } from "./LoginListUpdateForm";
