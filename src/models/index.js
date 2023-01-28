@@ -2,10 +2,17 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const PetType = {
+  "DOG": "DOG",
+  "CAT": "CAT",
+  "BIRD": "BIRD",
+  "OTHER": "OTHER"
+};
 
-
-const { LoginList } = initSchema(schema);
+const { Pet, LoginList } = initSchema(schema);
 
 export {
-  LoginList
+  Pet,
+  LoginList,
+  PetType
 };

@@ -15,6 +15,9 @@ import Clips from "./pages/Clips/Clips";
 import Footer from "./pages/Footer/Footer"
 import NotFound from "./pages/NotFound/NotFound"
 
+// // help function
+// import {getPets} from "./components"
+
 // Import Amplify Package's and Auth
 import { Amplify, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -26,43 +29,44 @@ import awsExports from './aws-exports';
 import { DataStore } from '@aws-amplify/datastore';
 import { LoginList } from './models';
 
+
+
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   // Main function
+ // getPets()
+  useEffect(()=>{
+    saveLogin()
+  })
+
   async function saveLogin() {
-
-    // Save login to database TODO:Remove, this is a poc of impimentation
-    await DataStore.save(
-      new LoginList({
-        "UID": user.username
-      })
-    );
-
+    // Save login to database TODO:Remove, this is a poc of impimentation 
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
     console.log(models.length)
   };
 
   return (
+    
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar> </Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/pets' element={<Pets />} />
-          <Route path='/pets/:name' element={<Pet />} />
+            <Route path='/pets/:name' element={<Pet />} />
           <Route path='/clips' element={<Clips />} />
-          <Route path='/clips/:id' element={<Clip />} />
+            <Route path='/clips/:id' element={<Clip />} />
           <Route path='/tricks' element={<Tricks />} />
-          <Route path='/tricks/:trick' element={<Trick />} />
+            <Route path='/tricks/:trick' element={<Trick />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>
+      <button onClick={signOut}>Sign out</button>
     </div>
   );
 }
-
 export default withAuthenticator(App);
