@@ -36,7 +36,7 @@ function Pets() {
             <Link to='/pets/addPet'> Add Pets </Link>
                     {pet.map((items) => (
             <div key={items.name}>
-            <h5>{items.name}</h5>
+            <Link to={`/pets/${items.name}`}>{items.name}</Link>
             </div>
              ))}
         </>

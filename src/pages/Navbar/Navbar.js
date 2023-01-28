@@ -1,11 +1,12 @@
 import './Navbar.css';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { AiOutlineUser } from 'react-icons/ai';
 
-function Navbar() {
+function Navbar(props) {
     const navRef = useRef();
+    const [open, setOpen] = useState(false);
 
     let activeStyle = {
         textDecoration: "none",
@@ -16,6 +17,10 @@ function Navbar() {
         navRef.current.classList.toggle('responsive_nav');
     }
 
+    /*
+        <NavLink to="/profile" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items' onMouseOver={console.log("THE MOUSE IS OVER")}> <AiOutlineUser /> Hello, {props.firstName}</NavLink>
+        to="/profile"
+        */
     return (
         <>
             <div className='navbar'>
@@ -25,7 +30,11 @@ function Navbar() {
                     <NavLink to="/pets" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Pets</NavLink>
                     <NavLink to="/clips" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Clips</NavLink>
                     <NavLink to="/tricks" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Tricks</NavLink>
-                    <button> <AiOutlineUser /> Theoretical User Name</button>
+                    <NavLink  style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items' id="profileLink"
+                    onClick={() => setOpen(!open)}> <AiOutlineUser /> Hello, {props.firstName}</NavLink>
+
+                    <button id="navSignOut" onClick={props.signOut}> Sign Out</button>
+                    
                     <button className='nav-btn nav-close-btn' onClick={showNavbar}>
                         <FaTimes />
                     </button>
