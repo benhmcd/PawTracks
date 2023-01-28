@@ -56,11 +56,11 @@ function App({ signOut, user }) {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/pets' element={<Pets />} />
-          <Route path='/pets/:name' element={<Pet />} />
+            <Route path='/pets/:name' element={<Pet />} />
           <Route path='/clips' element={<Clips />} />
-          <Route path='/clips/:id' element={<Clip />} />
+            <Route path='/clips/:id' element={<Clip />} />
           <Route path='/tricks' element={<Tricks />} />
-          <Route path='/tricks/:trick' element={<Trick />} />
+            <Route path='/tricks/:trick' element={<Trick />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
@@ -69,5 +69,4 @@ function App({ signOut, user }) {
     </div>
   );
 }
-
 export default withAuthenticator(App);
