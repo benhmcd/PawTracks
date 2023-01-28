@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { DataStore } from '@aws-amplify/datastore';
 import { Pet } from '../../models';
 
-var models = ["Superman", "Batman", "Wonder Woman"]
   
 
 function Pets() {
@@ -18,16 +17,7 @@ function Pets() {
       })
     }
     getDate();
-   // savePets()
   })
-
-    // async function savePets() {
-    //     // Save login to database TODO:Remove, this is a poc of impimentation 
-    //     // get login list TODO:Remove, this is a poc of impimentation
-    //     const models = await DataStore.query(Pet);
-    //     console.log(models.length)
-    //   }
-    //   console.log(models.length)
     
     return (
         <>

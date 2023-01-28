@@ -17,12 +17,6 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-import { Navigate, useNavigate } from "react-router";
-
-function navigateHome(){
-  useNavigate('../pets')
-};
-
 export default function PetCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -288,12 +282,9 @@ export default function PetCreateForm(props) {
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
-            //onClick={navigateHome}   
           ></Button>
         </Flex>
       </Flex>
-    </Grid> 
+    </Grid>
   );
- 
-
 }
