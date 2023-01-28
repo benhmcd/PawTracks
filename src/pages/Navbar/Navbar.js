@@ -20,12 +20,13 @@ function Navbar() {
     return (
         <>
             <div className='navbar'>
-                <Link to="/" className='navbar-logo' ><img src='/pawTracksCircleLogo512.png' id='header-logo'></img><h1 id='pawTracksLogo'> Paw Tracks v3</h1></Link>
+                <Link to="/" className='navbar-logo' ><img src='/pawTracksCircleLogo512.png' id='header-logo'></img><h1 id='pawTracksLogo'> Paw Tracks</h1></Link>
                 <nav ref={navRef}>
                     <NavLink to="/" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Home</NavLink>
                     <NavLink to="/pets" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Pets</NavLink>
                     <NavLink to="/clips" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Clips</NavLink>
                     <NavLink to="/tricks" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Tricks</NavLink>
+                    <button> <AiOutlineUser />  </button>
                     <button className='nav-btn nav-close-btn' onClick={showNavbar}>
                         <FaTimes />
                     </button>
