@@ -12,8 +12,8 @@ import Pet from "./pages/Pets/Pet"
 import Pets from "./pages/Pets/Pets";
 import Clip from "./pages/Clips/Clip"
 import Clips from "./pages/Clips/Clips";
-import Footer from "./pages/Footer/Footer"
-import NotFound from "./pages/NotFound/NotFound"
+import Footer from "./pages/Footer/Footer";
+import NotFound from "./pages/NotFound/NotFound";
 
 // Import Amplify Package's and Auth
 import { Amplify, Auth } from 'aws-amplify';
@@ -42,7 +42,7 @@ function App({ signOut, user }) {
 
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
-    console.log(models.length)
+    console.log(models.length);
   };
 
   return (

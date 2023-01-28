@@ -14,7 +14,6 @@ function Navbar() {
 
     function showNavbar() {
         navRef.current.classList.toggle('responsive_nav');
-        console.log("Button clicked");
     }
 
     return (
@@ -26,7 +25,7 @@ function Navbar() {
                     <NavLink to="/pets" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Pets</NavLink>
                     <NavLink to="/clips" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Clips</NavLink>
                     <NavLink to="/tricks" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Tricks</NavLink>
-                    <button> <AiOutlineUser />  </button>
+                    <button> <AiOutlineUser /> Theoretical User Name</button>
                     <button className='nav-btn nav-close-btn' onClick={showNavbar}>
                         <FaTimes />
                     </button>
