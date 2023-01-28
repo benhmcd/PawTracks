@@ -4,16 +4,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as tf from "@tensorflow/tfjs";
 import "./App.css";
 
-import Home from "./pages/Home/Home"
+import Home from "./pages/Home/Home";
 import Trick from "./pages/Tricks/Trick";
 import Tricks from "./pages/Tricks/Tricks";
 import Navbar from "./pages/Navbar/Navbar";
-import Pet from "./pages/Pets/Pet"
+import AddPet from "./pages/Pets/AddPet";
+import Pet from "./pages/Pets/Pet";
 import Pets from "./pages/Pets/Pets";
 import Clip from "./pages/Clips/Clip"
 import Clips from "./pages/Clips/Clips";
 import Footer from "./pages/Footer/Footer";
 import NotFound from "./pages/NotFound/NotFound";
+import Profile from "./pages/Profile/Profile";
 
 // // help function
 // import {getPets} from "./components"
@@ -36,8 +38,8 @@ Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   // Main function
- // getPets()
-  useEffect(()=>{
+  // getPets()
+  useEffect(() => {
     saveLogin()
   })
 
@@ -46,26 +48,29 @@ function App({ signOut, user }) {
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
     console.log(models.length);
+    console.log("User Obj: " + Object.getOwnPropertyNames(user.attributes));
+    console.log(user.attributes.name.split(' ')[0]);
   };
 
   return (
-    
+
     <div className="App">
       <Router>
-        <Navbar> </Navbar>
+        <Navbar firstName={user.attributes.name.split(' ')[0]} signOut={signOut}> </Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/pets' element={<Pets />} />
-            <Route path='/pets/:name' element={<Pet />} />
+          <Route path='/pets/addPet' element={<AddPet />} />
+          <Route path='/pets/:name' element={<Pet />} />
           <Route path='/clips' element={<Clips />} />
-            <Route path='/clips/:id' element={<Clip />} />
+          <Route path='/clips/:id' element={<Clip />} />
           <Route path='/tricks' element={<Tricks />} />
-            <Route path='/tricks/:trick' element={<Trick />} />
+          <Route path='/tricks/:trick' element={<Trick />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>
-      <button onClick={signOut}>Sign out</button>
     </div>
   );
 }
