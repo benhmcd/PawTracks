@@ -17,10 +17,6 @@ function Navbar(props) {
         navRef.current.classList.toggle('responsive_nav');
     }
 
-    /*
-        <NavLink to="/profile" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items' onMouseOver={console.log("THE MOUSE IS OVER")}> <AiOutlineUser /> Hello, {props.firstName}</NavLink>
-        to="/profile"
-        */
     return (
         <>
             <div className='navbar'>

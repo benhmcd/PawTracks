@@ -61,7 +61,7 @@ function App({ signOut, user }) {
           <Route path='/' element={<Home />} />
           <Route path='/pets' element={<Pets />} />
           <Route path='/pets/addPet' element={<AddPet />} />
-          <Route path='/pets/:name' element={<Pet />} />
+          <Route path='/pets/:id' element={<Pet />} />
           <Route path='/clips' element={<Clips />} />
           <Route path='/clips/:id' element={<Clip />} />
           <Route path='/tricks' element={<Tricks />} />
