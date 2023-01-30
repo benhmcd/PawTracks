@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 // Amplify DataStore
 import { DataStore } from '@aws-amplify/datastore';
 import { Pet } from '../../models';
-
+import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
 function Pets() {
+
   const [pet, setPet] = useState([]);
 
   useEffect(()=>{
+    
     const getDate = async () => {
       await DataStore.observeQuery(Pet).subscribe(({ items }) => {
         setPet(items)
@@ -19,6 +21,8 @@ function Pets() {
     }
     getDate();
   })
+
+  
     
     return (
         <>

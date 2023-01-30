@@ -2,8 +2,11 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreatePet = /* GraphQL */ `
-  subscription OnCreatePet($filter: ModelSubscriptionPetFilterInput) {
-    onCreatePet(filter: $filter) {
+  subscription OnCreatePet(
+    $filter: ModelSubscriptionPetFilterInput
+    $owner: String
+  ) {
+    onCreatePet(filter: $filter, owner: $owner) {
       id
       name
       weight
@@ -19,8 +22,11 @@ export const onCreatePet = /* GraphQL */ `
   }
 `;
 export const onUpdatePet = /* GraphQL */ `
-  subscription OnUpdatePet($filter: ModelSubscriptionPetFilterInput) {
-    onUpdatePet(filter: $filter) {
+  subscription OnUpdatePet(
+    $filter: ModelSubscriptionPetFilterInput
+    $owner: String
+  ) {
+    onUpdatePet(filter: $filter, owner: $owner) {
       id
       name
       weight
@@ -36,8 +42,11 @@ export const onUpdatePet = /* GraphQL */ `
   }
 `;
 export const onDeletePet = /* GraphQL */ `
-  subscription OnDeletePet($filter: ModelSubscriptionPetFilterInput) {
-    onDeletePet(filter: $filter) {
+  subscription OnDeletePet(
+    $filter: ModelSubscriptionPetFilterInput
+    $owner: String
+  ) {
+    onDeletePet(filter: $filter, owner: $owner) {
       id
       name
       weight
