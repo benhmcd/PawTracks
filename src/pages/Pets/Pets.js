@@ -14,6 +14,7 @@ function Pets() {
     const getDate = async () => {
       await DataStore.observeQuery(Pet).subscribe(({ items }) => {
         setPet(items)
+        console.log(items)
       })
     }
     getDate();
