@@ -5,7 +5,7 @@ enum PetType {
   OTHER
 }
 
-type Pet @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+type Pet @model @auth(rules: [{allow: owner, provider: userPools, operations: [create, update, delete]}, {allow: public, provider: apiKey, operations: [read]}]) {
   id: ID!
   name: String!
   weight: Int!

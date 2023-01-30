@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { DataStore } from '@aws-amplify/datastore';
 import { Pet } from '../../models';
 
-  
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
 function Pets() {
   const [pet, setPet] = useState([]);
@@ -32,4 +32,4 @@ function Pets() {
         </>
     )
 }
-export default Pets
+export default withAuthenticator(Pets)

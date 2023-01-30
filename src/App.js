@@ -33,7 +33,7 @@ import { LoginList } from './models';
 
 
 
-Amplify.configure(awsconfig);
+//Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
@@ -42,6 +42,8 @@ function App({ signOut, user }) {
   useEffect(() => {
     saveLogin()
   })
+
+
 
   async function saveLogin() {
     // Save login to database TODO:Remove, this is a poc of impimentation 
