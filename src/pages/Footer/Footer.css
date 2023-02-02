@@ -34,6 +34,25 @@
     background-color: var(--backgroundColor);
 }
 
+@media only screen and (max-width: 1024px){
+    .footer-logo, .github_link {
+        display: none;
+    }
+
+    .nav-items {
+        margin: 0 1rem;
+        color: var(--textColor);
+        text-decoration: none;
+        font-weight: 200;
+        font-size: 18px;
+    }
+
+}
+
+.nav-items:hover {
+    text-decoration: underline;
+}
+
 .github_link {
     text-decoration: none;
     text-align: center;

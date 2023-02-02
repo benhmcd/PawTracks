@@ -84,9 +84,9 @@ function Home() {
 
         let personFound = false;
         personFound = personInRoom(detectionsRef.current);
-        console.log("Person Found: " + personFound);
 
         if (personFound) {
+            console.log("Alert Type: Person");
             startRecording();
             lastDetectionsRef.current.push(true);
         } else if (lastDetectionsRef.current.filter(Boolean).length) {
@@ -99,6 +99,7 @@ function Home() {
         lastDetectionsRef.current = lastDetectionsRef.current.slice(
             Math.max(lastDetectionsRef.current.length - 10, 0)
         );
+        
         requestAnimationFrame(() => {
             detectFrame();
         });
@@ -204,14 +205,6 @@ function Home() {
         canvas.rect(x, y, width, height)
         canvas.stroke()
     };
-
-
-
-
-    // useEffect(() => { runCoco() }, []);
-
-    /* <canvas className='video-prop' id="video-canvas" ref={canvasRef} />
-        <Webcam className='video-prop' id="webcam" ref={webcamRef} muted={true} /> */
 
     return (
         <>
