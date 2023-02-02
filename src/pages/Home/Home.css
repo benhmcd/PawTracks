@@ -22,6 +22,8 @@
     position: absolute;
     margin-left: auto;
     margin-right: auto;
+    width: auto;
+    height: auto;
     left: 0;
     right: 0;
     text-align: center;
@@ -33,6 +35,8 @@
     position: absolute;
     margin-left: auto;
     margin-right: auto;
+    width: auto;
+    height: auto;
     left: 0;
     right: 0;
     text-align: center;
@@ -44,14 +48,22 @@
 }
 
 #Recording {
-    margin-top: 400px;
+    margin-top: 600px;
     margin-bottom: 200px;
+}
+
+#swap-cam {
+    visibility: hidden;
 }
 
 @media only screen and (max-width: 1024px){
     .video-prop{
         width: 320px;
         height: 240px;
+    }
+
+    #swap-cam{
+        visibility: visible;
     }
 }
 

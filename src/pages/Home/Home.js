@@ -29,8 +29,8 @@ function Home() {
     const detectionsRef = useRef(null);
     
     async function prepare() {
-        //homeButtonElement.current.setAttribute("disabled", true);
-        //awayButtonElement.current.setAttribute("disabled", true);
+        //homeButtonElement.current.setAttribute("hidden", true);
+        awayButtonElement.current.setAttribute("hidden", true);
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
@@ -51,7 +51,7 @@ function Home() {
                     liveDetections(net);
                 }, 10.7);
 
-                //homeButtonElement.current.removeAttribute("disabled");
+                //homeButtonElement.current.removeAttribute("hidden");
             } catch (error) {
                 console.error(error);
             }
@@ -79,9 +79,6 @@ function Home() {
             stopRecording();
             return;
         }
-
-        //const detections = await netRef.current.detect(videoElement.current);
-        //console.debug(detections);
 
         let personFound = false;
         personFound = personInRoom(detectionsRef.current);
@@ -215,17 +212,17 @@ function Home() {
                 <button id='home-btn' onClick={() => {
                     console.log("Session Start: " + new Date());
                     shouldRecordRef.current = true;
-                    // make home button invis
-                    //show away button
+                    homeButtonElement.current.setAttribute("hidden", true);
+                    awayButtonElement.current.removeAttribute("hidden");
                     detectFrame();
-                }}><AiOutlineHome /> Home</button>
+                }} ref={homeButtonElement}><AiOutlineHome /> Home</button>
                 <button id='away-btn' onClick={() => {
                     console.log("Session End: " + new Date());
                     shouldRecordRef.current = false;
-                    // make away button invis
-                    // show home button
+                    awayButtonElement.current.setAttribute("hidden", true);
+                    homeButtonElement.current.removeAttribute("hidden");
                     stopRecording();
-                }}><BiCar /> Away</button>
+                }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
                     videoElement.current.video.facingMode = "environment";
                 }}><IoCameraReverse /></button>
