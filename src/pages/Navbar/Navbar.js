@@ -21,7 +21,7 @@ function Navbar(props) {
         <>
             <div className='navbar'>
                 <Link to="/" className='navbar-logo' ><img src='/pawTracksCircleLogo512.png' id='header-logo'></img><h1 id='pawTracksLogo'> Paw Tracks</h1></Link>
-                <nav ref={navRef}>
+                <nav ref={navRef} id="navItems">
                     <NavLink to="/" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Home</NavLink>
                     <NavLink to="/pets" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Pets</NavLink>
                     <NavLink to="/clips" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Clips</NavLink>

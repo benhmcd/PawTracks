@@ -47,9 +47,6 @@ function App({ signOut, user }) {
     // Save login to database TODO:Remove, this is a poc of impimentation 
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
-    console.log(models.length);
-    console.log("User Obj: " + Object.getOwnPropertyNames(user.attributes));
-    console.log(user.attributes.name.split(' ')[0]);
   };
 
   return (

@@ -18,13 +18,18 @@
     left: 0;
     right: 0;
     text-align: center;
-    z-index: 5;
+    z-index: 1;
     width: 640;
     height: 480;
     margin-top: 100px;
     border: 2px solid #000000;
     border-radius: 9px;
     box-shadow: 4px 4px;
+}
+
+#Recording {
+    margin-top: 400px;
+    margin-bottom: 200px;
 }
 
 @media only screen and (max-width: 1024px){
