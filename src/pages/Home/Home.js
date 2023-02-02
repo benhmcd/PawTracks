@@ -5,6 +5,7 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiCar } from 'react-icons/bi';
+import { IoCameraReverse } from 'react-icons/io5';
 
 function Home() {
     const canvasRef = useRef(null);
@@ -217,14 +218,17 @@ function Home() {
                     // make home button invis
                     //show away button
                     detectFrame();
-                }}><AiOutlineHome />Home</button>
+                }}><AiOutlineHome /> Home</button>
                 <button id='away-btn' onClick={() => {
                     console.log("Session End: " + new Date());
                     shouldRecordRef.current = false;
                     // make away button invis
                     // show home button
                     stopRecording();
-                }}><BiCar />Away</button>
+                }}><BiCar /> Away</button>
+                <button id="swap-cam" onClick={() => {
+                    videoElement.current.video.facingMode = "environment";
+                }}><IoCameraReverse /></button>
             </div>
             <div id="Recording">
                 <h3>Records: </h3>
