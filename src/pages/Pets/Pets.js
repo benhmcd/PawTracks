@@ -16,22 +16,20 @@ function Pets() {
     const getDate = async () => {
       await DataStore.observeQuery(Pet).subscribe(({ items }) => {
         setPet(items)
-        console.log(items)
+        console.debug(items)
       })
     }
     getDate();
   })
 
-  
-    
     return (
         <>
             <h1>Pets</h1>
             <br />
             <Link to='/pets/addPet'> Add Pets </Link>
                     {pet.map((items) => (
-            <div key={items.name}>
-            <Link to={`/pets/${items.name}`}>{items.name}</Link>
+            <div key={items.id}>
+            <Link to={`/pets/${items.id}`}>{items.name}</Link>
             </div>
              ))}
         </>
