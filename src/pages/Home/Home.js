@@ -36,8 +36,8 @@ function Home() {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     audio: true,
                     video: {
-                        width: { ideal: 640 },
-                        height: { ideal: 480 },
+                        width: { max: 640 },
+                        height: { max: 480 },
                         facingMode: "user"
                     }
                 });
