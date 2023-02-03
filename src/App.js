@@ -47,9 +47,6 @@ function App({ signOut, user }) {
     // Save login to database TODO:Remove, this is a poc of impimentation 
     // get login list TODO:Remove, this is a poc of impimentation
     const models = await DataStore.query(LoginList);
-    console.log(models.length);
-    console.log("User Obj: " + Object.getOwnPropertyNames(user.attributes));
-    console.log(user.attributes.name.split(' ')[0]);
   };
 
   return (
@@ -61,7 +58,7 @@ function App({ signOut, user }) {
           <Route path='/' element={<Home />} />
           <Route path='/pets' element={<Pets />} />
           <Route path='/pets/addPet' element={<AddPet />} />
-          <Route path='/pets/:name' element={<Pet />} />
+          <Route path='/pets/:id' element={<Pet />} />
           <Route path='/clips' element={<Clips />} />
           <Route path='/clips/:id' element={<Clip />} />
           <Route path='/tricks' element={<Tricks />} />

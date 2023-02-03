@@ -56,6 +56,11 @@
         opacity: 1;
     }
 
+    #profileLink {
+        position: absolute;
+        bottom: 30px;
+    }
+
     .navbar nav{
         position: fixed;
         top: 0;
@@ -98,4 +103,10 @@ nav .nav-close-btn{
     margin: 28px 0;
     text-decoration: none;
     color: var(--textColor);
+}
+
+
+#profileLink {
+    position: absolute;
+    right: 10px;
 }

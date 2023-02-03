@@ -1,64 +1,178 @@
 import './Home.css';
-import React, { useRef, useEffect } from 'react';
-
-import Webcam from "react-webcam";
+import React, { useRef, useEffect, useState } from 'react';
 
 import * as cocossd from "@tensorflow-models/coco-ssd";
 
+import { AiOutlineHome } from 'react-icons/ai';
+import { BiCar } from 'react-icons/bi';
+import { IoCameraReverse } from 'react-icons/io5';
+
 function Home() {
-    const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
-    // Main function
-    async function runCoco() {
-        // Load network
-        const net = await cocossd.load();
+    //Clip Prototypes
+    const [records, setRecords] = useState([]);
 
-        // Loop & detect
-        setInterval(() => {
-            detect(net);
-        }, 10.7);
-    };
+    const videoElement = useRef(null);
+    /* Home = Start */
+    const homeButtonElement = useRef(null);
+    /* Away = Stop */
+    const awayButtonElement = useRef(null);
 
-    async function detect(net) {
-        // Check if data is available
-        if (
-            typeof webcamRef.current !== "undefined" &&
-            webcamRef.current !== null &&
-            webcamRef.current.video.readyState === 4
-        ) {
-            // Get video properties
-            const video = webcamRef.current.video;
-            const videoWidth = webcamRef.current.video.videoWidth;
-            const videoHeight = webcamRef.current.video.videoHeight;
+    const shouldRecordRef = useRef(false);
+    const recorderRef = useRef(null);
+    const recordingRef = useRef(false);
 
-            // Set video properties
-            webcamRef.current.video.width = videoWidth;
-            webcamRef.current.video.height = videoHeight;
+    const lastDetectionsRef = useRef([]);
 
-            // Set canvas height and width
-            canvasRef.current.width = videoWidth;
-            canvasRef.current.height = videoHeight;
+    const netRef = useRef(null);
+    const detectionsRef = useRef(null);
+    
+    async function prepare() {
+        //homeButtonElement.current.setAttribute("hidden", true);
+        awayButtonElement.current.setAttribute("hidden", true);
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: {
+                        width: { max: 640 },
+                        height: { max: 480 },
+                        facingMode: "user"
+                    }
+                });
+                window.stream = stream;
+                videoElement.current.srcObject = stream;
 
-            // Make Detections
-            const detections = await net.detect(video);
-            console.debug(detections);
+                const net = await cocossd.load();
+                netRef.current = net;
+                
+                setInterval(() => {
+                    liveDetections(net);
+                }, 10.7);
 
-            // Draw mesh
-            const canvas = canvasRef.current.getContext("2d");
-
-            // Update drawing utilitiy
-            drawRectangle(detections, canvas)
-
-            // Check for dog on bed
-            petOnBed(detections)
+                //homeButtonElement.current.removeAttribute("hidden");
+            } catch (error) {
+                console.error(error);
+            }
         }
+    }
+        
+    useEffect(() => { prepare() }, []);
+
+    async function liveDetections() {
+        canvasRef.current.width = videoElement.current.srcObject.getVideoTracks()[0].getSettings().width;
+        canvasRef.current.height = videoElement.current.srcObject.getVideoTracks()[0].getSettings().height;
+        const detections = await netRef.current.detect(videoElement.current);
+        detectionsRef.current = detections;
+        console.debug(detections);
+
+        // Draw mesh
+        const canvas = canvasRef.current.getContext("2d");
+        
+        // Update drawing utilitiy
+        drawRectangle(detections, canvas);
+    }
+
+    async function detectFrame() {
+        if (!shouldRecordRef.current) {
+            stopRecording();
+            return;
+        }
+
+        let personFound = false;
+        personFound = personInRoom(detectionsRef.current);
+
+        if (personFound) {
+            console.log("Alert Type: Person");
+            startRecording();
+            lastDetectionsRef.current.push(true);
+        } else if (lastDetectionsRef.current.filter(Boolean).length) {
+            startRecording();
+            lastDetectionsRef.current.push(false);
+        } else {
+            stopRecording();
+        }
+
+        lastDetectionsRef.current = lastDetectionsRef.current.slice(
+            Math.max(lastDetectionsRef.current.length - 10, 0)
+        );
+        
+        requestAnimationFrame(() => {
+            detectFrame();
+        });
+    }
+
+    function petOnBed(detections) {
+        var dogBox;
+        var bedBox;
+        detections.forEach(prediction => {
+            if (prediction['class'] == 'dog') {
+                dogBox = prediction['bbox']
+            }
+            if (prediction['class'] == 'bed') {
+                bedBox = prediction['bbox']
+            }
+        })
+
+        if ((!(dogBox == "undefined" || dogBox == null)) && (!(bedBox == "undefined" || bedBox == null))) {
+            if (bedBox[0] < dogBox[0] && bedBox[1] < dogBox[1]) {
+                if (((dogBox[0] + dogBox[2]) < (bedBox[0] + bedBox[2]))
+                    && ((dogBox[1] + dogBox[3]) < (bedBox[1] + bedBox[3]))) {
+                    //alert("THE DOG IS ON THE BED!!!!")
+                    return true;
+                }
+            }
+        }
+        return false;
     };
 
-    function drawRectangle (detections, canvas) {
+    function personInRoom(detections) {
+        var foundPerson = false;
+        detections.forEach(prediction => {
+            if (prediction['class'] == 'person') {
+                foundPerson = true;
+            }
+        })
+        return foundPerson;
+    };
+
+    function startRecording() {
+        if (recordingRef.current) {
+            return;
+        }
+        recordingRef.current = true;
+        console.log("Clip Start: " + new Date());
+
+        recorderRef.current = new MediaRecorder(window.stream)
+
+        recorderRef.current.ondataavailable = function (e) {
+            const title = new Date() + "";
+            const href = URL.createObjectURL(e.data);
+            console.log("Link to clip: " + href);
+            setRecords(previousRecords => {
+                return [...previousRecords, { href, title }];
+            });
+        };
+
+        recorderRef.current.start();
+    };
+
+    function stopRecording() {
+        if (!recordingRef.current) {
+            return;
+        }
+        recordingRef.current = false;
+        recorderRef.current.stop();
+        console.log("Clip End: " + new Date());
+        lastDetectionsRef.current = [];
+    };
+
+    function drawRectangle(detections, canvas) {
         detections.forEach(prediction => {
             var [x, y, width, height] = prediction['bbox'];
             var text = prediction['class'];
+
 
             if (text == 'person') {
                 text = text[0].toUpperCase() + text.slice(1).toLowerCase()
@@ -78,28 +192,6 @@ function Home() {
         })
     };
 
-    function petOnBed (detections) {
-        var dogBox;
-        var bedBox; 
-        detections.forEach(prediction => {
-            if (prediction['class'] == 'dog') {
-                dogBox = prediction['bbox']
-            }
-            if (prediction['class'] == 'bed') {
-                bedBox = prediction['bbox']
-            }
-        })
-
-        if ((!(dogBox == "undefined" || dogBox == null)) && (!(bedBox == "undefined" || bedBox == null)))  {
-            if (bedBox[0] < dogBox[0] && bedBox[1] < dogBox[1]) {
-                if (((dogBox[0] + dogBox[2]) < (bedBox[0] + bedBox[2]))
-                && ((dogBox[1] + dogBox[3]) < (bedBox[1] + bedBox[3]))) {
-                    //alert("THE DOG IS ON THE BED!!!!")
-                }
-            }
-        }
-    };
-
     function setStyle(text, x, y, width, height, color, canvas) {
         // Draw Rectangles and text
         canvas.lineWidth = 5;
@@ -112,13 +204,43 @@ function Home() {
         canvas.stroke()
     };
 
-    useEffect(() => { runCoco() }, []);
-
     return (
         <>
             <div id="home-container">
-                <canvas className='video-prop' id="video-canvas" ref={canvasRef}/>
-                <Webcam className='video-prop' id="webcam" ref={webcamRef} muted={true}/>
+                <canvas className='video-prop' id="video-canvas" ref={canvasRef} />
+                <video className='video-prop' id="webcam" autoPlay playsInline muted ref={videoElement} />
+                <button id='home-btn' onClick={() => {
+                    console.log("Session Start: " + new Date());
+                    shouldRecordRef.current = true;
+                    homeButtonElement.current.setAttribute("hidden", true);
+                    awayButtonElement.current.removeAttribute("hidden");
+                    detectFrame();
+                }} ref={homeButtonElement}><AiOutlineHome /> Home</button>
+                <button id='away-btn' onClick={() => {
+                    console.log("Session End: " + new Date());
+                    shouldRecordRef.current = false;
+                    awayButtonElement.current.setAttribute("hidden", true);
+                    homeButtonElement.current.removeAttribute("hidden");
+                    stopRecording();
+                }} ref={awayButtonElement}><BiCar /> Away</button>
+                <button id="swap-cam" onClick={() => {
+                    videoElement.current.video.facingMode = "environment";
+                }}><IoCameraReverse /></button>
+            </div>
+            <div id="Recording">
+                <h3>Records: </h3>
+                {!records.length
+                    ? null
+                    : records.map(record => {
+                        return (
+                            <div key={record.title}>
+                                <div>
+                                    <h5 className="card-title">{record.title}</h5>
+                                    <video controls src={record.href}></video>
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </>
     )
