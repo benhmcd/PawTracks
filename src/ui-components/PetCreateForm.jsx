@@ -17,12 +17,6 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-import { Navigate, useNavigate } from "react-router";
-
-function navigateHome(){
-  useNavigate('../pets')
-};
-
 export default function PetCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -37,26 +31,38 @@ export default function PetCreateForm(props) {
   const initialValues = {
     name: "",
     weight: "",
+    age: "",
     type: undefined,
+    breed: "",
     desc: "",
+    img: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [weight, setWeight] = React.useState(initialValues.weight);
+  const [age, setAge] = React.useState(initialValues.age);
   const [type, setType] = React.useState(initialValues.type);
+  const [breed, setBreed] = React.useState(initialValues.breed);
   const [desc, setDesc] = React.useState(initialValues.desc);
+  const [img, setImg] = React.useState(initialValues.img);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
     setWeight(initialValues.weight);
+    setAge(initialValues.age);
     setType(initialValues.type);
+    setBreed(initialValues.breed);
     setDesc(initialValues.desc);
+    setImg(initialValues.img);
     setErrors({});
   };
   const validations = {
     name: [{ type: "Required" }],
     weight: [{ type: "Required" }],
+    age: [{ type: "Required" }],
     type: [{ type: "Required" }],
+    breed: [{ type: "Required" }],
     desc: [],
+    img: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -85,8 +91,11 @@ export default function PetCreateForm(props) {
         let modelFields = {
           name,
           weight,
+          age,
           type,
+          breed,
           desc,
+          img,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -143,8 +152,11 @@ export default function PetCreateForm(props) {
             const modelFields = {
               name: value,
               weight,
+              age,
               type,
+              breed,
               desc,
+              img,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -174,8 +186,11 @@ export default function PetCreateForm(props) {
             const modelFields = {
               name,
               weight: value,
+              age,
               type,
+              breed,
               desc,
+              img,
             };
             const result = onChange(modelFields);
             value = result?.weight ?? value;
@@ -190,6 +205,40 @@ export default function PetCreateForm(props) {
         hasError={errors.weight?.hasError}
         {...getOverrideProps(overrides, "weight")}
       ></TextField>
+      <TextField
+        label="Age"
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={age}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              weight,
+              age: value,
+              type,
+              breed,
+              desc,
+              img,
+            };
+            const result = onChange(modelFields);
+            value = result?.age ?? value;
+          }
+          if (errors.age?.hasError) {
+            runValidationTasks("age", value);
+          }
+          setAge(value);
+        }}
+        onBlur={() => runValidationTasks("age", age)}
+        errorMessage={errors.age?.errorMessage}
+        hasError={errors.age?.hasError}
+        {...getOverrideProps(overrides, "age")}
+      ></TextField>
       <SelectField
         label="Type"
         placeholder="Please select an option"
@@ -201,8 +250,11 @@ export default function PetCreateForm(props) {
             const modelFields = {
               name,
               weight,
+              age,
               type: value,
+              breed,
               desc,
+              img,
             };
             const result = onChange(modelFields);
             value = result?.type ?? value;
@@ -232,12 +284,37 @@ export default function PetCreateForm(props) {
           value="BIRD"
           {...getOverrideProps(overrides, "typeoption2")}
         ></option>
-        <option
-          children="Other"
-          value="OTHER"
-          {...getOverrideProps(overrides, "typeoption3")}
-        ></option>
       </SelectField>
+      <TextField
+        label="Breed"
+        isRequired={true}
+        isReadOnly={false}
+        value={breed}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              weight,
+              age,
+              type,
+              breed: value,
+              desc,
+              img,
+            };
+            const result = onChange(modelFields);
+            value = result?.breed ?? value;
+          }
+          if (errors.breed?.hasError) {
+            runValidationTasks("breed", value);
+          }
+          setBreed(value);
+        }}
+        onBlur={() => runValidationTasks("breed", breed)}
+        errorMessage={errors.breed?.errorMessage}
+        hasError={errors.breed?.hasError}
+        {...getOverrideProps(overrides, "breed")}
+      ></TextField>
       <TextField
         label="Desc"
         isRequired={false}
@@ -249,8 +326,11 @@ export default function PetCreateForm(props) {
             const modelFields = {
               name,
               weight,
+              age,
               type,
+              breed,
               desc: value,
+              img,
             };
             const result = onChange(modelFields);
             value = result?.desc ?? value;
@@ -264,6 +344,36 @@ export default function PetCreateForm(props) {
         errorMessage={errors.desc?.errorMessage}
         hasError={errors.desc?.hasError}
         {...getOverrideProps(overrides, "desc")}
+      ></TextField>
+      <TextField
+        label="Img"
+        isRequired={false}
+        isReadOnly={false}
+        value={img}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              weight,
+              age,
+              type,
+              breed,
+              desc,
+              img: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.img ?? value;
+          }
+          if (errors.img?.hasError) {
+            runValidationTasks("img", value);
+          }
+          setImg(value);
+        }}
+        onBlur={() => runValidationTasks("img", img)}
+        errorMessage={errors.img?.errorMessage}
+        hasError={errors.img?.hasError}
+        {...getOverrideProps(overrides, "img")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -288,12 +398,9 @@ export default function PetCreateForm(props) {
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
-            //onClick={navigateHome}   
           ></Button>
         </Flex>
       </Flex>
-    </Grid> 
+    </Grid>
   );
- 
-
 }

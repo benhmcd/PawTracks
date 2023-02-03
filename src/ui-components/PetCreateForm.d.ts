@@ -15,22 +15,31 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type PetCreateFormInputValues = {
     name?: string;
     weight?: number;
+    age?: number;
     type?: string;
+    breed?: string;
     desc?: string;
+    img?: string;
 };
 export declare type PetCreateFormValidationValues = {
     name?: ValidationFunction<string>;
     weight?: ValidationFunction<number>;
+    age?: ValidationFunction<number>;
     type?: ValidationFunction<string>;
+    breed?: ValidationFunction<string>;
     desc?: ValidationFunction<string>;
+    img?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PetCreateFormOverridesProps = {
     PetCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     weight?: PrimitiveOverrideProps<TextFieldProps>;
+    age?: PrimitiveOverrideProps<TextFieldProps>;
     type?: PrimitiveOverrideProps<SelectFieldProps>;
+    breed?: PrimitiveOverrideProps<TextFieldProps>;
     desc?: PrimitiveOverrideProps<TextFieldProps>;
+    img?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PetCreateFormProps = React.PropsWithChildren<{
     overrides?: PetCreateFormOverridesProps | undefined | null;

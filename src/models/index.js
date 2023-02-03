@@ -5,8 +5,7 @@ import { schema } from './schema';
 const PetType = {
   "DOG": "DOG",
   "CAT": "CAT",
-  "BIRD": "BIRD",
-  "OTHER": "OTHER"
+  "BIRD": "BIRD"
 };
 
 const { Pet, LoginList } = initSchema(schema);
