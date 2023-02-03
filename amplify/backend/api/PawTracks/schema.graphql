@@ -2,15 +2,17 @@ enum PetType {
   DOG
   CAT
   BIRD
-  OTHER
 }
 
-type Pet @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+type Pet @model @auth(rules: [{allow: owner}, {allow: public, operations: [read]}]) {
   id: ID!
   name: String!
   weight: Int!
+  age: Int!
   type: PetType!
+  breed: String!
   desc: String
+  img: String
 }
 
 type LoginList @model @auth(rules: [{allow: public}, {allow: private}]) {

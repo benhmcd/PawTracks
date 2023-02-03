@@ -10,6 +10,17 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Pet } from './models';
 import { getPackedSettings } from 'http2';
 
-
+function getPets()
+{
+    async function getPetData ()
+    {
+            const models = await DataStore.query(Pet);
+            console.log(models);
+            return(
+                console.log(models)
+            )
+    }
+}
+export default getPets
 
 

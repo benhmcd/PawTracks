@@ -17,11 +17,8 @@ import Footer from "./pages/Footer/Footer";
 import NotFound from "./pages/NotFound/NotFound";
 import Profile from "./pages/Profile/Profile";
 
-// // help function
-// import {getPets} from "./components"
-
 // Import Amplify Package's and Auth
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify, API, Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -31,22 +28,20 @@ import awsExports from './aws-exports';
 import { DataStore } from '@aws-amplify/datastore';
 import { LoginList } from './models';
 
-
-
-Amplify.configure(awsconfig);
-Amplify.configure(awsExports);
-
 function App({ signOut, user }) {
   // Main function
   // getPets()
+ 
   useEffect(() => {
     saveLogin()
-  })
+  },)
 
   async function saveLogin() {
-    // Save login to database TODO:Remove, this is a poc of impimentation 
-    // get login list TODO:Remove, this is a poc of impimentation
-    const models = await DataStore.query(LoginList);
+    const models = await DataStore.query(LoginList);    
+    // clear the data store, must be run every login
+    DataStore.clear();                                                        
+    //test code TODO: Delete 
+    console.log(models.length);
   };
 
   return (
