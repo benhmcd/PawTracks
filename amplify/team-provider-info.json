@@ -16,5 +16,12 @@
         "PawTracks": {}
       }
     }
+  },
+  "mcdenv": {
+    "categories": {
+      "auth": {
+        "PawTracks": {}
+      }
+    }
   }
 }

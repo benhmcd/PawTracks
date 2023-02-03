@@ -49,7 +49,7 @@ function Home() {
                 
                 setInterval(() => {
                     liveDetections(net);
-                }, 10.7);
+                }, 16.7);
 
                 //homeButtonElement.current.removeAttribute("hidden");
             } catch (error) {
