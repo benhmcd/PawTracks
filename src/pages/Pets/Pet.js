@@ -6,14 +6,14 @@ import './Pet.css';
 
 
 function Pet() {
-    const {name} = useParams();
+    const {id} = useParams();
 
     const [pet, setPet] = useState([]);
 
   useEffect(()=>{
     
     const getDate = async () => {
-        const post = await DataStore.query(PetModel, name);
+        const post = await DataStore.query(PetModel, id);
         setPet(post)
         console.debug(post)
     }
@@ -31,7 +31,5 @@ function Pet() {
             <p>Description: {pet.desc}</p>
         </>
     )
-    
 }
-
 export default Pet
