@@ -24,6 +24,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "age": {
+                    "name": "age",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "type": {
                     "name": "type",
                     "isArray": false,
@@ -33,8 +40,22 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "breed": {
+                    "name": "breed",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "desc": {
                     "name": "desc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "img": {
+                    "name": "img",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -69,15 +90,6 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
-                            {
                                 "provider": "userPools",
                                 "ownerField": "owner",
                                 "allow": "owner",
@@ -90,11 +102,8 @@ export const schema = {
                                 ]
                             },
                             {
-                                "allow": "private",
+                                "allow": "public",
                                 "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
                                     "read"
                                 ]
                             }
@@ -178,12 +187,11 @@ export const schema = {
             "values": [
                 "DOG",
                 "CAT",
-                "BIRD",
-                "OTHER"
+                "BIRD"
             ]
         }
     },
     "nonModels": {},
     "codegenVersion": "3.3.5",
-    "version": "e2521d5c867ef602b3b3dd7b5aaed684"
+    "version": "fee88b1e883f4f44a63b328fa7e886bc"
 };
