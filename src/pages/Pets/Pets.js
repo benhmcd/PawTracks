@@ -21,7 +21,7 @@ function Pets() {
     }
     getDate();
   })
-
+  
     return (
         <>
             <h1>Pets</h1>

@@ -25,10 +25,37 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 100px;
     padding: 0 2rem;
     width: 100%;
     bottom: 0;
     color: var(--textColor);
     border-top: 2px solid #000000;
+    background-color: var(--backgroundColor);
+}
+
+@media only screen and (max-width: 1024px){
+    .footer-logo, .github_link {
+        display: none;
+    }
+
+    .nav-items {
+        margin: 0 1rem;
+        color: var(--textColor);
+        text-decoration: none;
+        font-weight: 200;
+        font-size: 18px;
+    }
+
+}
+
+.nav-items:hover {
+    text-decoration: underline;
+}
+
+.github_link {
+    text-decoration: none;
+    text-align: center;
+    color: #999999;
+    padding-top: 50px;
 }
