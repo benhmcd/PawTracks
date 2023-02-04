@@ -32,6 +32,7 @@
     color: var(--textColor);
     border-top: 2px solid #000000;
     background-color: var(--backgroundColor);
+    z-index: 7;
 }
 
 @media only screen and (max-width: 1024px){
