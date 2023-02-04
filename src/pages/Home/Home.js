@@ -28,15 +28,14 @@ function Home() {
     const netRef = useRef(null);
     const detectionsRef = useRef(null);
 
-    const cameraSelect = "user";
+    var cameraSelect = "user";
     
     async function prepare(cameraSelect) {
         //homeButtonElement.current.setAttribute("hidden", true);
         awayButtonElement.current.setAttribute("hidden", true);
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            
             try {
-                console.log(cameraSelect);
+                console.log("Camera Select: " + cameraSelect);
                 const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
                 video: {
@@ -62,7 +61,7 @@ function Home() {
         }
     }
         
-    useEffect(() => { prepare() }, []);
+    useEffect(() => { prepare(cameraSelect) }, []);
 
     async function liveDetections() {
         canvasRef.current.width = videoElement.current.srcObject.getVideoTracks()[0].getSettings().width;
