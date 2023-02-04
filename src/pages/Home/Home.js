@@ -30,29 +30,21 @@ function Home() {
 
     const cameraSelect = "user";
     
-    async function prepare() {
+    async function prepare(cameraSelect) {
         //homeButtonElement.current.setAttribute("hidden", true);
         awayButtonElement.current.setAttribute("hidden", true);
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            
             try {
-                if(cameraSelect = "user") {
+                console.log(cameraSelect);
                 const stream = await navigator.mediaDevices.getUserMedia({
-                    audio: true,
-                    video: {
-                        width: { max: 640 },
-                        height: { max: 480 },
-                        facingMode: "user"
-                    }
-                });}
-                if(cameraSelect="environment"){
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    audio: true,
-                    video: {
-                        width: { max: 640 },
-                        height: { max: 480 },
-                        facingMode: "user"
-                    }
-                });}
+                audio: true,
+                video: {
+                    width: { max: 640 },
+                    height: { max: 480 },
+                    facingMode: cameraSelect
+                }
+                });
                 window.stream = stream;
                 videoElement.current.srcObject = stream;
 
@@ -241,7 +233,7 @@ function Home() {
                     } else {
                         cameraSelect = "user";
                     }
-                    prepare()
+                    prepare(cameraSelect)
                 }}><IoCameraReverse /></button>
             </div>
             <div id="Recording">
