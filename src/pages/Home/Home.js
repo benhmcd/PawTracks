@@ -35,7 +35,6 @@ function Home() {
         awayButtonElement.current.setAttribute("hidden", true);
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
-                console.log("Try Camera Select: " + cameraSelect);
                 const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
                 video: {
@@ -227,14 +226,11 @@ function Home() {
                     stopRecording();
                 }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
-                    console.log("Button cameraSelect: " + cameraSelect)
                     if(cameraSelect == "user") {
                     cameraSelect = "environment";
-                    console.log("Camera select after if: " + cameraSelect)
                     }
                     else if(cameraSelect == "environment") {
                         cameraSelect = "user";
-                        console.log("Camera select after elif: " + cameraSelect)
                     }
                     prepare(cameraSelect)
                 }}><IoCameraReverse /></button>
