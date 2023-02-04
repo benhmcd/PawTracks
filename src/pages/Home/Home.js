@@ -27,12 +27,15 @@ function Home() {
 
     const netRef = useRef(null);
     const detectionsRef = useRef(null);
+
+    const cameraSelect = "user";
     
     async function prepare() {
         //homeButtonElement.current.setAttribute("hidden", true);
         awayButtonElement.current.setAttribute("hidden", true);
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
+                if(cameraSelect = "user") {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     audio: true,
                     video: {
@@ -40,7 +43,16 @@ function Home() {
                         height: { max: 480 },
                         facingMode: "user"
                     }
-                });
+                });}
+                if(cameraSelect="environment"){
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: {
+                        width: { max: 640 },
+                        height: { max: 480 },
+                        facingMode: "user"
+                    }
+                });}
                 window.stream = stream;
                 videoElement.current.srcObject = stream;
 
@@ -224,7 +236,12 @@ function Home() {
                     stopRecording();
                 }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
-                    videoElement.current.video.facingMode = "environment";
+                    if(cameraSelect = "user") {
+                    cameraSelect = "environment";
+                    } else {
+                        cameraSelect = "user";
+                    }
+                    prepare()
                 }}><IoCameraReverse /></button>
             </div>
             <div id="Recording">
