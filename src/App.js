@@ -4,18 +4,19 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as tf from "@tensorflow/tfjs";
 import "./App.css";
 
-import Home from "./pages/Home/Home";
-import Trick from "./pages/Tricks/Trick";
-import Tricks from "./pages/Tricks/Tricks";
-import Navbar from "./pages/Navbar/Navbar";
 import AddPet from "./pages/Pets/AddPet";
-import Pet from "./pages/Pets/Pet";
-import Pets from "./pages/Pets/Pets";
 import Clip from "./pages/Clips/Clip"
 import Clips from "./pages/Clips/Clips";
 import Footer from "./pages/Footer/Footer";
+import Home from "./pages/Home/Home";
+import Navbar from "./pages/Navbar/Navbar";
 import NotFound from "./pages/NotFound/NotFound";
+import Pet from "./pages/Pets/Pet";
+import Pets from "./pages/Pets/Pets";
 import Profile from "./pages/Profile/Profile";
+import Test from "./pages/Test/Test";
+import Trick from "./pages/Tricks/Trick";
+import Tricks from "./pages/Tricks/Tricks";
 
 // Import Amplify Package's and Auth
 import { Amplify, API, Auth } from 'aws-amplify';
@@ -31,7 +32,7 @@ import { LoginList } from './models';
 function App({ signOut, user }) {
   // Main function
   // getPets()
- 
+
   useEffect(() => {
     saveLogin()
   },)
@@ -51,14 +52,15 @@ function App({ signOut, user }) {
         <Navbar firstName={user.attributes.name.split(' ')[0]} signOut={signOut}> </Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/clips' element={<Clips />} />
+          <Route path='/clips/:id' element={<Clip />} />
           <Route path='/pets' element={<Pets />} />
           <Route path='/pets/addPet' element={<AddPet />} />
           <Route path='/pets/:id' element={<Pet />} />
-          <Route path='/clips' element={<Clips />} />
-          <Route path='/clips/:id' element={<Clip />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/test' element={<Test />} />
           <Route path='/tricks' element={<Tricks />} />
           <Route path='/tricks/:trick' element={<Trick />} />
-          <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
