@@ -39,7 +39,7 @@ function App({ signOut, user }) {
   async function saveLogin() {
     const models = await DataStore.query(LoginList);    
     // clear the data store, must be run every login
-    DataStore.clear();                                                        
+    DataStore.clear();                                       
     //test code TODO: Delete 
     console.log(models.length);
   };
