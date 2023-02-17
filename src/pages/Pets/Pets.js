@@ -7,15 +7,7 @@ import { Pet as PetModel } from '../../models';
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import {
-  Card,
-  Image,
-  View,
-  Heading,
-  Flex,
-  Badge,
-  Text,
-  Button,
-  useTheme,
+  Card
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
