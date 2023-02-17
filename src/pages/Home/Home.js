@@ -91,9 +91,17 @@ function Home() {
 
         let personFound = false;
         personFound = personInRoom(detectionsRef.current);
+        let petOnBedDetection = false;
+        petOnBedDetection = petOnBed(detectionsRef.current);
 
-        if (personFound) {
-            console.log("Alert Type: Person");
+        if (personFound || petOnBedDetection) {
+            if(personFound) {
+                console.log("Alert Type: Person");
+            }
+            if(petOnBedDetection) {
+                console.log("Alert Type: Pet on Bed");
+            }
+            
             startRecording();
             lastDetectionsRef.current.push(true);
         } else if (lastDetectionsRef.current.filter(Boolean).length) {
