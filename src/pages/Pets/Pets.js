@@ -6,6 +6,19 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Pet as PetModel } from '../../models';
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import {
+  Card,
+  Image,
+  View,
+  Heading,
+  Flex,
+  Badge,
+  Text,
+  Button,
+  useTheme,
+} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import './Pets.css';
 
 function Pets() {
 
@@ -24,14 +37,31 @@ function Pets() {
 
     return (
         <>
-            <h1>Pets</h1>
+             <h1>Pets</h1>
             <br />
             <Link to='/pets/addPet'> Add Pets </Link>
+            {/*
                     {pet.map((items) => (
-            <div key={items.id}>
-            <Link to={`/pets/${items.id}`}>{items.name}</Link>
+            <div key={items.name}>
+            <h5>{items.name}</h5>
             </div>
              ))}
+                    */}
+      <div class ="cards">
+      {pet.map((items) => (
+        <Card className="Pet-card">
+        <header className='Petname'>
+          {items.name}
+        </header>
+        <h5>{items.image}</h5>
+        <h5>{items.type}</h5>
+        <h5>{items.weight}</h5>
+        <h5>{items.age}</h5>
+        </Card>
+      ))}
+      </div>
+      
+
         </>
     )
 }
