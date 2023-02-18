@@ -54,6 +54,7 @@ function Pets() {
           </Link>
         ))}
       </div>
+      </>
   )
 }
 export default Pets
