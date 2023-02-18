@@ -52,3 +52,8 @@
     border-radius: 9px;
     box-shadow: 4px 4px;
 }
+
+#video {
+    height: auto;
+    width: auto;
+}

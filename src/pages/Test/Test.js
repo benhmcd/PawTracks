@@ -7,6 +7,8 @@ function Test() {
     const canvasRef = useRef(null);
     const [records, setRecords] = useState([]);
     const videoElement = useRef(null);
+    var width = useRef(null);
+    var height = useRef(null);
     const lastDetectionsRef = useRef([]);
     const netRef = useRef(null);
     const detectionsRef = useRef(null);
@@ -17,10 +19,19 @@ function Test() {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        console.log("Video Source: " + file.videoWidth);
+        let videoElement = document.getElementById('video');
+        try {
+            document.getElementById('video').addEventListener('loadedmetadata', function (e) {
+                width = videoElement.videoWidth;
+                height = videoElement.videoHeight;
+            })
+        } catch (error) {
+            console.error(error);
+        }
+
         const url = URL.createObjectURL(file);
         setVideoSrc(url);
-        
+
         prepare_video();
     };
 
@@ -29,9 +40,8 @@ function Test() {
             const net = await cocossd.load();
             netRef.current = net;
             setInterval(() => {
-
                 liveDetections(net);
-            }, );
+            },);
         } catch (error) {
             console.error(error);
         }
@@ -39,10 +49,9 @@ function Test() {
 
     async function liveDetections() {
         // Sets the detection canvas properties to that of the videoElement
-        console.log('Width: ' + document.getElementById('video').width + ' Height: ' + document.getElementById('video').height);
-        console.log('Video Source: ' + videoSrc)
-        canvasRef.current.width = document.getElementById('video').width;
-        canvasRef.current.height = document.getElementById('video').height;
+        console.log("Width: " + width + " Height: " + height);
+        canvasRef.current.width = width;
+        canvasRef.current.height = height;
 
         // Detects objects in our videoElement using our model
         const detections = await netRef.current.detect(document.getElementById('video'));
@@ -110,7 +119,6 @@ function Test() {
             <div id="test-container">
                 <input ref={inputRef} className="videoInput_input" type="file" onInput={handleFileChange} accept=".mov,.mp4" />
                 <canvas className="video=prop" id="video-canvas" ref={canvasRef} />
-                {console.log('Real Video Source: ' + videoSrc)}
                 <video id="video" autoPlay loop muted src={videoSrc}></video>
                 {/*<div className="videoFooter">{videoSrc || "Nothing Selected"}</div>*/}
             </div>
