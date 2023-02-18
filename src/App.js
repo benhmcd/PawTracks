@@ -42,7 +42,7 @@ function App({ signOut, user }) {
     // clear the data store, must be run every login
     DataStore.clear();                                                        
     //test code TODO: Delete 
-    console.log(models.length);
+    console.log("Model Length: " + models.length);
   };
 
   return (

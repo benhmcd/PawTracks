@@ -208,6 +208,11 @@ function Home() {
                     var color = '#687864'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
+                if (prediction['class'] == 'bowl') {
+                    text = text[0].toUpperCase() + text.slice(1).toLowerCase()
+                    var color = 'green'
+                    setStyle(text, x, y, width, height, color, canvas, confidence);
+                }
             }
         })
     };

@@ -5,9 +5,8 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 
 function Test() {
     const canvasRef = useRef(null);
-    const videoElement = document.getElementById('vid');
     const [records, setRecords] = useState([]);
-
+    const videoElement = useRef(null);
     const lastDetectionsRef = useRef([]);
     const netRef = useRef(null);
     const detectionsRef = useRef(null);
@@ -18,7 +17,7 @@ function Test() {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        console.log("File: " + file);
+        console.log("Video Source: " + file.videoWidth);
         const url = URL.createObjectURL(file);
         setVideoSrc(url);
         
@@ -26,25 +25,27 @@ function Test() {
     };
 
     async function prepare_video() {
-        try{
+        try {
             const net = await cocossd.load();
             netRef.current = net;
             setInterval(() => {
+
                 liveDetections(net);
-            }, 16.7);
-        } catch(error) {
+            }, );
+        } catch (error) {
             console.error(error);
         }
     }
 
     async function liveDetections() {
         // Sets the detection canvas properties to that of the videoElement
-        
-        canvasRef.current.width = videoElement.width;
-        canvasRef.current.height = videoElement.height;
+        console.log('Width: ' + document.getElementById('video').width + ' Height: ' + document.getElementById('video').height);
+        console.log('Video Source: ' + videoSrc)
+        canvasRef.current.width = document.getElementById('video').width;
+        canvasRef.current.height = document.getElementById('video').height;
 
         // Detects objects in our videoElement using our model
-        const detections = await netRef.current.detect(videoSrc);
+        const detections = await netRef.current.detect(document.getElementById('video'));
         detectionsRef.current = detections;
         console.debug(detections);
 
@@ -62,20 +63,29 @@ function Test() {
             var confidence = parseFloat(prediction['score'].toFixed(2));
 
             // Which objects to detect
-            if (confidence > 0.4) {
+            if (confidence > 0.0) {
                 if (text == 'person') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = '#F7F9FB'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
-                if (prediction['class'] == 'bed') {
+                else if (prediction['class'] == 'bed') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = '#31708E'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
-                if (prediction['class'] == 'dog') {
+                else if (prediction['class'] == 'dog') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = '#687864'
+                    setStyle(text, x, y, width, height, color, canvas, confidence);
+                }
+                else if (prediction['class'] == 'cat') {
+                    text = text[0].toUpperCase() + text.slice(1).toLowerCase()
+                    var color = 'pink'
+                    setStyle(text, x, y, width, height, color, canvas, confidence);
+                } else {
+                    text = text[0].toUpperCase() + text.slice(1).toLowerCase()
+                    var color = 'black'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
             }
@@ -96,16 +106,13 @@ function Test() {
 
     return (
         <>
+            <h1>Test Video Page: </h1>
             <div id="test-container">
-                <h1>Test Video Page: </h1>
-                <div className='videoInput'>
-                    <input ref={inputRef} className="videoInput_input" type="file" onInput={handleFileChange} accept=".mov,.mp4"/>
-                    {/*<button onClick={handleChoose}>Choose</button>*/}
-                    {/*<video className='video-prop' id="video" autoPlay playsInline muted src={videoSrc} />*/}
-                    <canvas className="video=prop" id="video-canvas" ref={canvasRef} />
-                    <video id="vid" width="640" height="480" controls autoPlay loop muted src={videoSrc}></video>
-                    <div className="videoFooter">{videoSrc || "Nothing Selected"}</div>
-                </div>
+                <input ref={inputRef} className="videoInput_input" type="file" onInput={handleFileChange} accept=".mov,.mp4" />
+                <canvas className="video=prop" id="video-canvas" ref={canvasRef} />
+                {console.log('Real Video Source: ' + videoSrc)}
+                <video id="video" autoPlay loop muted src={videoSrc}></video>
+                {/*<div className="videoFooter">{videoSrc || "Nothing Selected"}</div>*/}
             </div>
         </>
     )
