@@ -171,7 +171,6 @@ function Home() {
                 return [...previousRecords, { href, title }];
             });
         };
-
         recorderRef.current.start();
     };
 
@@ -281,5 +280,4 @@ function Home() {
         </>
     )
 }
-
 export default Home
