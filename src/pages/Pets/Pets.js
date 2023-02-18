@@ -24,8 +24,8 @@ function Pets() {
 
   const [pet, setPet] = useState([]);
 
-  useEffect(()=>{
-    
+  useEffect(() => {
+
     const getDate = async () => {
       await DataStore.observeQuery(PetModel).subscribe(({ items }) => {
         setPet(items)
@@ -35,34 +35,32 @@ function Pets() {
     getDate();
   })
 
-    return (
-        <>
-             <h1>Pets</h1>
-            <br />
-            <Link to='/pets/addPet'> Add Pets </Link>
-            {/*
+  return (
+    <>
+      <h1>Pets</h1>
+      <br />
+      <Link to='/pets/addPet'> Add Pets </Link>
+      {/*
                     {pet.map((items) => (
             <div key={items.name}>
             <h5>{items.name}</h5>
             </div>
              ))}
                     */}
-      <div class ="cards">
-      {pet.map((items) => (
-        <Card className="Pet-card">
-        <header className='Petname'>
-          {items.name}
-        </header>
-        <h5>{items.image}</h5>
-        <h5>{items.type}</h5>
-        <h5>{items.weight}</h5>
-        <h5>{items.age}</h5>
-        </Card>
-      ))}
+      <div class="cards">
+        {pet.map((items) => (
+          <Card className="Pet-card">
+            <header className='Petname'>
+              {items.name}
+            </header>
+            <h5>{items.image}</h5>
+            <h5>{items.type}</h5>
+            <h5>{items.weight}</h5>
+            <h5>{items.age}</h5>
+          </Card>
+        ))}
       </div>
-      
-
-        </>
-    )
+    </>
+  )
 }
 export default Pets

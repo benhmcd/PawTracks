@@ -3,6 +3,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { useParams } from 'react-router-dom';
 import { Pet as PetModel } from '../../models';
 import FileUpload from '../../controllers/FileUpload';
+import FileDownload from '../../controllers/FileDownload';
 
 import './Pet.css';
 
@@ -35,6 +36,7 @@ function Pet() {
       <br />
       <hr />
       <FileUpload />
+      <FileDownload />
     </>
   )
 }
