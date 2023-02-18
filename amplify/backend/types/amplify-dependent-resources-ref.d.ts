@@ -18,7 +18,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "s3pawtracksvideostore": {
+    "s3pawtracksvideostore204113dev": {
       "BucketName": "string",
       "Region": "string"
     }
