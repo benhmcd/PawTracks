@@ -7,15 +7,7 @@ import { Pet as PetModel } from '../../models';
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import {
-  Card,
-  Image,
-  View,
-  Heading,
-  Flex,
-  Badge,
-  Text,
-  Button,
-  useTheme,
+  Card
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
@@ -49,18 +41,19 @@ function Pets() {
                     */}
       <div class="cards">
         {pet.map((items) => (
-          <Card className="Pet-card">
-            <header className='Petname'>
-              {items.name}
-            </header>
-            <h5>{items.image}</h5>
-            <h5>{items.type}</h5>
-            <h5>{items.weight}</h5>
-            <h5>{items.age}</h5>
-          </Card>
+          <Link to={`/pets/${items.id}`}>
+            <Card className="Pet-card">
+              <header className='Petname'>
+                {items.name}
+              </header>
+              <h5>{items.image}</h5>
+              <h5>Breed: {items.type}</h5>
+              <h5>Weight: {items.weight}</h5>
+              <h5>Age: {items.age}</h5>
+            </Card>
+          </Link>
         ))}
       </div>
-    </>
   )
 }
 export default Pets
