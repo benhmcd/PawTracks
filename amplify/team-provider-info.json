@@ -26,5 +26,12 @@
         "s3pawtracksvideostore204113dev": {}
       }
     }
+  },
+  "mcdenv": {
+    "categories": {
+      "auth": {
+        "PawTracks": {}
+      }
+    }
   }
 }
