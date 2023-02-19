@@ -61,7 +61,8 @@ function Pets() {
           <Link to={`/pets/${items.id}`} key={items.id}>
             <Card className="Pet-card">
             {imageURLs[items.id] && (
-                <img src={imageURLs[items.id]} alt={items.name} />
+                <img src={imageURLs[items.id]} alt={items.name} 
+                style={{ height: "200px", width: "200px" }}/>
               )}
               <header className='Petname'>
                 {items.name}
