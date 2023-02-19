@@ -1,3 +1,4 @@
+// Import required dependencies
 import './Home.css';
 import React, { useRef, useEffect, useState } from 'react';
 
@@ -67,6 +68,7 @@ function Home() {
     }
 
     async function liveDetections() {
+        if (videoElement.current !== null) {
         // Sets the detection canvas properties to that of the videoElement
         canvasRef.current.width = videoElement.current.srcObject.getVideoTracks()[0].getSettings().width;
         canvasRef.current.height = videoElement.current.srcObject.getVideoTracks()[0].getSettings().height;
@@ -81,6 +83,7 @@ function Home() {
 
         // Calls the bbox drawing function, passing in our detections and canvas obj
         drawBbox(detections, canvas);
+        }
     }
 
     async function detectFrame() {
