@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Storage } from "@aws-amplify/storage";
 
 // Define a functional component named FileDownload
-const FileDownload = () => {
+const PhotoDownload = () => {
 
   // Declare the imageData state variable using the useState hook, initially set to null
   const [imageData, setImageData] = useState(null);
@@ -37,7 +37,7 @@ const FileDownload = () => {
   );
 };
 // Export the FileDownload component as a default export
-export default FileDownload;
+export default PhotoDownload;
 
 
 

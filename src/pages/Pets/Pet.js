@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { DataStore } from '@aws-amplify/datastore';
 import { useParams } from 'react-router-dom';
 import { Pet as PetModel } from '../../models';
-import FileUpload from '../../controllers/FileUpload';
-import FileDownload from '../../controllers/FileDownload';
+import PhotoUpload from '../../controllers/PhotoUpload';
+import PhotoDownload from '../../controllers/PhotoDownload';
 
 import './Pet.css';
 
@@ -40,8 +40,8 @@ function Pet() {
       <p>Description: {pet.desc}</p>
       <br />
       <hr />
-      <FileUpload />
-      <FileDownload />
+      <PhotoUpload />
+      <PhotoDownload />
     </>
   )
 }

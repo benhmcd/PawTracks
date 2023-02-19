@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Storage } from "@aws-amplify/storage"
 
-const FileUpload = () => {
+const PhotoUpload = () => {
     // Declare a state variable to store the selected file
     const [file, setFile] = useState(null);
 
@@ -34,4 +34,4 @@ const FileUpload = () => {
         </div>
     );
 };
-export default FileUpload;
+export default PhotoUpload;
