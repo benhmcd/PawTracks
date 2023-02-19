@@ -1,0 +1,16 @@
+.trickCard {
+    border: 3px solid #020202;
+    border-radius: 9px;
+    width: 275px;
+    height: auto;
+    align-items: center;
+    background-color: #8FC1E3;
+    box-shadow: 4px 4px;
+    }
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+}

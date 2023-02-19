@@ -127,15 +127,15 @@ function Home() {
         var dogBox;
         var bedBox;
         detections.forEach(prediction => {
-            if (prediction['class'] == 'dog') {
+            if (prediction['class'] === 'dog') {
                 dogBox = prediction['bbox']
             }
-            if (prediction['class'] == 'bed') {
+            if (prediction['class'] === 'bed') {
                 bedBox = prediction['bbox']
             }
         })
 
-        if ((!(dogBox == "undefined" || dogBox == null)) && (!(bedBox == "undefined" || bedBox == null))) {
+        if ((!(dogBox === "undefined" || dogBox === null)) && (!(bedBox === "undefined" || bedBox === null))) {
             if (bedBox[0] < dogBox[0] && bedBox[1] < dogBox[1]) {
                 if (((dogBox[0] + dogBox[2]) < (bedBox[0] + bedBox[2]))
                     && ((dogBox[1] + dogBox[3]) < (bedBox[1] + bedBox[3]))) {
@@ -150,7 +150,7 @@ function Home() {
     function personInRoom(detections) {
         var foundPerson = false;
         detections.forEach(prediction => {
-            if (prediction['class'] == 'person') {
+            if (prediction['class'] === 'person') {
                 foundPerson = true;
             }
         })
@@ -195,22 +195,22 @@ function Home() {
 
             // Which objects to detect
             if (confidence > 0.4) {
-                if (text == 'person') {
+                if (text === 'person') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = '#F7F9FB'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
-                if (prediction['class'] == 'bed') {
+                if (prediction['class'] === 'bed') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = '#31708E'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
-                if (prediction['class'] == 'dog') {
+                if (prediction['class'] === 'dog') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = '#687864'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
-                if (prediction['class'] == 'bowl') {
+                if (prediction['class'] === 'bowl') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
                     var color = 'green'
                     setStyle(text, x, y, width, height, color, canvas, confidence);
@@ -254,10 +254,10 @@ function Home() {
                     stopRecording();
                 }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
-                    if (cameraSelect == "user") {
+                    if (cameraSelect === "user") {
                         cameraSelect = "environment";
                     }
-                    else if (cameraSelect == "environment") {
+                    else if (cameraSelect === "environment") {
                         cameraSelect = "user";
                     }
                     prepare_stream(cameraSelect)
