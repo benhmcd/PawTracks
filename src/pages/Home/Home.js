@@ -1,3 +1,4 @@
+// Import required dependencies
 import './Home.css';
 import React, { useRef, useEffect, useState } from 'react';
 

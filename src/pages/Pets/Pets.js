@@ -1,3 +1,4 @@
+// Import required dependencies
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,9 +7,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Pet as PetModel } from '../../models';
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import {
-  Card
-} from '@aws-amplify/ui-react';
+import { Card } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
 
@@ -52,7 +51,7 @@ function Pets() {
           </Link>
         ))}
       </div>
-      </>
+    </>
   )
 }
 export default Pets

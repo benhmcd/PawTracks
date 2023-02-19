@@ -1,4 +1,4 @@
-// Import dependencies
+// Import required dependencies
 import React, { useRef, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as tf from "@tensorflow/tfjs";
@@ -20,27 +20,37 @@ import Tricks from "./pages/Tricks/Tricks";
 
 // Import Amplify Package's and Auth
 import { Amplify, API, Auth } from 'aws-amplify';
-import awsconfig from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
-
 // Amplify DataStore
 import { DataStore } from '@aws-amplify/datastore';
-import { LoginList } from './models';
 
-function App({ signOut, user }) {
-  // Main function
-  useEffect(() => {
-    testLogin()
-  },)
 
-  async function testLogin() {
-    await DataStore.clear();
-    const models = await DataStore.query(LoginList);    
-    console.log("Cleared: login compleate ");
+// Main function
+function App({ user }) {
+  // Function to handle the auth state change
+  const handleAuthStateChange = (authState) => {
+    if (authState === 'signedout') {
+      console.log('User is signed out');
+      // Clear the DataStore when the user signs out, this prevents data leaking from one user to the next
+      DataStore.clear();
+      console.log('Data cleared afer signed out');
+    }
+  }
+
+  // Function to sign out the user
+  const signOut = () => {
+    Auth.signOut()
+      .then(() => {
+        // Call handleAuthStateChange when the user signs out
+        handleAuthStateChange('signedout');
+      })
+      .catch((error) => {
+        console.log('Error signing out:', error);
+      });
   };
 
+  //Return app Router Navigation
   return (
     <div className="App">
       <Router>
