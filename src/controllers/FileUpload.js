@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
 import { Storage } from "@aws-amplify/storage"
 
 const FileUpload = () => {
     const [file, setFile] = useState(null);
+    const { id } = useParams();
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
+        console.log(id);
     };
 
     const handleUpload = async () => {
-        await Storage.put("pawtracks.png", file, {
+        await Storage.put(`${id}.png`, file, {
             level: "private",
             contentType: file.type,
         });

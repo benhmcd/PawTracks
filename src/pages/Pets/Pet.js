@@ -19,10 +19,10 @@ function Pet() {
     const getDate = async () => {
       const post = await DataStore.query(PetModel, id);
       setPet(post)
-      console.debug(post)
+      console.log(post)
     }
     getDate();
-  })
+  }, [])
 
 
   return (
@@ -35,7 +35,7 @@ function Pet() {
       <p>Description: {pet.desc}</p>
       <br />
       <hr />
-      <FileUpload />
+      <FileUpload id={id}/>
       <FileDownload />
     </>
   )

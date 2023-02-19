@@ -31,22 +31,17 @@ import { LoginList } from './models';
 
 function App({ signOut, user }) {
   // Main function
-  // getPets()
-
   useEffect(() => {
-    saveLogin()
+    testLogin()
   },)
 
-  async function saveLogin() {
+  async function testLogin() {
+    await DataStore.clear();
     const models = await DataStore.query(LoginList);    
-    // clear the data store, must be run every login
-    DataStore.clear();                                       
-    //test code TODO: Delete 
-    console.log("Model Length: " + models.length);
+    console.log("Cleared: login compleate ");
   };
 
   return (
-
     <div className="App">
       <Router>
         <Navbar firstName={user.attributes.name.split(' ')[0]} signOut={signOut}> </Navbar>

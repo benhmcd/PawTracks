@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
 import { Storage } from "@aws-amplify/storage";
 
+// Define a functional component named FileDownload
 const FileDownload = () => {
+  // Declare the imageData state variable using the useState hook, initially set to null
   const [imageData, setImageData] = useState(null);
+  // Define the id of the image file we're downloading and desplaying
+  const { id } = useParams();
 
+  // Define a function to handle the download of the file
   const handleDownload = async () => {
-    const downloadUrl = await Storage.get("pawtracks.png", { level: "private" });
+    // Retrieve the download URL for the private image from AWS S3 using the Storage.get method
+    const downloadUrl = await Storage.get(`${id}.png`, { level: "private" });
+    // Fetch the image using the download URL
     const response = await fetch(downloadUrl);
+    // Retrieve the binary data of the image as a blob object
     const blob = await response.blob();
+    // Convert the blob object into a URL using the createObjectURL method
     setImageData(URL.createObjectURL(blob));
   };
 
+  // Render a button to trigger the download and an image element to display the downloaded image
   return (
     <div>
       <button onClick={handleDownload}>Download Image</button>
@@ -18,5 +29,9 @@ const FileDownload = () => {
     </div>
   );
 };
-
+// Export the FileDownload component as a default export
 export default FileDownload;
+
+
+
+
