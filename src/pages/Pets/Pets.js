@@ -11,6 +11,7 @@ import { Card } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
 import { Storage } from '@aws-amplify/storage';
+import { MdOutlineEdit } from 'react-icons/md';
 
 
 function Pets() {
@@ -57,21 +58,23 @@ function Pets() {
       <Link to='/pets/addPet'> Add Pets </Link>
       <div className="cards">
         {pet.map((items) => (
-          <Link to={`/pets/${items.id}`} key={items.id}>
-            <Card className="Pet-card">
+
+          <Card className="Pet-card">
+            <Link to={`/pets/${items.id}`} key={items.id}><MdOutlineEdit />
+            </Link>
+
             {imageURLs[items.id] && (
-                <img src={imageURLs[items.id]} alt={items.name} 
-                style={{ height: "200px", width: "200px" }}/>
-              )}
-              <header className='Petname'>
-                {items.name}
-              </header>
-              <h5>{items.image}</h5>
-              <h5>Breed: {items.type}</h5>
-              <h5>Weight: {items.weight}</h5>
-              <h5>Age: {items.age}</h5>
-            </Card>
-          </Link>
+              <img src={imageURLs[items.id]} alt={items.name}
+                style={{ height: "200px", width: "200px" }} />
+            )}
+            <header className='Petname'>
+              {items.name}
+            </header>
+            <h5>{items.image}</h5>
+            <h5>Breed: {items.type}</h5>
+            <h5>Weight: {items.weight}</h5>
+            <h5>Age: {items.age}</h5>
+          </Card>
         ))}
       </div>
     </>
