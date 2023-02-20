@@ -67,7 +67,7 @@ function Pets() {
                 {items.name}
               </header>
               <h5>{items.image}</h5>
-              <h5>Type: {items.type[0].toUpperCase() + items.type.slice(1).toLowerCase()}</h5>
+              <h5>Breed: {items.type[0].toUpperCase() + items.type.slice(1).toLowerCase()}</h5>
               <h5>Weight: {items.weight}</h5>
               <h5>Age: {items.age}</h5>
             </Card>
