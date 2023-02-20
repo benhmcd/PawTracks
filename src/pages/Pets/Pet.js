@@ -7,6 +7,7 @@ import PhotoUpload from '../../controllers/PhotoUpload';
 import PhotoDownload from '../../controllers/PhotoDownload';
 import VideoUpload from '../../controllers/VideoUpload';
 import VideoDownload from '../../controllers/VideoDownload';
+import { PetUpdateForm } from '../../ui-components';
 
 import './Pet.css';
 
@@ -40,6 +41,9 @@ function Pet() {
       <p>Type: {pet.type}</p>
       <p>Breed: {pet.breed}</p>
       <p>Description: {pet.desc}</p>
+      <br />
+      <hr />
+      <PetUpdateForm />
       <br />
       <hr />
       <PhotoUpload />
