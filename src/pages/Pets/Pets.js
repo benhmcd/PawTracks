@@ -10,10 +10,13 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Card } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
+import { Storage } from '@aws-amplify/storage';
+
 
 function Pets() {
 
   const [pet, setPet] = useState([]);
+  const [imageURLs, setImageURLs] = useState({});
 
   useEffect(() => {
     // an async function to fetch the data and subscribe to changes
@@ -24,12 +27,28 @@ function Pets() {
       const subscription = DataStore.observeQuery(PetModel).subscribe(({ items }) => {
         setPet(items)
         console.log(items)
-      })
-
-    }
+      });
+    };
     // call the function to fetch the data
     getDate();
   }, []) //  added ", []" which should make the call go only once
+
+  useEffect(() => {
+    const getImageURL = async (id) => {
+      const imageKey = `${id}.png`;
+      try {
+        const url = await Storage.get(`${id}.png`, { level: "private" });
+        console.log(url);
+        setImageURLs((prevURLs) => ({
+          ...prevURLs,
+          [id]: url,
+        }));
+      } catch (error) {
+        console.error('Error fetching image URL:', error);
+      }
+    };
+    pet.forEach((item) => getImageURL(item.id));
+  }, [pet]);
 
   return (
     <>
@@ -40,6 +59,10 @@ function Pets() {
         {pet.map((items) => (
           <Link to={`/pets/${items.id}`} key={items.id}>
             <Card className="Pet-card">
+            {imageURLs[items.id] && (
+                <img src={imageURLs[items.id]} alt={items.name} 
+                style={{ height: "200px", width: "200px" }}/>
+              )}
               <header className='Petname'>
                 {items.name}
               </header>
