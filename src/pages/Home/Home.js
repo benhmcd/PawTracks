@@ -8,6 +8,8 @@ import { AiOutlineHome } from 'react-icons/ai';
 import { BiCar } from 'react-icons/bi';
 import { IoCameraReverse } from 'react-icons/io5';
 
+import VideoUploadExtended from '../../controllers/VideoUploadExtended';
+
 function Home() {
     // Reference Variable for the Detection Canvas
     const canvasRef = useRef(null);
@@ -166,7 +168,7 @@ function Home() {
 
         recorderRef.current = new MediaRecorder(window.stream)
 
-        recorderRef.current.ondataavailable = function (e) {
+        recorderRef.current.ondataavailable = async function (e) {
             const title = new Date() + "";
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
@@ -275,6 +277,7 @@ function Home() {
                                 <div>
                                     <h5 className="card-title">{record.title}</h5>
                                     <video controls src={record.href}></video>
+                                    <VideoUploadExtended href={record.href}  />
                                 </div>
                             </div>
                         );
