@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { Pet as PetModel } from '../../models';
 import PhotoUpload from '../../controllers/PhotoUpload';
 import PhotoDownload from '../../controllers/PhotoDownload';
+import VideoUpload from '../../controllers/VideoUpload';
+import VideoDownload from '../../controllers/VideoDownload';
 
 import './Pet.css';
 
@@ -42,6 +44,10 @@ function Pet() {
       <hr />
       <PhotoUpload />
       <PhotoDownload />
+      <br />
+      <hr />
+      <VideoUpload />
+      <VideoDownload />
     </>
   )
 }

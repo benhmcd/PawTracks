@@ -47,7 +47,6 @@ function Pets() {
         console.error('Error fetching image URL:', error);
       }
     };
-  
     pet.forEach((item) => getImageURL(item.id));
   }, [pet]);
 
