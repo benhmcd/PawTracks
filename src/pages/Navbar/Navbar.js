@@ -20,10 +20,10 @@ function Navbar(props) {
     return (
         <>
             <div className='navbar'>
-                    <Link to="/" className='logoWrapper'><img src='/pawTracksCircleLogo512.png' className='headerLogo'></img><span className='textLogo'> Paw Tracks</span></Link>
+                    <Link to="/" className='logoWrapper'><img src='/pawTracksCircleLogo512.png' className='imgLogo'></img><span className='textLogo'> Paw Tracks</span></Link>
                 <nav ref={navRef} className='mobileNavBar'>
 
-                    <div className='mainWrapper'>
+                    <div className='mainWrapper' id="mainWrap">
                     <NavLink to="/" style={({ isActive }) => isActive ? activeStyle : undefined } className='navItem'><a className='linkText'>Home</a></NavLink>
                     <NavLink to="/pets" style={({ isActive }) => isActive ? activeStyle : undefined } className='navItem'><a className='linkText'>Pets</a></NavLink>
                     <NavLink to="/clips" style={({ isActive }) => isActive ? activeStyle : undefined } className='navItem'><a className='linkText'>Clips</a></NavLink>
