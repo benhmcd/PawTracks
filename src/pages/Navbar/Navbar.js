@@ -27,10 +27,8 @@ function Navbar(props) {
                     <NavLink to="/clips" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Clips</NavLink>
                     <NavLink to="/tricks" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items'>Tricks</NavLink>
                     <NavLink  to="/profile" style={({ isActive }) => isActive ? activeStyle : undefined } className='nav-items' id="profileLink"
-                    onClick={() => setOpen(!open)}> <AiOutlineUser /> Hello, {props.firstName}</NavLink>
+                    onClick={() => setOpen(!open)}> <AiOutlineUser /> Hello, {props.firstName}<button id="navSignOut" onClick={props.signOut}> Sign Out</button></NavLink>
 
-                    <button id="navSignOut" onClick={props.signOut}> Sign Out</button>
-                    
                     <button className='nav-btn nav-close-btn' onClick={showNavbar}>
                         <FaTimes />
                     </button>
