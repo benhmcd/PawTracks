@@ -74,7 +74,7 @@
 
 #home-btn {
     background-color: var(--secondaryColor);
-    color: var(--backgroundColor);
+    color: var(--backgroundColor); 
     padding:  5px 15px;
     border-radius: 20px;
     border: none;

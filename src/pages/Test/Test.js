@@ -12,9 +12,7 @@ function Test() {
     const lastDetectionsRef = useRef([]);
     const netRef = useRef(null);
     const detectionsRef = useRef(null);
-
     const [videoSrc, setVideoSrc] = useState([]);
-
     const inputRef = useRef(null);
 
     const handleFileChange = (event) => {
@@ -118,9 +116,10 @@ function Test() {
             <h1>Test Video Page: </h1>
             <div id="test-container">
                 <input ref={inputRef} className="videoInput_input" type="file" onInput={handleFileChange} accept=".mov,.mp4" />
-                <canvas className="video=prop" id="video-canvas" ref={canvasRef} />
-                <video id="video" autoPlay loop muted src={videoSrc}></video>
-                {/*<div className="videoFooter">{videoSrc || "Nothing Selected"}</div>*/}
+                <div id="videoContainer">
+                    <canvas className="video=prop" id="video-canvas" ref={canvasRef} />
+                    <video id="video" autoPlay loop muted src={videoSrc}></video>
+                </div>
             </div>
         </>
     )
