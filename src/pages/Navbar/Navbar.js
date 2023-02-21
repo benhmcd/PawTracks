@@ -14,7 +14,7 @@ function Navbar(props) {
     }; 
 
     function showNavbar() {
-        navRef.current.classList.toggle('responsive_nav');
+        navRef.current.classList.toggle('responsiveNav');
     }
 
     return (
