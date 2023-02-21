@@ -51,6 +51,15 @@ function Pets() {
     pet.forEach((item) => getImageURL(item.id));
   }, [pet]);
 
+  const handleDelete = async (pet) => {
+    try {
+      // Delete the pet image from DB
+      await DataStore.delete(pet);
+    } catch (error) {
+      console.error('Error deleting pet:', error);
+    }
+  };
+
   return (
     <>
       <h1>Pets</h1>
@@ -63,7 +72,7 @@ function Pets() {
             <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
               <MdOutlineEdit />
             </Link>
-
+              <button onClick={() => handleDelete(items)}>Delete</button>
             {imageURLs[items.id] && (
               <img src={imageURLs[items.id]} alt={items.name}
                 style={{ height: "200px", width: "200px" }} />
