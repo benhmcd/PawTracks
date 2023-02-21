@@ -60,7 +60,8 @@ function Pets() {
         {pet.map((items) => (
 
           <Card className="Pet-card">
-            <Link to={`/pets/${items.id}`} key={items.id}><MdOutlineEdit />
+            <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
+              <MdOutlineEdit />
             </Link>
 
             {imageURLs[items.id] && (
