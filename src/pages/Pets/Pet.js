@@ -7,6 +7,7 @@ import PhotoUpload from '../../controllers/PhotoUpload';
 import PhotoDownload from '../../controllers/PhotoDownload';
 import VideoUpload from '../../controllers/VideoUpload';
 import VideoDownload from '../../controllers/VideoDownload';
+import { PetUpdateForm } from '../../ui-components';
 
 import './Pet.css';
 
@@ -30,6 +31,28 @@ function Pet() {
     }
     getDate();
   }, [])
+  // Define the handleUpdate function
+  const handleUpdate = async (fields) => {
+    try {
+      const original = await DataStore.query(PetModel, pet.id);
+      await DataStore.save(
+        PetModel.copyOf(original, updated => {
+          updated.name = fields.name;
+          updated.weight = fields.weight;
+          updated.age = fields.age;
+          updated.type = fields.type;
+          updated.breed = fields.breed;
+          updated.desc = fields.desc;
+          updated.img = fields.img;
+        })
+      );
+      // Update the `pet` state variable with the new data
+      setPet(fields);
+      console.log('Updated successfully');
+    } catch (error) {
+      console.log('Error updating pet', error);
+    }
+  };
 
   // Render the pet information on the page
   return (
@@ -40,6 +63,9 @@ function Pet() {
       <p>Type: {pet.type}</p>
       <p>Breed: {pet.breed}</p>
       <p>Description: {pet.desc}</p>
+      <br />
+      <hr />
+      <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
       <br />
       <hr />
       <PhotoUpload />
