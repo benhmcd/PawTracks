@@ -170,6 +170,7 @@ nav .mobileClose{
         padding: 0;
         padding-bottom: 1rem;
     }
+    
     .navbar .navItem:last-child{
         padding-bottom: 0;
     }

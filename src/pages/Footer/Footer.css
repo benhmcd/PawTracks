@@ -17,7 +17,10 @@
     background: linear-gradient(yellow, yellow) no-repeat center/2px 100%; */
 }
 
-.footer .logoWrapper
+.footer .logoWrapper {
+
+}
+
 .footer .imgLogo{
 
 }
@@ -40,18 +43,6 @@
     padding-right: 0;
 }
 
-.githubLink {
-    display: flex;
-    position: relative;
-    text-decoration: none;
-    color: #999999;
-    width: auto;
-    margin-left: 140px;
-    
-    /* border: solid 3px black;
-    background: linear-gradient(red, red) no-repeat center/2px 100%; */
-}
-
 @media only screen and (max-width: 1024px){
     .footer .logoWrapper, .githubLink{
         display: none;
@@ -72,8 +63,9 @@
     .footer .navItem:last-child{
         padding-right: 0;
     }
+}
 
-.github_link {
+.githubLink {
     position: absolute;
     left: 50%;
     top: 30%;
@@ -83,4 +75,3 @@
     color: #999999;
     padding-top: 50px;
 }
-
