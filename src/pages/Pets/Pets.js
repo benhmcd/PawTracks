@@ -61,8 +61,8 @@ function Pets() {
             <Card className="Pet-card">
             {imageURLs[items.id] && (
                 <img src={imageURLs[items.id]} alt={items.name} 
-                style={{ height: "200px", width: "200px" }}/>
-              )}
+                style={{ height: "200px", width: "200px" }}/>  
+              )}                                                {/*TODO: rewrite so its not hard coded*/}
               <header className='Petname'>
                 {items.name}
               </header>
