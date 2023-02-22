@@ -12,6 +12,7 @@ import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
 import { Storage } from '@aws-amplify/storage';
 import { MdOutlineEdit } from 'react-icons/md';
+import { RiDeleteBin5Line } from 'react-icons/ri';
 
 
 function Pets() {
@@ -51,6 +52,15 @@ function Pets() {
     pet.forEach((item) => getImageURL(item.id));
   }, [pet]);
 
+  const handleDelete = async (petDelete) => {
+    try{
+      await DataStore.delete(petDelete);
+    }
+    catch(error){
+      console.error("Failed to delete pet. ", error);
+    }
+  }
+
   return (
     <>
       <h1>Pets</h1>
@@ -58,15 +68,15 @@ function Pets() {
       <Link to='/pets/addPet'> Add Pets </Link>
       <div className="cards">
         {pet.map((items) => (
-
           <Card className="Pet-card">
             <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
               <MdOutlineEdit />
             </Link>
-
+              <button className='delete-button' onClick={() => handleDelete(items)}><RiDeleteBin5Line/></button>
             {imageURLs[items.id] && (
-              <img src={imageURLs[items.id]} alt={items.name}
-                style={{ height: "200px", width: "200px" }} />
+              <div className="pet-image-container">
+              <img src={imageURLs[items.id]} alt={items.name} className="pet-image" />
+            </div>
             )}
             <header className='Petname'>
               {items.name}
