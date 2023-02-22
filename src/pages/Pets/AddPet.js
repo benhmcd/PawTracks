@@ -12,7 +12,6 @@ function AddPet() {
             <h1>Single Pet Page: {name} </h1>
             <PetCreateForm />
         </>
-        
     )
     
 }

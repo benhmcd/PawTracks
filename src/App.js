@@ -50,6 +50,23 @@ function App({ user }) {
       });
   };
 
+  const tricks = {
+    Dog: {
+        Sit: {name: 'Sit', embedId: "EDgi2sLlWAU"},
+        Shake: {name: 'Shake', embedId: "G3-hec29wII"},
+        Lay: {name: 'Lay', embedId: "hHKtUp9-xbc"}
+    },
+    Cat: {
+        Come: {name: 'Come', embedId: "OFjlF7zQF_g"},
+        HighFive: {name: 'High Five', embedId: "4NWS0mtjMuw"},
+        Stay: {name: 'Stay', embedId: "WLetRnjCEtU"}
+    },
+    Bird: {
+        Talk: {name: 'Talk', embedId: "PiPk8GS8UqM"},
+        PlayDead: {name: 'Play Dead', embedId: "RZ4dJ7nV1wI"},
+        Fly: {name: 'Fly', embedId: "oHFkF4ZQp_4"}
+    }
+}
   //Return app Router Navigation
   return (
     <div className="App">
@@ -64,8 +81,8 @@ function App({ user }) {
           <Route path='/pets/:id' element={<Pet />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/test' element={<Test />} />
-          <Route path='/tricks' element={<Tricks />} />
-          <Route path='/tricks/:trick' element={<Trick />} />
+          <Route path='/tricks' element={<Tricks tricks={tricks} />} />
+          <Route path='/tricks/:trick' element={<Trick tricks={tricks} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
