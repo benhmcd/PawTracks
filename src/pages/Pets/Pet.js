@@ -58,12 +58,6 @@ function Pet() {
   return (
     <>
       <h1>Single Pet Page: {pet.name} </h1>
-      <p>Weight: {pet.weight}</p>
-      <p>Age: {pet.age}</p>
-      <p>Type: {pet.type}</p>
-      <p>Breed: {pet.breed}</p>
-      <p>Description: {pet.desc}</p>
-      <br />
       <hr />
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
       <br />
