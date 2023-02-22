@@ -27,6 +27,12 @@ html {
   align-items: center;
 }
 
+@media (max-width: 767px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .edit-link {
   position: absolute;
   top: 0px;
