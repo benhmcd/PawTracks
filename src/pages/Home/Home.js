@@ -40,20 +40,20 @@ function Home() {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
 
-                    // Sets stream constraints given user webcam
-                    let stream = await navigator.mediaDevices.getUserMedia({
-                        audio: true,
-                        video: {
-                            width: { max: 640 },
-                            height: { max: 480 },
-                            facingMode: cameraSelect // Selects which cam to use for mobile
-                        }
-                    });
+                // Sets stream constraints given user webcam
+                let stream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: {
+                        width: { max: 640 },
+                        height: { max: 480 },
+                        facingMode: cameraSelect // Selects which cam to use for mobile
+                    }
+                });
 
-                    window.stream = stream;
-                    // Sets the video elements object to the webcam stream.
-                    videoElement.current.srcObject = stream;
-                
+                window.stream = stream;
+                // Sets the video elements object to the webcam stream.
+                videoElement.current.srcObject = stream;
+
                 // Loads the cocossd model & sets the net reference variable to it.
                 const net = await cocossd.load();
                 netRef.current = net;
@@ -71,20 +71,20 @@ function Home() {
 
     async function liveDetections() {
         if (videoElement.current !== null) {
-        // Sets the detection canvas properties to that of the videoElement
-        canvasRef.current.width = videoElement.current.srcObject.getVideoTracks()[0].getSettings().width;
-        canvasRef.current.height = videoElement.current.srcObject.getVideoTracks()[0].getSettings().height;
+            // Sets the detection canvas properties to that of the videoElement
+            canvasRef.current.width = videoElement.current.srcObject.getVideoTracks()[0].getSettings().width;
+            canvasRef.current.height = videoElement.current.srcObject.getVideoTracks()[0].getSettings().height;
 
-        // Detects objects in our videoElement using our model
-        const detections = await netRef.current.detect(videoElement.current);
-        detectionsRef.current = detections;
-        console.debug(detections);
+            // Detects objects in our videoElement using our model
+            const detections = await netRef.current.detect(videoElement.current);
+            detectionsRef.current = detections;
+            console.debug(detections);
 
-        // Draws the canvas
-        const canvas = canvasRef.current.getContext("2d");
+            // Draws the canvas
+            const canvas = canvasRef.current.getContext("2d");
 
-        // Calls the bbox drawing function, passing in our detections and canvas obj
-        drawBbox(detections, canvas);
+            // Calls the bbox drawing function, passing in our detections and canvas obj
+            drawBbox(detections, canvas);
         }
     }
 
@@ -100,13 +100,13 @@ function Home() {
         petOnBedDetection = petOnBed(detectionsRef.current);
 
         if (personFound || petOnBedDetection) {
-            if(personFound) {
+            if (personFound) {
                 console.log("Alert Type: Person");
             }
-            if(petOnBedDetection) {
+            if (petOnBedDetection) {
                 console.log("Alert Type: Pet on Bed");
             }
-            
+
             startRecording();
             lastDetectionsRef.current.push(true);
         } else if (lastDetectionsRef.current.filter(Boolean).length) {
@@ -172,6 +172,9 @@ function Home() {
             const title = new Date() + "";
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
+            /* Just an idea
+            <VideoUploadExtended href={href} />
+            */
             setRecords(previousRecords => {
                 return [...previousRecords, { href, title }];
             });
@@ -233,12 +236,15 @@ function Home() {
         canvas.stroke()
     };
 
-    useEffect(() => {prepare_stream(cameraSelect)}, [])
+    useEffect(() => { prepare_stream(cameraSelect) }, [])
 
     return (
         <>
             {/* Webcam Fotoage */}
+
             <div id="home-container">
+                <img src="pawTrack.png" id='bigPawTrack'></img>
+
                 <canvas className='video-prop' id="video-canvas" ref={canvasRef} />
                 <video className='video-prop' id="webcam" autoPlay playsInline muted ref={videoElement} />
                 <button id='home-btn' onClick={() => {
@@ -268,17 +274,12 @@ function Home() {
 
             {/* Temporary Clips Storage */}
             <div id="Recording">
-                <h3>Records: </h3>
                 {!records.length
                     ? null
                     : records.map(record => {
                         return (
                             <div key={record.title}>
-                                <div>
-                                    <h5 className="card-title">{record.title}</h5>
-                                    <video controls src={record.href}></video>
-                                    <VideoUploadExtended href={record.href}  />
-                                </div>
+                                <VideoUploadExtended href={record.href} />
                             </div>
                         );
                     })}
