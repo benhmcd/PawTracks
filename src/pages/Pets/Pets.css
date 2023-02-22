@@ -1,3 +1,11 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .Pet-card {
   border: 3px solid #020202;
   border-radius: 9px;
@@ -6,7 +14,8 @@
   align-items: center;
   background-color: #8FC1E3;
   box-shadow: 4px 4px;
-  position: relative; /* add position relative */
+  position: relative;
+  margin: auto;
 }
 
 .cards {
@@ -14,6 +23,14 @@
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
   grid-gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
 }
 
 .edit-link {
@@ -28,4 +45,16 @@
   top: 0px;
   right: 60px;
   z-index: 1; /* add z-index */
+}
+
+.pet-image-container {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.pet-image {
+  border: 5px solid #ffffff;
+  border-radius: 3px;
+  height: 200px;
+  width: 200px;
 }
