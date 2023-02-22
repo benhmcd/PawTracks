@@ -23,44 +23,66 @@ function Tricks(props) {
     } */
     let tricks = props.tricks;
 
+    let availablePets = [];
+    for(var key in tricks){
+        availablePets.push(key);
+    }
+    console.log(availablePets);
+
     let dogTricks = [];
     for(var key in tricks['Dog']) {
-        dogTricks.push(<Link to={`/tricks/${key}`}><Card className='trickCard'><h2>{tricks['Dog'][key]['name']}</h2></Card></Link>);
+        dogTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Dog'][key]['name']}</h2></Card></Link>);
     }
 
     let catTricks = [];
     for(var key in tricks['Cat']) {
-        catTricks.push(<Link to={`/tricks/${key}`}><Card className='trickCard'><h2>{tricks['Cat'][key]['name']}</h2></Card></Link>);
+        catTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Cat'][key]['name']}</h2></Card></Link>);
     }
-
+    
     let birdTricks = [];
     for(var key in tricks['Bird']) {
-        birdTricks.push(<Link to={`/tricks/${key}`}><Card className='trickCard'><h2>{tricks['Bird'][key]['name']}</h2></Card></Link>);
+        birdTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Bird'][key]['name']}</h2></Card></Link>);
     }
+
+    let allPets = [];
+
+    allPets.push(dogTricks);
+    allPets.push(catTricks);
+    allPets.push(birdTricks);
 
 
     return (
         <>  
-            <h1>Tricks</h1>
-            <br /><br />
+            <div className='mainContent'>
+                <h1>Tricks Page</h1>
 
-            <h1>Dog</h1>
-            <div className='cards'>
-                {dogTricks}
-            </div>
-            <br /><br />
+                <div className='trickDivider'>
+                <h1 className='trickType'>Dog Tricks</h1>
+                <hr className='petDivider'/>
+                </div>
+                <div className='cards'>
+                    {dogTricks}
+                </div>
+                <br /><br />
 
-            <h1>Cat</h1>
-            <div className='cards'>
-            {catTricks}
-            </div>
-            <br /><br />
+                <div className='trickDivider'>
+                <h1 className='trickType'>Cat Tricks</h1>
+                <hr className='petDivider'/>
+                </div>
+                <div className='cards'>
+                {catTricks}
+                </div>
+                <br /><br />
 
-            <h1>Bird</h1>
-            <div className='cards'>
-                {birdTricks}
+                <div className='trickDivider'>
+                <h1 className='trickType'>Bird Tricks</h1>
+                <hr className='petDivider'/>
+                </div>
+                <div className='cards'>
+                    {birdTricks}
+                </div>
+                <br /><br />
             </div>
-            <br /><br />
         </>
     )
 }

@@ -2,7 +2,7 @@
     border: 3px solid #020202;
     border-radius: 9px;
     width: 275px;
-    height: auto;
+    height: 200px;
     align-items: center;
     background-color: #8FC1E3;
     box-shadow: 4px 4px;
@@ -10,7 +10,27 @@
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 0.25fr);
     grid-auto-rows: auto;
-    grid-gap: 1rem;
+    place-items: center;
+}
+
+.cardLinks{
+    text-decoration: none;
+    color: var(--textColor);
+}
+
+.petDivider{
+    border: 1px solid var(--secondaryColor);
+    width: 80%;
+    margin: 20px auto;
+    float: right;
+}
+
+.trickType{
+    float: left;
+}
+
+.trickDivider{
+    padding: 75px;
 }
