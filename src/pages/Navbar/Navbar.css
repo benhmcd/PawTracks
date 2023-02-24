@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
 }
 
-:root{
+:root {
     --mainColor: #8FC1E3;
     --secondaryColor: #3170BE;
     --backgroundColor: #F7F9FB;
@@ -24,7 +24,7 @@
     color: var(--textColor);
 }
 
-.nav-items{
+.nav-items {
     margin: 0 2rem;
     color: var(--textColor);
     text-decoration: none;
@@ -32,11 +32,11 @@
     font-size: 1.5rem;
 }
 
-.nav-items:hover{
+.nav-items:hover {
     text-decoration: underline;
 }
 
-.navbar .nav-btn{
+.navbar .nav-btn {
     padding: 5px;
     cursor: pointer;
     background: transparent;
@@ -50,8 +50,8 @@
     right: 2rem;
 }
 
-@media only screen and (max-width: 1024px){
-    .navbar .nav-btn{
+@media only screen and (max-width: 1024px) {
+    .navbar .nav-btn {
         visibility: visible;
         opacity: 1;
     }
@@ -61,7 +61,7 @@
         bottom: 30px;
     }
 
-    .navbar nav{
+    .navbar nav {
         position: fixed;
         top: 0;
         right: 0;
@@ -80,22 +80,22 @@
     }
 }
 
-.navbar .responsive_nav{
+.navbar .responsive_nav {
     transform: none;
 }
 
-nav .nav-close-btn{
+nav .nav-close-btn {
     position: absolute;
 }
 
-#header-logo{
+#header-logo {
     height: 72px;
     width: 72px;
     float: left;
     margin: 5px;
 }
 
-#pawTracksLogo{
+#pawTracksLogo {
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
     font-size: 28px;
@@ -109,4 +109,27 @@ nav .nav-close-btn{
 #profileLink {
     position: absolute;
     right: 10px;
+}
+
+#navSignOut {
+    background-color: var(--secondaryColor);
+    color: var(--backgroundColor);
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+    transition: 0.3s;
+    font-size: 1rem;
+}
+
+#navSignOut:hover {
+    background-color: #255DAF;
+    color: #ffffff;
 }
