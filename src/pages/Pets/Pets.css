@@ -83,42 +83,20 @@ h1 {
   padding: 10px;
 }
 
-.pet-card .pet-content {
+.pet-content {
   border-radius: 9px;
   padding: 5px 0;
   background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
 }
 
 .pet-card:hover {
   width: 325px;
   box-shadow: 8px 8px;
-}
-
-.pet-card .pet-image {
-  transition: 0.3s;
-}
-
-.pet-card:hover .pet-image {
-  width: 250px;
-  height: 250px;
-}
-
-.pet-card .pet-content .pet-buttons .edit-icon, .pet-card .pet-content .pet-buttons .delete-button .delete-icon  {
-  font-size: 1.5rem;
-  transition: 0.3s;
-}
-
-.pet-card:hover .pet-content .pet-buttons .edit-icon, .pet-card:hover .pet-content .pet-buttons .delete-button .delete-icon  {
-  font-size: 2rem;
-}
-
-.edit-link .edit-icon, .delete-button .delete-icon {
-  color: #000000;
-  transition: 0.05s;
-}
-
-.edit-link:hover .edit-icon, .delete-button:hover .delete-icon {
-  color: var(--secondaryColor);
 }
 
 .pet-head {
@@ -133,14 +111,40 @@ h1 {
 }
 
 .pet-image-container {
-  padding-top: 15px;
+  height: 200px;
+  width: 200px;
+  border: 5px solid #ffffff;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+
+.pet-card .pet-image-container {
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-image-container {
+  width: 250px;
+  height: 250px;
+  border-radius: 25px;
 }
 
 .pet-image {
-  border: 5px solid #ffffff;
-  border-radius: 3px;
-  height: 200px;
-  width: 200px;
+  object-fit: cover;
+  width: 120%;
+  margin: auto;
+  display: block;
+}
+
+.pet-card .pet-image-container .pet-image {
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-image-container .pet-image {
+  width: 100%;
 }
 
 .pet-info {
@@ -191,4 +195,22 @@ h1 {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+.edit-link .edit-icon, .delete-button .delete-icon {
+  color: #000000;
+  transition: 0.05s;
+}
+
+.edit-link:hover .edit-icon, .delete-button:hover .delete-icon {
+  color: var(--secondaryColor);
+}
+
+.pet-card .pet-content .pet-buttons .edit-icon, .pet-card .pet-content .pet-buttons .delete-button .delete-icon  {
+  font-size: 1.5rem;
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-content .pet-buttons .edit-icon, .pet-card:hover .pet-content .pet-buttons .delete-button .delete-icon  {
+  font-size: 2rem;
 }
