@@ -86,7 +86,7 @@ h1 {
 .pet-card:hover {
   /* border: 3px solid var(--secondaryColor); */
   width: 325px;
-  box-shadow: 8px 8px var(--secondaryColor);
+  box-shadow: 8px 8px var(--mainColor);
 }
 
 .pet-content {
@@ -202,18 +202,21 @@ h1 {
 
 .edit-link .edit-icon, .delete-button .delete-icon {
   color: #000000;
-  transition: 0.05s;
+  border: 3px solid #ffffff;
+  transition: 0.3s;
 }
 
 .edit-link:hover .edit-icon, .delete-button:hover .delete-icon {
   color: var(--secondaryColor);
+  border: 3px solid var(--secondaryColor);
+  border-radius: 9px;
 }
 
 .pet-card .pet-content .pet-buttons .edit-icon, .pet-card .pet-content .pet-buttons .delete-button .delete-icon  {
-  font-size: 1.5rem;
+  font-size: 2rem;
   transition: 0.3s;
 }
 
 .pet-card:hover .pet-content .pet-buttons .edit-icon, .pet-card:hover .pet-content .pet-buttons .delete-button .delete-icon  {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
