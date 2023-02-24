@@ -14,6 +14,17 @@
     --textColor: #000000;
 }
 
+#bigPawTrack{
+    position: absolute;
+    top: -300%;
+    left: -18%;
+    width: 900px;
+    height: auto;
+    z-index: -1;
+    rotate: -45deg;
+    opacity: 0.2;
+}
+
 #home-container {
     margin-left: auto;
     margin-right: auto;
@@ -31,7 +42,7 @@
     left: 0;
     right: 0;
     text-align: center;
-    z-index: 6;
+    z-index: 5;
     margin-top: 100px;
 }
 
@@ -70,11 +81,18 @@
     #swap-cam{
         visibility: visible;
     }
+
+    #bigPawTrack{
+        width: 334px;
+        height: auto;
+        top: -125%;
+        left: -30%;
+    }
 }
 
 #home-btn {
     background-color: var(--secondaryColor);
-    color: var(--backgroundColor);
+    color: var(--backgroundColor); 
     padding:  5px 15px;
     border-radius: 20px;
     border: none;
