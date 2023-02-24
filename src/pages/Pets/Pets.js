@@ -7,12 +7,13 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Pet as PetModel } from '../../models';
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Card } from '@aws-amplify/ui-react';
+import { Card, Divider } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
 import { Storage } from '@aws-amplify/storage';
 import { MdOutlineEdit } from 'react-icons/md';
 import { RiDeleteBin5Line } from 'react-icons/ri';
+import { IconContext } from "react-icons";
 
 
 function Pets() {
@@ -53,10 +54,10 @@ function Pets() {
   }, [pet]);
 
   const handleDelete = async (petDelete) => {
-    try{
+    try {
       await DataStore.delete(petDelete);
     }
-    catch(error){
+    catch (error) {
       console.error("Failed to delete pet. ", error);
     }
   }
@@ -65,26 +66,43 @@ function Pets() {
     <>
       <h1>Pets</h1>
       <br />
-      <Link to='/pets/addPet'> Add Pets </Link>
+      <div className='addPet-container'>
+        <Link to='/pets/addPet'><button className="add-button">Add Pets</button></Link>
+      </div>
       <div className="cards">
         {pet.map((items) => (
-          <Card className="Pet-card">
-            <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
-              <MdOutlineEdit />
-            </Link>
-              <button className='delete-button' onClick={() => handleDelete(items)}><RiDeleteBin5Line/></button>
-            {imageURLs[items.id] && (
-              <div className="pet-image-container">
-              <img src={imageURLs[items.id]} alt={items.name} className="pet-image" />
+          <Card className="pet-card">
+            <div className='pet-content'>
+              <div className="pet-head">
+                <header className='pet-name'>
+                  {items.name}
+                </header>
+              </div>
+              <Divider />
+              {imageURLs[items.id] && (
+                <div className="pet-image-container">
+                  <img src={imageURLs[items.id]} alt={items.name} className="pet-image" />
+                </div>
+              )}
+              <div className='pet-info'>
+                <h5>{items.image}</h5>
+                <h5>Breed:</h5> <p>{items.type}</p>
+                <h5>Weight:</h5> <p>{items.weight}</p>
+                <h5>Age:</h5> <p>{items.age}</p>
+              </div>
+              <div className="pet-buttons">
+                <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
+                  <IconContext.Provider value={{ className: "edit-icon" }}>
+                    <MdOutlineEdit />
+                  </IconContext.Provider>
+                </Link>
+                <button className='delete-button' onClick={() => handleDelete(items)}>
+                  <IconContext.Provider value={{ className: "delete-icon" }}>
+                    <RiDeleteBin5Line />
+                  </IconContext.Provider>
+                </button>
+              </div>
             </div>
-            )}
-            <header className='Petname'>
-              {items.name}
-            </header>
-            <h5>{items.image}</h5>
-            <h5>Breed: {items.type}</h5>
-            <h5>Weight: {items.weight}</h5>
-            <h5>Age: {items.age}</h5>
           </Card>
         ))}
       </div>

@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+:root {
+    --mainColor: #8FC1E3;
+    --secondaryColor: #3170BE;
+    --backgroundColor: #F7F9FB;
+    --textColor: #000000;
+}
+
 .navbar {
     position: relative;
     display: flex;
@@ -47,7 +63,6 @@
     /* border: solid 3px purple;
     background: linear-gradient(red,red) no-repeat center/2px 100%; */
 }
-
 .navbar .mainWrapper{
     position: relative;
     display: flex;
