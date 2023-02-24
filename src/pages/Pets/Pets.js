@@ -53,10 +53,10 @@ function Pets() {
   }, [pet]);
 
   const handleDelete = async (petDelete) => {
-    try{
+    try {
       await DataStore.delete(petDelete);
     }
-    catch(error){
+    catch (error) {
       console.error("Failed to delete pet. ", error);
     }
   }
@@ -65,7 +65,9 @@ function Pets() {
     <>
       <h1>Pets</h1>
       <br />
-      <Link to='/pets/addPet'> Add Pets </Link>
+      <div className='addPet-container'>
+        <Link to='/pets/addPet'><button className="add-button">Add Pets</button></Link>
+      </div>
       <div className="cards">
         {pet.map((items) => (
           <Card className="pet-card">

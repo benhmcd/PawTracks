@@ -6,16 +6,48 @@ html {
   box-sizing: inherit;
 }
 
-.Pet-card {
-  border: 3px solid #020202;
-  border-radius: 9px;
-  width: 275px;
-  height: auto;
+:root{
+  --mainColor: #8FC1E3;
+  --secondaryColor: #3170BE;
+  --backgroundColor: #F7F9FB;
+  --textColor: #000000;
+}
+
+h1 {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.addPet-container {
+  display: flex;
+  height: 2.5rem;
+  width: auto;
+  margin-bottom: 20px;
   align-items: center;
-  background-color: #8FC1E3;
-  box-shadow: 4px 4px;
-  position: relative;
-  margin: auto;
+  justify-content: center;
+}
+
+.add-button {
+  background-color: var(--secondaryColor);
+  color: var(--backgroundColor);
+  padding:  5px 15px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.add-button:hover {
+  background-color: #255DAF;
+  padding: 7px 25px;
+  font-size: 1.1rem;
+  color: #ffffff;
 }
 
 .cards {
