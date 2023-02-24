@@ -13,6 +13,7 @@ import './Pets.css';
 import { Storage } from '@aws-amplify/storage';
 import { MdOutlineEdit } from 'react-icons/md';
 import { RiDeleteBin5Line } from 'react-icons/ri';
+import { IconContext } from "react-icons";
 
 
 function Pets() {
@@ -71,28 +72,25 @@ function Pets() {
       <div className="cards">
         {pet.map((items) => (
           <Card className="pet-card">
-            <div className="pet-head">
-              <header className='pet-name'>
-                {items.name}
-              </header>
-            </div>
-            <Divider />
-            {imageURLs[items.id] && (
-              <div className="pet-image-container">
-                <img src={imageURLs[items.id]} alt={items.name} className="pet-image" />
+            <div className='pet-content'>
+              <div className="pet-head">
+                <header className='pet-name'>
+                  {items.name}
+                </header>
               </div>
-            )}
-            <div className='pet-body'>
-              <h5>{items.image}</h5>
-              <h5>Breed:</h5> <p>{items.type}</p>
-              <h5>Weight:</h5> <p>{items.weight}</p>
-              <h5>Age:</h5> <p>{items.age}</p>
-            </div>
-            <div className="pet-buttons">
-              <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
-                <MdOutlineEdit size={'1.5rem'} color={'black'}/>
-              </Link>
-              <button className='delete-button' onClick={() => handleDelete(items)}><RiDeleteBin5Line size={'1.5rem'} color={'black'}/></button>
+              <Divider />
+              {imageURLs[items.id] && (
+                <div className="pet-image-container">
+                  <img src={imageURLs[items.id]} alt={items.name} className="pet-image" />
+                </div>
+              )}
+              <div className='pet-info'>
+                <h5>{items.image}</h5>
+                <h5>Breed:</h5> <p>{items.type}</p>
+                <h5>Weight:</h5> <p>{items.weight}</p>
+                <h5>Age:</h5> <p>{items.age}</p>
+              </div>
+              </div>
             </div>
           </Card>
         ))}
