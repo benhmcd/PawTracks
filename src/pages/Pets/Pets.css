@@ -137,6 +137,7 @@ h1 {
   width: 120%;
   margin: auto;
   display: block;
+  filter: opacity(80%);
 }
 
 .pet-card .pet-image-container .pet-image {
@@ -145,6 +146,7 @@ h1 {
 
 .pet-card:hover .pet-image-container .pet-image {
   width: 100%;
+  filter: opacity(100%);
 }
 
 .pet-info {
