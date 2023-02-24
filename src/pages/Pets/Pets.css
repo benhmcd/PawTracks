@@ -102,6 +102,25 @@ h1 {
   width: 250px;
   height: 250px;
 }
+
+.pet-card .pet-content .pet-buttons .edit-icon, .pet-card .pet-content .pet-buttons .delete-button .delete-icon  {
+  font-size: 1.5rem;
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-content .pet-buttons .edit-icon, .pet-card:hover .pet-content .pet-buttons .delete-button .delete-icon  {
+  font-size: 2rem;
+}
+
+.edit-link .edit-icon, .delete-button .delete-icon {
+  color: #000000;
+  transition: 0.05s;
+}
+
+.edit-link:hover .edit-icon, .delete-button:hover .delete-icon {
+  color: var(--secondaryColor);
+}
+
 .pet-head {
   display: grid;
   grid-template-columns: 25px auto 25px;

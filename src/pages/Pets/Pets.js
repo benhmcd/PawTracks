@@ -90,6 +90,17 @@ function Pets() {
                 <h5>Weight:</h5> <p>{items.weight}</p>
                 <h5>Age:</h5> <p>{items.age}</p>
               </div>
+              <div className="pet-buttons">
+                <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
+                  <IconContext.Provider value={{ className: "edit-icon" }}>
+                    <MdOutlineEdit />
+                  </IconContext.Provider>
+                </Link>
+                <button className='delete-button' onClick={() => handleDelete(items)}>
+                  <IconContext.Provider value={{ className: "delete-icon" }}>
+                    <RiDeleteBin5Line />
+                  </IconContext.Provider>
+                </button>
               </div>
             </div>
           </Card>
