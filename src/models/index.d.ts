@@ -10,6 +10,38 @@ export enum PetType {
 
 
 
+type EagerSession = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Session, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly start: string;
+  readonly end: string;
+  readonly clip?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazySession = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Session, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly start: string;
+  readonly end: string;
+  readonly clip?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Session = LazyLoading extends LazyLoadingDisabled ? EagerSession : LazySession
+
+export declare const Session: (new (init: ModelInit<Session>) => Session) & {
+  copyOf(source: Session, mutator: (draft: MutableModel<Session>) => MutableModel<Session> | void): Session;
+}
+
 type EagerPet = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Pet, 'id'>;
