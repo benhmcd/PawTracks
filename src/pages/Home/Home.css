@@ -92,15 +92,27 @@
 
 #home-btn {
     background-color: var(--secondaryColor);
-    color: var(--backgroundColor); 
+    color: var(--backgroundColor);
     padding:  5px 15px;
     border-radius: 20px;
     border: none;
-    margin: 10px;
     font-weight: 700;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    transition: 0.3s;
+    font-size: 1rem;
+
+    margin-top: 10px;
 }
 
-
+#home-btn:hover {
+    background-color: #255DAF;
+    padding: 7px 25px;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
 
 #away-btn {
     background-color: #F6BE00;
@@ -110,4 +122,11 @@
     border: none;
     margin: 10px;
     font-weight: 700;
+}
+
+#away-btn:hover {
+    background-color: #F6BE00;
+    padding: 7px 25px;
+    font-size: 1.1rem;
+    color: #ffffff;
 }

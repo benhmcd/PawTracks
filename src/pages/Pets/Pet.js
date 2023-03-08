@@ -57,14 +57,8 @@ function Pet() {
   // Render the pet information on the page
   return (
     <>
-      <h1>Single Pet Page: {pet.name} </h1>
-      <p>Weight: {pet.weight}</p>
-      <p>Age: {pet.age}</p>
-      <p>Type: {pet.type}</p>
-      <p>Breed: {pet.breed}</p>
-      <p>Description: {pet.desc}</p>
-      <br />
-      <hr />
+      <h1>Edit Pet: {pet.name}</h1>
+  
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
       <br />
       <hr />
@@ -74,9 +68,6 @@ function Pet() {
       <hr />
       <VideoUpload />
       <VideoDownload />
-      <br />
-      <br />
-      <br />
       <br />
     </>
   )
