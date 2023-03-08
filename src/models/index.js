@@ -8,9 +8,10 @@ const PetType = {
   "BIRD": "BIRD"
 };
 
-const { Pet, LoginList } = initSchema(schema);
+const { Session, Pet, LoginList } = initSchema(schema);
 
 export {
+  Session,
   Pet,
   LoginList,
   PetType
