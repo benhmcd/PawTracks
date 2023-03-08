@@ -5,11 +5,9 @@ import { PetCreateForm } from '../../ui-components';
 
 
 function AddPet() {
-    
-    const {name} = useParams();
     return (
         <>
-            <h1>Single Pet Page: {name} </h1>
+            <h1>Add Pet</h1>
             <PetCreateForm />
         </>
     )

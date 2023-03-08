@@ -57,8 +57,8 @@ function Pet() {
   // Render the pet information on the page
   return (
     <>
-      <h1>Single Pet Page: {pet.name} </h1>
-      <hr />
+      <h1>Edit Pet: {pet.name}</h1>
+  
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
       <br />
       <hr />
@@ -68,9 +68,6 @@ function Pet() {
       <hr />
       <VideoUpload />
       <VideoDownload />
-      <br />
-      <br />
-      <br />
       <br />
     </>
   )

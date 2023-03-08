@@ -63,7 +63,6 @@ function Tricks(props) {
                 <div className='cards'>
                     {dogTricks}
                 </div>
-                <br /><br />
 
                 <div className='trickDivider'>
                 <h1 className='trickType'>Cat Tricks</h1>
@@ -72,7 +71,6 @@ function Tricks(props) {
                 <div className='cards'>
                 {catTricks}
                 </div>
-                <br /><br />
 
                 <div className='trickDivider'>
                 <h1 className='trickType'>Bird Tricks</h1>
@@ -81,7 +79,6 @@ function Tricks(props) {
                 <div className='cards'>
                     {birdTricks}
                 </div>
-                <br /><br />
             </div>
         </>
     )
