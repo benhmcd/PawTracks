@@ -34,6 +34,16 @@ function Home() {
 
     var cameraSelect = "user";
 
+    let categories = [
+        {"supercategory": "person", "id": 1, "name": "person"},
+        {"supercategory": "animal", "id": 2, "name": "dog"},
+        {"supercategory": "animal", "id": 3, "name": "cat"},
+        {"supercategory": "animal", "id": 4, "name": "bird"},
+        {"supercategory": "furniture", "id": 5, "name": "bed"},
+        {"supercategory": "furniture", "id": 6, "name": "couch"},
+        {"supercategory": "kitchen", "id": 7, "name": "bowl"},
+    ];
+
     async function prepare_stream(cameraSelect) {
         // By default the away button is hidden
         awayButtonElement.current.setAttribute("hidden", true);
@@ -93,7 +103,7 @@ function Home() {
             stopRecording();
             return;
         }
-
+        
         let personFound = false;
         personFound = personInRoom(detectionsRef.current);
         let petOnBedDetection = false;
@@ -126,8 +136,8 @@ function Home() {
     }
 
     function petOnBed(detections) {
-        var dogBox;
-        var bedBox;
+        var dogBox = null;
+        var bedBox = null;
         detections.forEach(prediction => {
             if (prediction['class'] === 'dog') {
                 dogBox = prediction['bbox']
