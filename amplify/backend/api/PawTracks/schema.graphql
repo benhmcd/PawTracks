@@ -1,3 +1,10 @@
+type Session @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}]) {
+  id: ID!
+  start: AWSDateTime!
+  end: AWSDateTime!
+  clip: AWSJSON
+}
+
 enum PetType {
   DOG
   CAT
