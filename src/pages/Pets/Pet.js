@@ -9,12 +9,16 @@ import VideoUpload from '../../controllers/VideoUpload';
 import VideoDownload from '../../controllers/VideoDownload';
 import { PetUpdateForm } from '../../ui-components';
 
+import { useNavigate } from 'react-router-dom';
+
 import './Pet.css';
 
 
 function Pet() {
   // Get the ID parameter from the URL using `useParams` hook
   const { id } = useParams();
+
+  let navigate = useNavigate();
 
   // Declare state variable to store the pet object
   const [pet, setPet] = useState([]);
@@ -48,7 +52,9 @@ function Pet() {
       );
       // Update the `pet` state variable with the new data
       setPet(fields);
+
       console.log('Updated successfully');
+      navigate('/pets');
     } catch (error) {
       console.log('Error updating pet', error);
     }

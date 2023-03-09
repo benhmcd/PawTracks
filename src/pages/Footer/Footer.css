@@ -14,7 +14,6 @@
     border-top: 2px solid #000000;
     background-color: var(--backgroundColor);
     z-index: 7;
-
     /* border: solid 3px palegreen;
     background: linear-gradient(yellow, yellow) no-repeat center/2px 100%; */
 }
@@ -53,7 +52,6 @@
     .footer .mobileNavBar{
         margin-left: auto;
         margin-right: auto;
-
         /* border: solid 3px black;
         background: linear-gradient(red, red) no-repeat center/2px 100%; */
     }

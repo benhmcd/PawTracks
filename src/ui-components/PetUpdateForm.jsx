@@ -17,13 +17,18 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
+
+import { useNavigate } from 'react-router-dom';
+
 export default function PetUpdateForm(props) {
+  let navigate = useNavigate();
   const {
     id: idProp,
     pet,
     onSuccess,
     onError,
     onSubmit,
+    onCancel,
     onValidate,
     onChange,
     overrides,
@@ -407,6 +412,14 @@ export default function PetUpdateForm(props) {
           gap="15px"
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
+          <Button
+            children="Cancel"
+            type="button"
+            onClick={() => {
+              navigate('/pets');
+            }}
+            {...getOverrideProps(overrides, "CancelButton")}
+          ></Button>
           <Button
             children="Submit"
             type="submit"

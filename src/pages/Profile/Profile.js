@@ -9,7 +9,7 @@ function Profile() {
         <>
             <h1>Profile</h1>
             <h1>Settings</h1>
-            <SliderField label='Minimum Confidence:' max={1} step={0.1} size='large'/>
+            <SliderField label='Minimum Confidence:' max={1} step={0.1} size='large' filledTrackColor="var(--secondaryColor)" thumbColor="var(--backgroundColor)"/>
         </>
     )
     

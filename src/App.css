@@ -15,7 +15,9 @@
 }
 
 .App {
+  position: fixed;
   text-align: center;
+  width: 100%;
   height: 100%;
 }
 
@@ -32,13 +34,13 @@
 
 .App-header {
   background-color: #F7F9FB;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  border: solid green 5px;
 }
 
 .App-link {
@@ -86,12 +88,16 @@
 @media only screen and (max-width: 1024px){
   .bigPawTrack {
     width: 100%;
-    overflow: hidden;
   }
 
   .mainContent{
     width: 100%;
     padding: 0;
   }
+}
+
+.submitBtn{
+  background-color: var(--secondaryColor);
+  color: var(--backgroundColor);
 }
 
