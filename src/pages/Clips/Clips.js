@@ -63,12 +63,13 @@ function Clips() {
                         {clip.map((items) => (
                             <Expander type='multiple' isCollapsible={true}>
                                 <ExpanderItem title='Clip #: Start Time - End Time' value='clip-expander'>
-                                    <Link to="/clips/0">
+                                    <Link className='clipLink' to="/clips/0">
                                         <Card className="pet-card">
                                             {videoData && videoData[items.clip.Clips[0].fileName] && (
                                                 <video controls src={videoData[items.clip.Clips[0].fileName]} className="clip-video" />
                                             )}
-                                            <Badge className='petOnBedBadge' variation='warning'>Alert Type</Badge>
+                                            <Badge id='petOnObjectBadge'>Pet On Object</Badge>
+                                            <Badge id='personBadge'>Person</Badge>
                                         </Card>
                                     </Link>
                                 </ExpanderItem>

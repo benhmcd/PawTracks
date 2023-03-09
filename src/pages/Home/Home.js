@@ -212,7 +212,7 @@ function Home() {
             if (confidence > 0.4) {
                 if (text === 'person') {
                     text = text[0].toUpperCase() + text.slice(1).toLowerCase()
-                    var color = '#F7F9FB'
+                    var color = '#F7F9FB';
                     setStyle(text, x, y, width, height, color, canvas, confidence);
                 }
                 if (prediction['class'] === 'bed') {
