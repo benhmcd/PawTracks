@@ -5,7 +5,7 @@ import './Clips.css'
 import { DataStore } from '@aws-amplify/datastore';
 import { Session } from '../../models';
 import { Storage } from '@aws-amplify/storage';
-import { Card, Divider } from '@aws-amplify/ui-react';
+import { Card, Divider, Expander, ExpanderItem, Badge } from '@aws-amplify/ui-react';
 
 function Clips() {
     const [clip, setClip] = useState([]);
@@ -57,15 +57,25 @@ function Clips() {
         <>
             <h1> All Clips </h1>
             <br />
-            <Link to="/clips/1"> Clip 1</Link>
             <div className="cards">
-                {clip.map((items) => (
-                    <Card className="pet-card">
-                        {videoData && videoData[items.clip.Clips[0].fileName] && (
-                            <video controls src={videoData[items.clip.Clips[0].fileName]} className="clip-video"/>
-                        )}
-                    </Card>
-                ))}
+                <Expander type='single' isCollapsible={true}>
+                    <ExpanderItem title='Session #: Start Time - End Time' value='expander-item'>
+                        {clip.map((items) => (
+                            <Expander type='multiple' isCollapsible={true}>
+                                <ExpanderItem title='Clip #: Start Time - End Time' value='clip-expander'>
+                                    <Link to="/clips/0">
+                                        <Card className="pet-card">
+                                            {videoData && videoData[items.clip.Clips[0].fileName] && (
+                                                <video controls src={videoData[items.clip.Clips[0].fileName]} className="clip-video" />
+                                            )}
+                                            <Badge className='petOnBedBadge' variation='warning'>Alert Type</Badge>
+                                        </Card>
+                                    </Link>
+                                </ExpanderItem>
+                            </Expander>
+                        ))}
+                    </ExpanderItem>
+                </Expander>
             </div>
             <br />
         </>

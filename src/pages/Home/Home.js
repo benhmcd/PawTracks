@@ -253,8 +253,7 @@ function Home() {
             {/* Webcam Fotoage */}
 
             <div id="home-container">
-                <img src="pawTrack.png" id='bigPawTrack'></img>
-
+                
                 <canvas className='video-prop' id="video-canvas" ref={canvasRef} />
                 <video className='video-prop' id="webcam" autoPlay playsInline muted ref={videoElement} />
                 <button id='home-btn' onClick={() => {
