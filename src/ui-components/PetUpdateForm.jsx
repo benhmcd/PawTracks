@@ -415,6 +415,7 @@ export default function PetUpdateForm(props) {
               !(idProp || pet) || Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}
+            className="submitBtn"
           ></Button>
         </Flex>
       </Flex>

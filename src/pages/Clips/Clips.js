@@ -5,7 +5,7 @@ import './Clips.css'
 import { DataStore } from '@aws-amplify/datastore';
 import { Session } from '../../models';
 import { Storage } from '@aws-amplify/storage';
-import { Card, Divider, Expander, ExpanderItem, Badge } from '@aws-amplify/ui-react';
+import { Card, Divider, Expander, ExpanderItem, Badge, Theme, ThemeProvider } from '@aws-amplify/ui-react';
 
 function Clips() {
     const [clip, setClip] = useState([]);

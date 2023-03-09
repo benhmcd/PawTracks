@@ -95,3 +95,8 @@
   }
 }
 
+.submitBtn{
+  background-color: var(--secondaryColor);
+  color: var(--backgroundColor);
+}
+
