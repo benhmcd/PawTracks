@@ -22,11 +22,6 @@ const updatedTheme = createTheme({
           color: {
             value: "var(--backgroundColor)"
           }
-        },
-        hover: {
-          backgroundColor: {
-            value: "var(--textColor)"
-          }
         }
       }
     }

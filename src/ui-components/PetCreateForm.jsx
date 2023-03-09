@@ -17,7 +17,11 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
+
+import { useNavigate } from 'react-router-dom';
+
 export default function PetCreateForm(props) {
+  let navigate = useNavigate();
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -137,6 +141,7 @@ export default function PetCreateForm(props) {
             onError(modelFields, err.message);
           }
         }
+        navigate('/pets');
       }}
       {...getOverrideProps(overrides, "PetCreateForm")}
       {...rest}

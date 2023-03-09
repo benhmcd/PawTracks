@@ -17,7 +17,11 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
+
+import { useNavigate } from 'react-router-dom';
+
 export default function PetUpdateForm(props) {
+  let navigate = useNavigate();
   const {
     id: idProp,
     pet,
@@ -132,6 +136,7 @@ export default function PetUpdateForm(props) {
         }
         if (onSubmit) {
           modelFields = onSubmit(modelFields);
+          
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
@@ -152,6 +157,7 @@ export default function PetUpdateForm(props) {
             onError(modelFields, err.message);
           }
         }
+        console.log("Submit was CLICKED");
       }}
       {...getOverrideProps(overrides, "PetUpdateForm")}
       {...rest}
@@ -412,7 +418,7 @@ export default function PetUpdateForm(props) {
             children="Cancel"
             type="button"
             onClick={() => {
-              onCancel && onCancel();
+              navigate('/pets');
             }}
             {...getOverrideProps(overrides, "CancelButton")}
           ></Button>
