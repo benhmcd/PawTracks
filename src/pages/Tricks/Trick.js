@@ -37,7 +37,7 @@ function Trick(props) {
     
     return (
         <>
-            <h1>Single Clip Page: {trick}</h1>
+            <h1>{trick}</h1>
             <YoutubeEmbed embedId={embedId}/>
         </>
     )

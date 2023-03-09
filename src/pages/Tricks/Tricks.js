@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from '@aws-amplify/ui-react';
+import { Card, Divider, Text  } from '@aws-amplify/ui-react';
 import './Tricks.css';
 
 function Tricks(props) {
@@ -31,17 +31,18 @@ function Tricks(props) {
 
     let dogTricks = [];
     for(var key in tricks['Dog']) {
-        dogTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Dog'][key]['name']}</h2></Card></Link>);
+        dogTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Dog'][key]['name']}</h2>
+        <a>{tricks['Dog'][key]['description']}</a></Card></Link>);
     }
 
     let catTricks = [];
     for(var key in tricks['Cat']) {
-        catTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Cat'][key]['name']}</h2></Card></Link>);
+        catTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Cat'][key]['name']}</h2><a>{tricks['Cat'][key]['description']}</a></Card></Link>);
     }
     
     let birdTricks = [];
     for(var key in tricks['Bird']) {
-        birdTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Bird'][key]['name']}</h2></Card></Link>);
+        birdTricks.push(<Link to={`/tricks/${key}`} className='cardLinks'><Card className='trickCard'><h2>{tricks['Bird'][key]['name']}</h2><a>{tricks['Bird'][key]['description']}</a></Card></Link>);
     }
 
     let allPets = [];
@@ -53,7 +54,6 @@ function Tricks(props) {
 
     return (
         <>  
-            <div className='mainContent'>
                 <h1>Tricks Page</h1>
 
                 <div className='trickDivider'>
@@ -79,7 +79,6 @@ function Tricks(props) {
                 <div className='cards'>
                     {birdTricks}
                 </div>
-            </div>
         </>
     )
 }
