@@ -18,8 +18,6 @@ import Test from "./pages/Test/Test";
 import Trick from "./pages/Tricks/Trick";
 import Tricks from "./pages/Tricks/Tricks";
 
-import Zach from "./pages/Zach/Zach";
-
 // Import Amplify Package's and Auth
 import { Amplify, API, Auth } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -87,7 +85,6 @@ function App({ user }) {
           <Route path='/test' element={<Test />} />
           <Route path='/tricks' element={<Tricks tricks={tricks} />} />
           <Route path='/tricks/:trick' element={<Trick tricks={tricks} />} />
-          <Route path='/Zach' element={<Zach />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         </div>
