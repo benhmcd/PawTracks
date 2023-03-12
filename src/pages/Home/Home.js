@@ -7,11 +7,16 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiCar } from 'react-icons/bi';
 import { IoCameraReverse } from 'react-icons/io5';
-import { Session } from '../../models';
-
 import { v4 as uuidv4 } from 'uuid';
 
 import VideoUploadExtended from '../../controllers/VideoUploadExtended';
+import { SaveSession } from '../../controllers/SaveSession'; 
+
+
+ // Global vars for percitent data
+var clips = { Clips: [] };
+var sessionStartTime = null;
+var sessionEndTime = null;
 
 function Home() {
     // Reference Variable for the Detection Canvas
@@ -35,6 +40,10 @@ function Home() {
     const netRef = useRef(null);
     const detectionsRef = useRef(null);
 
+    //stores clip name for setting json data
+    const [currentClipTitle, setCurrentClipTitle] = useState("");
+
+
     var cameraSelect = "user";
 
     let categories = [
@@ -47,13 +56,13 @@ function Home() {
         { "supercategory": "kitchen", "id": 7, "name": "bowl" },
     ];
 
-
-    // Create a clips object with the necessary information
-    let clips = { Clips: [] };
-    let sessionStartTime;
-    let sessionEndTime;
-
-  
+    function resetClips() {
+       clips = {Clips: []};
+       sessionStartTime = null;
+       sessionEndTime = null;
+      }
+    
+      
 
     async function prepare_stream(cameraSelect) {
         // By default the away button is hidden
@@ -195,16 +204,16 @@ function Home() {
               "type, petType, time",
               "type, petType, time"
             ],
-            "fileName": `$temp.mp4`
+            "fileName": `temp.mp4`
           });
         
         recorderRef.current = new MediaRecorder(window.stream)
 
         recorderRef.current.ondataavailable = async function (e) {
             const title = uuidv4();
-            
+            setCurrentClipTitle(title);
+            console.log(Object.isFrozen(clips.Clips.length - 1))
             //set clip name
-            clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`
             
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
@@ -225,13 +234,15 @@ function Home() {
             return;
         }
         recordingRef.current = false;
+        clips.Clips[clips.Clips.length - 1].fileName = `${currentClipTitle}.mp4`;
         recorderRef.current.stop();
 
         console.log("Clip End: " + new Date());
+        console.log([clips.Clips.length - 1]);
         clips.Clips[clips.Clips.length - 1].end = new Date();
         
         // temp code for testing purposes
-        console.log(clips)
+        //console.log(clips)
         lastDetectionsRef.current = [];
     };
 
@@ -281,16 +292,22 @@ function Home() {
 
     useEffect(() => { prepare_stream(cameraSelect) }, [])
 
+    async function handleSessionEnd() {
+        // Save session to datastore
+        console.log(clips)
+        await SaveSession(clips, sessionStartTime, sessionEndTime);
+        console.log("Session saved to datastore");
+        resetClips();
+      }
 
     return (
         <>
             {/* Webcam Fotoage */}
-
             <div id="home-container">
-
                 <canvas className='video-prop' id="video-canvas" ref={canvasRef} />
                 <video className='video-prop' id="webcam" autoPlay playsInline muted ref={videoElement} />
                 <button id='home-btn' onClick={() => {
+                    sessionStartTime = new Date();
                     console.log("Session Start: " + new Date());
                     shouldRecordRef.current = true;
                     homeButtonElement.current.setAttribute("hidden", true);
@@ -298,11 +315,15 @@ function Home() {
                     detectFrame();
                 }} ref={homeButtonElement}><AiOutlineHome /> Home</button>
                 <button id='away-btn' onClick={() => {
+                    sessionEndTime = new Date();
                     console.log("Session End: " + new Date());
                     shouldRecordRef.current = false;
                     awayButtonElement.current.setAttribute("hidden", true);
                     homeButtonElement.current.removeAttribute("hidden");
+                    console.log("CLips"+ clips);
                     stopRecording();
+                    console.log("CLips"+ clips);
+                    handleSessionEnd();
                 }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
                     if (cameraSelect === "user") {
