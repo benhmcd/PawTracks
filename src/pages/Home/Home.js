@@ -10,10 +10,10 @@ import { IoCameraReverse } from 'react-icons/io5';
 import { v4 as uuidv4 } from 'uuid';
 
 import VideoUploadExtended from '../../controllers/VideoUploadExtended';
-import { SaveSession } from '../../controllers/SaveSession'; 
+import { SaveSession } from '../../controllers/SaveSession';
 
 
- // Global vars for percitent data
+// Global vars for percitent data
 var clips = { Clips: [] };
 var sessionStartTime = null;
 var sessionEndTime = null;
@@ -41,7 +41,7 @@ function Home() {
     const detectionsRef = useRef(null);
 
     //stores clip name for setting json data
-    const [currentClipTitle, setCurrentClipTitle] = useState("");
+    const currentClipTitleRef = useRef("");
 
 
     var cameraSelect = "user";
@@ -57,12 +57,13 @@ function Home() {
     ];
 
     function resetClips() {
-       clips = {Clips: []};
-       sessionStartTime = null;
-       sessionEndTime = null;
-      }
-    
-      
+        console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))
+        clips = { Clips: [] };
+        sessionStartTime = null;
+        sessionEndTime = null;
+    }
+
+
 
     async function prepare_stream(cameraSelect) {
         // By default the away button is hidden
@@ -196,31 +197,41 @@ function Home() {
         recordingRef.current = true;
         const clipStarttTime = new Date();
         console.log("Clip Start: " + new Date());
-        
+
         clips.Clips.push({
             "start": clipStarttTime,
             "end": "temp",
             "IncidentList": [
-              "type, petType, time",
-              "type, petType, time"
+                "type, petType, time",
+                "type, petType, time"
             ],
             "fileName": `temp.mp4`
-          });
-        
+        });
+
         recorderRef.current = new MediaRecorder(window.stream)
 
         recorderRef.current.ondataavailable = async function (e) {
+            //saving the title as UID so that datastore and S3 can access the same record 
             const title = uuidv4();
-            setCurrentClipTitle(title);
+            currentClipTitleRef.current = title; // update the clip title reference
+
             console.log(Object.isFrozen(clips.Clips.length - 1))
             //set clip name
+            try {
+                clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`;
+                clips.Clips[clips.Clips.length - 1].end = new Date();
+            } catch (error) {
+                console.log("Could not update last title, refrence was in use" + error)
+            }
             
+            console.log("Clip End: " + new Date());
+            console.log([clips.Clips.length - 1]);
+
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
             /* Just an idea
             <VideoUploadExtended href={href} />
             */
-            
 
             setRecords(previousRecords => {
                 return [...previousRecords, { href, title }];
@@ -233,14 +244,13 @@ function Home() {
         if (!recordingRef.current) {
             return;
         }
-        recordingRef.current = false;
-        clips.Clips[clips.Clips.length - 1].fileName = `${currentClipTitle}.mp4`;
-        recorderRef.current.stop();
-
-        console.log("Clip End: " + new Date());
-        console.log([clips.Clips.length - 1]);
-        clips.Clips[clips.Clips.length - 1].end = new Date();
         
+        const currentClipTitle = currentClipTitleRef.current;
+        console.log("uid: " + currentClipTitle);
+        recordingRef.current = false;
+        recorderRef.current.stop();
+        if(currentClipTitle != "" && currentClipTitle != null)  clips.Clips[clips.Clips.length - 1].fileName = `${currentClipTitle}.mp4`;
+        clips.Clips[clips.Clips.length - 1].end = new Date();
         // temp code for testing purposes
         //console.log(clips)
         lastDetectionsRef.current = [];
@@ -295,10 +305,11 @@ function Home() {
     async function handleSessionEnd() {
         // Save session to datastore
         console.log(clips)
+        console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))
         await SaveSession(clips, sessionStartTime, sessionEndTime);
         console.log("Session saved to datastore");
         resetClips();
-      }
+    }
 
     return (
         <>
@@ -320,9 +331,9 @@ function Home() {
                     shouldRecordRef.current = false;
                     awayButtonElement.current.setAttribute("hidden", true);
                     homeButtonElement.current.removeAttribute("hidden");
-                    console.log("CLips"+ clips);
+                    console.log("CLips" + clips);
                     stopRecording();
-                    console.log("CLips"+ clips);
+                    console.log("CLips" + clips);
                     handleSessionEnd();
                 }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
