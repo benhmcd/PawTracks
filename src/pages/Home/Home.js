@@ -7,6 +7,9 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiCar } from 'react-icons/bi';
 import { IoCameraReverse } from 'react-icons/io5';
+import { Session } from '../../models';
+
+import { v4 as uuidv4 } from 'uuid';
 
 import VideoUploadExtended from '../../controllers/VideoUploadExtended';
 
@@ -35,14 +38,22 @@ function Home() {
     var cameraSelect = "user";
 
     let categories = [
-        {"supercategory": "person", "id": 1, "name": "person"},
-        {"supercategory": "animal", "id": 2, "name": "dog"},
-        {"supercategory": "animal", "id": 3, "name": "cat"},
-        {"supercategory": "animal", "id": 4, "name": "bird"},
-        {"supercategory": "furniture", "id": 5, "name": "bed"},
-        {"supercategory": "furniture", "id": 6, "name": "couch"},
-        {"supercategory": "kitchen", "id": 7, "name": "bowl"},
+        { "supercategory": "person", "id": 1, "name": "person" },
+        { "supercategory": "animal", "id": 2, "name": "dog" },
+        { "supercategory": "animal", "id": 3, "name": "cat" },
+        { "supercategory": "animal", "id": 4, "name": "bird" },
+        { "supercategory": "furniture", "id": 5, "name": "bed" },
+        { "supercategory": "furniture", "id": 6, "name": "couch" },
+        { "supercategory": "kitchen", "id": 7, "name": "bowl" },
     ];
+
+
+    // Create a clips object with the necessary information
+    let clips = { Clips: [] };
+    let sessionStartTime;
+    let sessionEndTime;
+
+  
 
     async function prepare_stream(cameraSelect) {
         // By default the away button is hidden
@@ -103,7 +114,7 @@ function Home() {
             stopRecording();
             return;
         }
-        
+
         let personFound = false;
         personFound = personInRoom(detectionsRef.current);
         let petOnBedDetection = false;
@@ -174,17 +185,34 @@ function Home() {
             return;
         }
         recordingRef.current = true;
+        const clipStarttTime = new Date();
         console.log("Clip Start: " + new Date());
-
+        
+        clips.Clips.push({
+            "start": clipStarttTime,
+            "end": "temp",
+            "IncidentList": [
+              "type, petType, time",
+              "type, petType, time"
+            ],
+            "fileName": `$temp.mp4`
+          });
+        
         recorderRef.current = new MediaRecorder(window.stream)
 
         recorderRef.current.ondataavailable = async function (e) {
-            const title = new Date() + "";
+            const title = uuidv4();
+            
+            //set clip name
+            clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`
+            
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
             /* Just an idea
             <VideoUploadExtended href={href} />
             */
+            
+
             setRecords(previousRecords => {
                 return [...previousRecords, { href, title }];
             });
@@ -198,7 +226,12 @@ function Home() {
         }
         recordingRef.current = false;
         recorderRef.current.stop();
+
         console.log("Clip End: " + new Date());
+        clips.Clips[clips.Clips.length - 1].end = new Date();
+        
+        // temp code for testing purposes
+        console.log(clips)
         lastDetectionsRef.current = [];
     };
 
@@ -248,12 +281,13 @@ function Home() {
 
     useEffect(() => { prepare_stream(cameraSelect) }, [])
 
+
     return (
         <>
             {/* Webcam Fotoage */}
 
             <div id="home-container">
-                
+
                 <canvas className='video-prop' id="video-canvas" ref={canvasRef} />
                 <video className='video-prop' id="webcam" autoPlay playsInline muted ref={videoElement} />
                 <button id='home-btn' onClick={() => {
@@ -280,7 +314,6 @@ function Home() {
                     prepare_stream(cameraSelect)
                 }}><IoCameraReverse /></button>
             </div>
-
             {/* Temporary Clips Storage */}
             <div id="Recording">
                 {!records.length
@@ -288,7 +321,7 @@ function Home() {
                     : records.map(record => {
                         return (
                             <div key={record.title}>
-                                <VideoUploadExtended href={record.href} />
+                                <VideoUploadExtended href={record.href} uid={record.title} />
                             </div>
                         );
                     })}
