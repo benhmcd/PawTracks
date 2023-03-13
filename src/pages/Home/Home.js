@@ -197,7 +197,7 @@ function Home() {
         recordingRef.current = true;
         const clipStarttTime = new Date();
         console.log("Clip Start: " + new Date());
-
+        currentClipTitleRef.current = uuidv4();
         clips.Clips.push({
             "start": clipStarttTime,
             "end": "temp",
@@ -212,10 +212,11 @@ function Home() {
 
         recorderRef.current.ondataavailable = async function (e) {
             //saving the title as UID so that datastore and S3 can access the same record 
-            const title = uuidv4();
-            currentClipTitleRef.current = title; // update the clip title reference
+            const title = currentClipTitleRef.current;
+            //currentClipTitleRef.current= title; // update the clip title reference
 
             console.log(Object.isFrozen(clips.Clips.length - 1))
+            
             //set clip name
             try {
                 clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`;
@@ -223,7 +224,7 @@ function Home() {
             } catch (error) {
                 console.log("Could not update last title, refrence was in use" + error)
             }
-            
+
             console.log("Clip End: " + new Date());
             console.log([clips.Clips.length - 1]);
 
@@ -244,7 +245,6 @@ function Home() {
         if (!recordingRef.current) {
             return;
         }
-        
         const currentClipTitle = currentClipTitleRef.current;
         console.log("uid: " + currentClipTitle);
         recordingRef.current = false;
