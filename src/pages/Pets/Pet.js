@@ -17,6 +17,7 @@ import './Pet.css';
 function Pet() {
   // Get the ID parameter from the URL using `useParams` hook
   const { id } = useParams();
+  const [showForm, setShowForm] = useState(true)
 
   let navigate = useNavigate();
 
@@ -60,20 +61,22 @@ function Pet() {
     }
   };
 
+
   // Render the pet information on the page
   return (
     <>
       <h1>Edit Pet: {pet.name}</h1>
-  
+    <div className= 'PetUpdateForm-container'>
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
-      <br />
+      <PetUpdateForm pet={pet} onSuccess={() => {
+        setShowForm(false)
+      
+      }} />
+      </div>
+      
       <hr />
       <PhotoUpload />
-      <PhotoDownload />
-      <br />
-      <hr />
-      <VideoUpload />
-      <VideoDownload />
+      
       <br />
     </>
   )
