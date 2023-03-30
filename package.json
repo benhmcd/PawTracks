@@ -38,5 +38,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^6.3.0",
+    "mocha": "^10.2.0",
+    "mochawesome": "^4.1.0",
+    "start-server-and-test": "^2.0.0"
   }
 }
