@@ -17,11 +17,7 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Pet } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-
-import { useNavigate } from 'react-router-dom';
-
 export default function PetUpdateForm(props) {
-  let navigate = useNavigate();
   const {
     id: idProp,
     pet,
@@ -416,7 +412,7 @@ export default function PetUpdateForm(props) {
             children="Cancel"
             type="button"
             onClick={() => {
-              navigate('/pets');
+              onCancel && onCancel();
             }}
             {...getOverrideProps(overrides, "CancelButton")}
           ></Button>
