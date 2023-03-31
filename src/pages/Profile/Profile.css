@@ -5,10 +5,10 @@
     margin: 10px;
 }
 
-#restrictedPetSelect {
+.restrictedPetSelect {
     color: var(--textColor);
     background-color: var(--backgroundColor);
     border: solid 3px var(--secondaryColor);
-    width: 50%;
+    width: 500px;
     margin: 10px;
 }
