@@ -11,6 +11,8 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
+import { OpenMicSet } from '../Audio/Audio.js';
+
 import './Pet.css';
 
 
@@ -22,6 +24,9 @@ function Pet() {
 
   // Declare state variable to store the pet object
   const [pet, setPet] = useState([]);
+
+  // Setup variables for recording audio
+  const[buttonMic, setButtonMic] = useState(false);
 
   // Fetch the pet data from DataStore using the `id` parameter
   useEffect(() => {
@@ -74,6 +79,11 @@ function Pet() {
       <hr />
       <VideoUpload />
       <VideoDownload />
+      <br />
+      <button onClick={() => setButtonMic(true)}>Set Audio</button>
+      <OpenMicSet trigger={buttonMic} setTrigger={setButtonMic}>
+            <h3>Edit Audio</h3>
+          </OpenMicSet>
       <br />
     </>
   )
