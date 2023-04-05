@@ -1,6 +1,8 @@
 // Import required dependencies
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ReactModal from 'react-modal';
+import AddPet from './AddPet';
 
 // Amplify DataStore
 import { DataStore } from '@aws-amplify/datastore';
