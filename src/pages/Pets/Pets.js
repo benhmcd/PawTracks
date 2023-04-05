@@ -22,14 +22,9 @@ function Pets() {
 
   ReactModal.setAppElement('#root');
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [addPetIsOpen, setIsOpen] = useState(false);
   const [pet, setPet] = useState([]);
   const [imageURLs, setImageURLs] = useState({});
-
-  const togglePetAdd = () => {
-    console.log('togglePetAdd ran');
-    setIsOpen(!isOpen);
-  }
 
   useEffect(() => {
     // an async function to fetch the data and subscribe to changes
@@ -72,6 +67,15 @@ function Pets() {
     }
   }
 
+  const togglePetAdd = () => {
+    setIsOpen(!addPetIsOpen);
+    console.log('addPetIsOpen', addPetIsOpen);
+  }
+
+  const onFormClose = () => {
+    togglePetAdd();
+  }
+
   return (
     <>
       
@@ -79,17 +83,17 @@ function Pets() {
         <br />
         <div className='addPet-container'>
           {/* <Link to='/pets/addPet'><button className="add-button">Add Pets</button></Link> */}
-          <button className="add-button" onClick={() => togglePetAdd()}>Add Pets</button>
+          <button className="add-button" onClick={() => {togglePetAdd()}}>Add Pets</button>
         </div>
         <ReactModal
-          isOpen={isOpen}
+          isOpen={addPetIsOpen}
           onRequestClose={togglePetAdd}
           contentLabel='Add a pet'
           className='add-pet-modal'
           overlayClassName='add-pet-overlay'
           closeTimeoutMS={500}
         >
-          <AddPet />
+          <AddPet onAddPetCancel={onFormClose} onAddPetSubmit={onFormClose} />
         </ReactModal>
         <div className="cards">
           {pet.map((items) => (
