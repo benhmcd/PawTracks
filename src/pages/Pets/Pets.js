@@ -93,7 +93,7 @@ function Pets() {
           overlayClassName='add-pet-overlay'
           closeTimeoutMS={500}
         >
-          <AddPet onAddPetCancel={onFormClose} onAddPetSubmit={onFormClose} />
+          <AddPet onFormClose={onFormClose} />
         </ReactModal>
         <div className="cards">
           {pet.map((items) => (
