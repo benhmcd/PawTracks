@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import AddPet from './AddPet';
+import EditPet from './Pet';
 
 // Amplify DataStore
 import { DataStore } from '@aws-amplify/datastore';
@@ -76,6 +77,14 @@ function Pets() {
     togglePetAdd();
   }
 
+  const togglePetEdit = () => {
+    setEditPetIsOpen(!editPetIsOpen);
+  }
+
+  const onEditPetFormClose = () => {
+    togglePetEdit();
+  }
+
   return (
     <>
       
@@ -89,21 +98,21 @@ function Pets() {
           isOpen={addPetIsOpen}
           onRequestClose={togglePetAdd}
           contentLabel='Add a pet'
-          className='add-pet-modal'
-          overlayClassName='add-pet-overlay'
+          className='pet-modal'
+          overlayClassName='pet-overlay'
           closeTimeoutMS={500}
         >
           <AddPet onFormClose={onAddPetFormClose} />
         </ReactModal>
         <ReactModal
           isOpen={editPetIsOpen}
-          onRequestClose={togglePetAdd}
-          contentLabel='Add a pet'
-          className='add-pet-modal'
-          overlayClassName='add-pet-overlay'
+          onRequestClose={togglePetEdit}
+          contentLabel='Edit a pet'
+          className='pet-modal'
+          overlayClassName='pet-overlay'
           closeTimeoutMS={500}
         >
-          <AddPet onFormClose={onAddPetFormClose} />
+          <EditPet onFormClose={onEditPetFormClose} />
         </ReactModal>
         <div className="cards">
           {pet.map((items) => (
@@ -127,11 +136,16 @@ function Pets() {
                   <h5>Age:</h5> <p>{items.age}</p>
                 </div>
                 <div className="pet-buttons">
-                  <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
+                  {/* <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
                     <IconContext.Provider value={{ className: "edit-icon" }}>
                       <MdOutlineEdit />
                     </IconContext.Provider>
-                  </Link>
+                  </Link> */}
+                  <button className='edit-button' onClick={() => togglePetEdit()}>
+                    <IconContext.Provider value={{ className: "edit-icon" }}>
+                      <MdOutlineEdit />
+                    </IconContext.Provider>
+                  </button>
                   <button className='delete-button' onClick={() => handleDelete(items)}>
                     <IconContext.Provider value={{ className: "delete-icon" }}>
                       <RiDeleteBin5Line />
