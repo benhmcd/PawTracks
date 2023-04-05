@@ -22,7 +22,8 @@ function Pets() {
 
   ReactModal.setAppElement('#root');
 
-  const [addPetIsOpen, setIsOpen] = useState(false);
+  const [addPetIsOpen, setAddPetIsOpen] = useState(false);
+  const [editPetIsOpen, setEditPetIsOpen] = useState(false);
   const [pet, setPet] = useState([]);
   const [imageURLs, setImageURLs] = useState({});
 
@@ -68,11 +69,10 @@ function Pets() {
   }
 
   const togglePetAdd = () => {
-    setIsOpen(!addPetIsOpen);
-    console.log('addPetIsOpen', addPetIsOpen);
+    setAddPetIsOpen(!addPetIsOpen);
   }
 
-  const onFormClose = () => {
+  const onAddPetFormClose = () => {
     togglePetAdd();
   }
 
@@ -93,7 +93,7 @@ function Pets() {
           overlayClassName='add-pet-overlay'
           closeTimeoutMS={500}
         >
-          <AddPet onFormClose={onFormClose} />
+          <AddPet onFormClose={onAddPetFormClose} />
         </ReactModal>
         <div className="cards">
           {pet.map((items) => (
