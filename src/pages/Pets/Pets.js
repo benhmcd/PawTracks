@@ -20,8 +20,16 @@ import { IconContext } from "react-icons";
 
 function Pets() {
 
+  ReactModal.setAppElement('#root');
+
+  const [isOpen, setIsOpen] = useState(false);
   const [pet, setPet] = useState([]);
   const [imageURLs, setImageURLs] = useState({});
+
+  const togglePetAdd = () => {
+    console.log('togglePetAdd ran');
+    setIsOpen(!isOpen);
+  }
 
   useEffect(() => {
     // an async function to fetch the data and subscribe to changes
@@ -70,8 +78,19 @@ function Pets() {
         <h1>Pets</h1>
         <br />
         <div className='addPet-container'>
-          <Link to='/pets/addPet'><button className="add-button">Add Pets</button></Link>
+          {/* <Link to='/pets/addPet'><button className="add-button">Add Pets</button></Link> */}
+          <button className="add-button" onClick={() => togglePetAdd()}>Add Pets</button>
         </div>
+        <ReactModal
+          isOpen={isOpen}
+          onRequestClose={togglePetAdd}
+          contentLabel='Add a pet'
+          className='add-pet-modal'
+          overlayClassName='add-pet-overlay'
+          closeTimeoutMS={500}
+        >
+          <AddPet />
+        </ReactModal>
         <div className="cards">
           {pet.map((items) => (
             <Card className="pet-card">
