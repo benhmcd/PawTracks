@@ -95,6 +95,16 @@ function Pets() {
         >
           <AddPet onFormClose={onAddPetFormClose} />
         </ReactModal>
+        <ReactModal
+          isOpen={editPetIsOpen}
+          onRequestClose={togglePetAdd}
+          contentLabel='Add a pet'
+          className='add-pet-modal'
+          overlayClassName='add-pet-overlay'
+          closeTimeoutMS={500}
+        >
+          <AddPet onFormClose={onAddPetFormClose} />
+        </ReactModal>
         <div className="cards">
           {pet.map((items) => (
             <Card className="pet-card">
