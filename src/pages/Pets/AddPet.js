@@ -10,7 +10,7 @@ function AddPet(props) {
     return (
         <>
             <h1>Add Pet</h1>
-            <PetCreateForm onCancel={onFormClose} onSubmit={onFormClose} />
+            <PetCreateForm onCancel={onFormClose} onSuccess={onFormClose} />
         </>
     )
     
