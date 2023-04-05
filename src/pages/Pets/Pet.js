@@ -14,7 +14,10 @@ import { useNavigate } from 'react-router-dom';
 import './Pet.css';
 
 
-function Pet() {
+function Pet(props) {
+  
+  const {onFormClose} = props;
+
   // Get the ID parameter from the URL using `useParams` hook
   const { id } = useParams();
 
@@ -65,7 +68,7 @@ function Pet() {
     <>
       <h1>Edit Pet: {pet.name}</h1>
   
-      <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
+      <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} />
       <br />
       <hr />
       <PhotoUpload />
