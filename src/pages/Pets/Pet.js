@@ -80,6 +80,15 @@ function Pet() {
       <VideoUpload />
       <VideoDownload />
       <br />
+      <hr />
+      <button>Here I am!</button>
+      <br />
+      <hr />
+      <button onClick={() => setButtonMic(true)}>Set Audio</button>
+      <OpenMicSet trigger={buttonMic} setTrigger={setButtonMic}>
+            <h3>Edit Audio</h3>
+          </OpenMicSet>
+      <br />
     </>
   )
 }
