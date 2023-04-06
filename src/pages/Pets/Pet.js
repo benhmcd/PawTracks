@@ -11,7 +11,7 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
-import { OpenMicSet } from '../Audio/Audio.js';
+import OpenMicSet from '../Audio/Audio.js'
 
 import './Pet.css';
 
