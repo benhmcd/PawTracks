@@ -1,5 +1,5 @@
 import React from 'react';
-//import './Mini.css';
+import './Audio.css';
 import localforage from "localforage";
 
 const MicRecorder = require('mic-recorder-to-mp3');

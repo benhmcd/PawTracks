@@ -11,7 +11,7 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
-import OpenMicSet from '../Audio/Audio.js'
+import AudioRecord from '../../controllers/AudioRecord';
 
 import './Pet.css';
 
@@ -81,13 +81,7 @@ function Pet() {
       <VideoDownload />
       <br />
       <hr />
-      <button>Here I am!</button>
-      <br />
-      <hr />
-      <button onClick={() => setButtonMic(true)}>Set Audio</button>
-      <OpenMicSet trigger={buttonMic} setTrigger={setButtonMic}>
-            <h3>Edit Audio</h3>
-          </OpenMicSet>
+      <AudioRecord />
       <br />
     </>
   )
