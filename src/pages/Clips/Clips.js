@@ -6,6 +6,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Session } from '../../models';
 import { Storage } from '@aws-amplify/storage';
 import { Card, Divider, Expander, ExpanderItem, Badge, Theme, ThemeProvider } from '@aws-amplify/ui-react';
+import DeleteSession from '../../controllers/DeleteSession';
 
 function Clips() {
     const [clip, setClip] = useState([]);
@@ -75,6 +76,7 @@ function Clips() {
                                         </ExpanderItem>
                                     </Expander>
                                 ))}
+                                <DeleteSession session={session} />
                             </ExpanderItem>
                         </Expander>
                     ))}
