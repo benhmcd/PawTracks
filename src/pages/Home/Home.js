@@ -57,7 +57,7 @@ function Home() {
     ];
 
     function resetClips() {
-        console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))
+        //console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))  //used to find what was freezing data object
         clips = { Clips: [] };
         sessionStartTime = null;
         sessionEndTime = null;
@@ -307,7 +307,7 @@ function Home() {
         console.log(clips)
         console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))
         await SaveSession(clips, sessionStartTime, sessionEndTime);
-        console.log("Session saved to datastore");
+        //console.log("Session saved to datastore");
         resetClips();
     }
 
