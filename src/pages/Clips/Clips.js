@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Clips.css'
-// Amplify DataStore
 import { DataStore } from '@aws-amplify/datastore';
 import { Session } from '../../models';
 import { Storage } from '@aws-amplify/storage';
-import { Card, Divider, Expander, ExpanderItem, Badge, Theme, ThemeProvider } from '@aws-amplify/ui-react';
+import { Card, Divider, Expander, ExpanderItem, Badge, Theme, ThemeProvider, Loader } from '@aws-amplify/ui-react';
 import DeleteSession from '../../controllers/DeleteSession';
 
 function Clips() {
     const [clip, setClip] = useState([]);
     const [videoData, setVideoData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // add a loading state
 
     useEffect(() => {
-        // an async function to fetch the data and subscribe to changes
+        let subscription;
         const getDate = async () => {
-            // clear the DataStore before observing changes
             await DataStore.clear();
-            // observe changes to the PetModel and update the state
-            const subscription = DataStore.observeQuery(Session).subscribe(({ items }) => {
-                setClip(items)
-                console.log(items)
+            subscription = DataStore.observeQuery(Session).subscribe(({ items }) => {
+                setClip(items);
+                setIsLoading(false);
             });
         };
-        // call the function to fetch the data
         getDate();
-    }, []) //  added ", []" which should make the call go only once
+        return () => {
+            if (subscription) {
+                subscription.unsubscribe();
+            }
+        };
+    }, []);
 
     useEffect(() => {
         const getVideoURLs = async (clips) => {
@@ -34,7 +36,6 @@ function Clips() {
                 const fileName = clip.fileName;
                 try {
                     const url = await Storage.get(fileName, { level: "private" });
-                    console.log(url);
                     const response = await fetch(url);
                     const blob = await response.blob();
                     urls[fileName] = URL.createObjectURL(blob);
@@ -42,6 +43,7 @@ function Clips() {
                     console.error(`Error fetching video URL for ${fileName}:`, error);
                 }
             }
+            setIsLoading(false); // set the loading state to false when the data is available
             setVideoData((prevURLs) => ({
                 ...prevURLs,
                 ...urls,
@@ -51,7 +53,13 @@ function Clips() {
             const clips = session.clip.Clips;
             getVideoURLs(clips);
         });
+
     }, [clip]);
+
+    // Render the loading spinner conditionally based on the loading state
+    if (isLoading) {
+        return <div className="loading-screen"> <Loader size="large" className="loader" /> </div>;
+    }
 
     return (
         <>
@@ -86,6 +94,5 @@ function Clips() {
         </>
     );
 }
-export default Clips
 
-
+export default Clips;
