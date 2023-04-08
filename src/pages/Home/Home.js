@@ -227,6 +227,9 @@ function Home() {
             try {
                 clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`;
                 clips.Clips[clips.Clips.length - 1].end = new Date();
+
+            //TODO: Add IncidentList here and pray that the data doesnt freeze and not update :)
+
             } catch (error) {
                 console.log("Could not update last title, refrence was in use" + error)
             }
@@ -236,9 +239,6 @@ function Home() {
 
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
-            /* Just an idea
-            <VideoUploadExtended href={href} />
-            */
 
             setRecords(previousRecords => {
                 return [...previousRecords, { href, title }];

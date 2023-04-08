@@ -13,17 +13,20 @@ function Clips() {
     const [isLoading, setIsLoading] = useState(true); // add a loading state
 
     useEffect(() => {
-        // an async function to fetch the data and subscribe to changes
+        let subscription;
         const getDate = async () => {
-            // clear the DataStore before observing changes
             await DataStore.clear();
-            // observe changes to the PetModel and update the state
-            const subscription = DataStore.observeQuery(Session).subscribe(({ items }) => {
+            subscription = DataStore.observeQuery(Session).subscribe(({ items }) => {
                 setClip(items);
-                console.log(items);
+                setIsLoading(false);
             });
         };
         getDate();
+        return () => {
+            if (subscription) {
+                subscription.unsubscribe();
+            }
+        };
     }, []);
 
     useEffect(() => {
