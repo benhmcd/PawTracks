@@ -7,7 +7,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Pet as PetModel } from '../../models';
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Card, Divider } from '@aws-amplify/ui-react';
+import { Card, Divider, Loader } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './Pets.css';
 import { Storage } from '@aws-amplify/storage';
@@ -20,6 +20,7 @@ function Pets() {
 
   const [pet, setPet] = useState([]);
   const [imageURLs, setImageURLs] = useState({});
+  const [isLoading, setIsLoading] = useState(true); // add a loading state
 
   useEffect(() => {
     // an async function to fetch the data and subscribe to changes
@@ -46,6 +47,7 @@ function Pets() {
           ...prevURLs,
           [id]: url,
         }));
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching image URL:', error);
       }
@@ -60,6 +62,11 @@ function Pets() {
     catch (error) {
       console.error("Failed to delete pet. ", error);
     }
+  }
+
+  // Render the loading spinner conditionally based on the loading state
+  if (isLoading) {
+    return  <div className="loading-screen"> <Loader size="large" className="loader"/> </div>;
   }
 
   return (
