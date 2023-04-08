@@ -57,7 +57,7 @@ function Home() {
     ];
 
     function resetClips() {
-        console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))
+        //console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))  //used to find what was freezing data object
         clips = { Clips: [] };
         sessionStartTime = null;
         sessionEndTime = null;
@@ -190,16 +190,23 @@ function Home() {
         return foundPerson;
     };
 
+    // Define a function that starts recording a video clip
     function startRecording() {
+        // Check if a recording is already in progress
         if (recordingRef.current) {
-            return;
+            return; // If so, exit the function
         }
+        // Set a flag to indicate that a recording is in progress
         recordingRef.current = true;
-        const clipStarttTime = new Date();
-        console.log("Clip Start: " + new Date());
+        // Create a new Date object to mark the start time of the clip
+        const clipStartTime = new Date();
+        // Log the start time to the console
+        console.log("Clip Start: " + clipStartTime);
+        // Generate a new UUID for the clip title and store it in a ref
         currentClipTitleRef.current = uuidv4();
+        // Add a new clip object to the clips array with the start time, placeholder end time, incident list, and filename
         clips.Clips.push({
-            "start": clipStarttTime,
+            "start": clipStartTime,
             "end": "temp",
             "IncidentList": [
                 "type, petType, time",
@@ -209,14 +216,13 @@ function Home() {
         });
 
         recorderRef.current = new MediaRecorder(window.stream)
-
         recorderRef.current.ondataavailable = async function (e) {
             //saving the title as UID so that datastore and S3 can access the same record 
             const title = currentClipTitleRef.current;
             //currentClipTitleRef.current= title; // update the clip title reference
 
             console.log(Object.isFrozen(clips.Clips.length - 1))
-            
+
             //set clip name
             try {
                 clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`;
@@ -225,8 +231,8 @@ function Home() {
                 console.log("Could not update last title, refrence was in use" + error)
             }
 
-            console.log("Clip End: " + new Date());
-            console.log([clips.Clips.length - 1]);
+            //console.log("Clip End: " + new Date());
+            //console.log([clips.Clips.length - 1]);
 
             const href = URL.createObjectURL(e.data);
             console.log("Link to clip: " + href);
@@ -249,7 +255,7 @@ function Home() {
         console.log("uid: " + currentClipTitle);
         recordingRef.current = false;
         recorderRef.current.stop();
-        if(currentClipTitle != "" && currentClipTitle != null)  clips.Clips[clips.Clips.length - 1].fileName = `${currentClipTitle}.mp4`;
+        if (currentClipTitle != "" && currentClipTitle != null) clips.Clips[clips.Clips.length - 1].fileName = `${currentClipTitle}.mp4`;
         clips.Clips[clips.Clips.length - 1].end = new Date();
         // temp code for testing purposes
         //console.log(clips)
@@ -305,9 +311,9 @@ function Home() {
     async function handleSessionEnd() {
         // Save session to datastore
         console.log(clips)
-        console.log("DateStore"+Object.isFrozen(clips.Clips.length - 1))
+        console.log("DateStore" + Object.isFrozen(clips.Clips.length - 1))
         await SaveSession(clips, sessionStartTime, sessionEndTime);
-        console.log("Session saved to datastore");
+        //console.log("Session saved to datastore");
         resetClips();
     }
 

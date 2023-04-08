@@ -27,30 +27,29 @@ function Clips() {
     }, []) //  added ", []" which should make the call go only once
 
     useEffect(() => {
-        const getVideoURL = async (imageKey) => {
-            console.log(imageKey)
-            if (!imageKey) {
-                console.error('Error: imageKey is null');
-                return;
+        const getVideoURLs = async (clips) => {
+            const urls = {};
+            for (const clip of clips) {
+                const fileName = clip.fileName;
+                try {
+                    const url = await Storage.get(fileName, { level: "private" });
+                    console.log(url);
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    urls[fileName] = URL.createObjectURL(blob);
+                } catch (error) {
+                    console.error(`Error fetching video URL for ${fileName}:`, error);
+                }
             }
-            try {
-                const url = await Storage.get(imageKey, { level: "private" });
-                console.log(url);
-
-                const response = await fetch(url);
-
-                // Retrieve the binary data of the video as a blob object
-                const blob = await response.blob();
-
-                setVideoData((prevURLs) => ({
-                    ...prevURLs,
-                    [imageKey]: URL.createObjectURL(blob),
-                }));
-            } catch (error) {
-                console.error('Error fetching image URL:', error);
-            }
+            setVideoData((prevURLs) => ({
+                ...prevURLs,
+                ...urls,
+            }));
         };
-        clip.forEach((item) => getVideoURL(item.clip.Clips[0].fileName));
+        clip.forEach((session) => {
+            const clips = session.clip.Clips;
+            getVideoURLs(clips);
+        });
     }, [clip]);
 
     return (
@@ -59,26 +58,32 @@ function Clips() {
             <br />
             <div className="cards">
                 <Expander type='single' isCollapsible={true}>
-                    <ExpanderItem title='Session #: Start Time - End Time' value='expander-item'>
-                        {clip.map((items) => (
-                            <Expander type='multiple' isCollapsible={true}>
-                                <ExpanderItem title='Clip #: Start Time - End Time' value='clip-expander'>
-                                    <Link to="/clips/0">
-                                        <Card className="pet-card">
-                                            {videoData && videoData[items.clip.Clips[0].fileName] && (
-                                                <video controls src={videoData[items.clip.Clips[0].fileName]} className="clip-video" />
-                                            )}
-                                            <Badge className='petOnBedBadge' variation='warning'>Alert Type</Badge>
-                                        </Card>
-                                    </Link>
-                                </ExpanderItem>
-                            </Expander>
-                        ))}
-                    </ExpanderItem>
+                    {clip.map((session) => (
+                        <Expander type='multiple' isCollapsible={true} key={session.id}>
+                            <ExpanderItem title={`Session ${session.id}: ${session.start} - ${session.end}`} value='session-expander'>
+                                {session.clip.Clips.map((clip) => (
+                                    <Expander type='multiple' isCollapsible={true} key={clip.fileName}>
+                                        <ExpanderItem title={`Clip: ${clip.start} - ${clip.end}`} value='clip-expander'>
+                                            <Link to={`/clips/${clip.fileName}`}>
+                                                <Card className="pet-card">
+                                                    {videoData && videoData[clip.fileName] && (
+                                                        <video controls src={videoData[clip.fileName]} className="clip-video" />
+                                                    )}
+                                                    <Badge className='petOnBedBadge' variation='warning'>Alert Type</Badge>
+                                                </Card>
+                                            </Link>
+                                        </ExpanderItem>
+                                    </Expander>
+                                ))}
+                            </ExpanderItem>
+                        </Expander>
+                    ))}
                 </Expander>
             </div>
             <br />
         </>
-    )
+    );
 }
 export default Clips
+
+
