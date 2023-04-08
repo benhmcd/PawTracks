@@ -67,10 +67,8 @@ function Pet() {
     <>
       <h1>Edit Pet: {pet.name}</h1>
     <div className= 'PetUpdateForm-container'>
-      <PetUpdateForm pet={pet} onSubmit={handleUpdate} />
-      <PetUpdateForm pet={pet} onSuccess={() => {
+      <PetUpdateForm pet={pet}  onSubmit={handleUpdate} onSuccess={() => {
         setShowForm(false)
-      
       }} />
       </div>
       
