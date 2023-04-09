@@ -1,6 +1,7 @@
 import React from 'react';
 import './Audio.css';
 import localforage from "localforage";
+import { Storage } from "@aws-amplify/storage";
 
 const MicRecorder = require('mic-recorder-to-mp3');
 const mp3Recorder = new MicRecorder({bitRate: 128});
@@ -41,7 +42,14 @@ export function stopRecording()
         lastModified: Date.now()
       });
       
-      localforage.setItem("currentFile", file);
+      Storage.put("audio.mp3", file, {
+        level: "private",
+        contentType: file.type
+    }).then(() => {
+        console.log("Audio file uploaded successfully");
+    }).catch((error) => {
+        console.error("Error uploading audio file: ", error);
+    });
     }).catch((error) => {
       console.error(error);
     });
