@@ -1,12 +1,10 @@
 import OpenMicSet from '../pages/Audio/Audio.js'
 import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
-import { Storage } from "@aws-amplify/storage"
 
 const AudioRecord = () => {
 
     const[buttonMic, setButtonMic] = useState(false);
-    const { id } = useParams();
 
     return (
         <div>

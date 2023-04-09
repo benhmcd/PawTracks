@@ -2,23 +2,33 @@ import React, { useState } from "react";
 import { Storage } from "@aws-amplify/storage"
 
 //Call To Play Sounds
-export function playAudio()
-  {
-    const  [downloadUrl, setDownloadUrl] = useState(null);
+const useAudioPlayer = (filename) => {
+    const [audioUrl, setAudioUrl] = useState(null);
 
-    // Define a function to handle the download of the file
-    const handleDownload = async () => {
-        const downloadUrl = await Storage.get('audio.mp3', { level: "private" });
-        setDownloadUrl(downloadUrl);
-        //console.log(downloadUrl);
+    const playAudio = async () => {
+        const downloadUrl = await Storage.get(filename, { level: "private"});
+        setAudioUrl(downloadUrl);
         const audio = new Audio(downloadUrl);
         audio.play();
     };
-    
-    return(
+
+    return [playAudio, audioUrl];
+};
+
+const AudioPlayer = () => {
+    const [playAudio, audioUrl] = useAudioPlayer("audio.mp3");
+
+    return (
         <div>
-            <button onClick={handleDownload}>Play Audio</button>
+            <button onClick={playAudio}>Play Audio</button>
+            {audioUrl && (
+                <div>
+                    <audio>
+                        <source src={audioUrl} type="audio/mpeg"/>
+                    </audio>
+                </div>
+            )}
         </div>
-        );
-  };
-  export default playAudio;
+    );
+};
+export default AudioPlayer;

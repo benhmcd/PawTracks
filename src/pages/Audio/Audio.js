@@ -1,6 +1,5 @@
 import React from 'react';
 import './Audio.css';
-import localforage from "localforage";
 import { Storage } from "@aws-amplify/storage";
 
 const MicRecorder = require('mic-recorder-to-mp3');

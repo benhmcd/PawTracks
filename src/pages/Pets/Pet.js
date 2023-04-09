@@ -12,7 +12,7 @@ import { PetUpdateForm } from '../../ui-components';
 import { useNavigate } from 'react-router-dom';
 
 import AudioRecord from '../../controllers/AudioRecord';
-import playAudio from '../../controllers/AudioPlayer';
+import AudioPlayer from '../../controllers/AudioPlayer';
 
 import './Pet.css';
 
@@ -25,9 +25,6 @@ function Pet() {
 
   // Declare state variable to store the pet object
   const [pet, setPet] = useState([]);
-
-  // Setup variables for recording audio
-  const[buttonMic, setButtonMic] = useState(false);
 
   // Fetch the pet data from DataStore using the `id` parameter
   useEffect(() => {
@@ -84,7 +81,7 @@ function Pet() {
       <hr />
       <AudioRecord />
       <br />
-      <playAudio />
+      <AudioPlayer />
       <br />
     </>
   )
