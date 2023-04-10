@@ -120,6 +120,7 @@ function Home() {
     }
 
     async function detectFrame() {
+        var IncidentType = []
         if (!shouldRecordRef.current) {
             stopRecording();
             return;
@@ -131,7 +132,9 @@ function Home() {
         petOnBedDetection = petOnBed(detectionsRef.current);
 
         if (personFound || petOnBedDetection) {
+            // Add Alert Types Here
             if (personFound) {
+                IncidentType.push(["Person"]);
                 console.log("Alert Type: Person");
             }
             if (petOnBedDetection) {
@@ -157,26 +160,28 @@ function Home() {
     }
 
     function petOnBed(detections) {
-        var dogBox = null;
+        var petBox = null;
         var bedBox = null;
         detections.forEach(prediction => {
-            if (prediction['class'] === 'dog') {
-                dogBox = prediction['bbox']
+            if (prediction['class'] === 'dog' || prediction['class'] === 'cat' || prediction['class'] === 'bird') {
+                petBox = prediction['bbox']
             }
             if (prediction['class'] === 'bed') {
                 bedBox = prediction['bbox']
             }
         })
 
-        if ((!(dogBox === "undefined" || dogBox === null)) && (!(bedBox === "undefined" || bedBox === null))) {
-            if (bedBox[0] < dogBox[0] && bedBox[1] < dogBox[1]) {
-                if (((dogBox[0] + dogBox[2]) < (bedBox[0] + bedBox[2]))
-                    && ((dogBox[1] + dogBox[3]) < (bedBox[1] + bedBox[3]))) {
-                    //alert("THE DOG IS ON THE BED!!!!")
+        if ((!(petBox === "undefined" || petBox === null)) && (!(bedBox === "undefined" || bedBox === null))) {
+            if (bedBox[0] < petBox[0] && bedBox[1] < petBox[1]) {
+                if (((petBox[0] + petBox[2]) < (bedBox[0] + bedBox[2]))
+                    && ((petBox[1] + petBox[3]) < (bedBox[1] + bedBox[3]))) {
+                    alert("A " + prediction['class'] +  "IS ON THE BED!!!!");
                     return true;
                 }
             }
         }
+
+        //IncidentType.push(["Pet On Bed", prediction['class']]);
         return false;
     };
 
@@ -195,13 +200,14 @@ function Home() {
             return;
         }
         recordingRef.current = true;
-        const clipStarttTime = new Date();
+        const clipStartTime = new Date();
         console.log("Clip Start: " + new Date());
         currentClipTitleRef.current = uuidv4();
         clips.Clips.push({
-            "start": clipStarttTime,
+            "start": clipStartTime,
             "end": "temp",
-            "IncidentList": [
+            "IncidentList":
+            [
                 "type, petType, time",
                 "type, petType, time"
             ],

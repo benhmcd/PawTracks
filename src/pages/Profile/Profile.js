@@ -1,12 +1,13 @@
 import { React, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import './Profile.css';
-import { SliderField } from '@aws-amplify/ui-react';
+import { SliderField, SwitchField } from '@aws-amplify/ui-react';
 import Multiselect from 'multiselect-react-dropdown';
 import { ConsoleLogger } from '@aws-amplify/core';
 import { mul } from '@tensorflow/tfjs';
 
 function Profile() {
+const [isChecked, setIsChecked] = useState(true);
 const [sliderValue, setSliderValue] = useState(0);
 var [multiList, setMultiList] = useState([]);
 
@@ -48,9 +49,9 @@ restrictedAreaOptions.forEach((area) => {
         //console.log("Selected Area: " + selectedArea.name);
         settings.current['restrictedAreas'] = selectedAreas;
         try {
-        setMultiList(multiList.concat(<div id={"restrictedPetSelect" + selectedArea.name}><h3>Restricted Pet for {selectedArea.name}</h3>
-        <Multiselect className="restrictedPetSelect" id={selectedArea.name} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']} 
-        onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={onRemovePet} displayValue="name" placeholder="Select pets to restrict" /></div>));
+        setMultiList(multiList.concat(<div id={idName} ><h3>Restricted Pet for {selectedArea.name}</h3>
+        <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']} 
+        onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={(selectedPets, removedItem) => onRemovePet(selectedPets, removedItem, selectedArea)} displayValue="name" placeholder="Select pets to restrict" /></div>));
         } catch (e) {
             console.error(e);
         }
@@ -70,12 +71,17 @@ restrictedAreaOptions.forEach((area) => {
             var itemIndex = multiList.findIndex(item => item.props.id === "restrictedPetSelect" + removedItem.name);
             console.log("SELECTED ITEM: " + JSON.stringify(multiList[itemIndex]['props']['children'][1]['props']['options'][1]));
             setMultiList(multiList = multiList.filter(function (list, index) { return index !== itemIndex;}));
-            console.log("MULTILIST----------" + JSON.stringify(multiList))
         } catch(e) {
             console.error(e);
         }
-    
+        
+        settings.current['restrictedAreas'].forEach((area) => {
+            console.log("Settings on Removal: " + area['name'] + "Restricted Pets:" + JSON.stringify(area['restrictedPets']));
+        })
         console.log("Settings on Removal: " + JSON.stringify(settings.current['restrictedAreas']));
+        console.log("MULTILIST----------" + JSON.stringify(multiList[0]['props']['children'][1]['props']['id']));
+        console.log("SELECTED VALUES----------" + JSON.stringify(multiList[0]['props']['children'][1]['props']['selectedValues']));
+        
     }
 
     /*
@@ -95,9 +101,9 @@ restrictedAreaOptions.forEach((area) => {
         })
     }
 
-    function onRemovePet(selectedPets, removedItem) {
+    function onRemovePet(selectedPets, removedItem, selectedArea) {
         //Remove item from array
-        settings.current['restrictedAreas'][settings.current['restrictedAreas'].length - 1]['restrictedPets'] = selectedPets;
+        settings.current['restrictedAreas'].find(item => item.name === selectedArea.name)['restrictedPets'] = selectedPets;
         settings.current['restrictedAreas'].forEach((area) => {
             console.log(area['name'] + " Restricted Pets (Remove): " + JSON.stringify(area['restrictedPets']));
         })
@@ -106,7 +112,21 @@ restrictedAreaOptions.forEach((area) => {
     return (
         <>
             <h1>Profile</h1>
+            {/*Put User Information Form Here*/}
+            
             <h1>Settings</h1>
+            <h2>Record Clips</h2>
+            <SwitchField
+            isChecked={isChecked}
+            name='recordClips'
+            onChange={(e) => {
+                setIsChecked(e.target.checked);
+            }}
+            label='Record Clips'
+            labelPosition='start'
+            thumbColor={'var(--backgroundColor)'}
+            trackCheckedColor={'var(--secondaryColor)'}
+            ></SwitchField>
             <SliderField id="confidenceSlider"
                 label='Minimum Confidence:'
                 max={1} step={0.1} size='large'

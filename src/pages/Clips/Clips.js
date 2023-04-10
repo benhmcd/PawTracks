@@ -19,7 +19,7 @@ function Clips() {
             // observe changes to the PetModel and update the state
             const subscription = DataStore.observeQuery(Session).subscribe(({ items }) => {
                 setClip(items)
-                console.log(items)
+                console.log("ITEMS: " + JSON.stringify(items))
             });
         };
         // call the function to fetch the data
