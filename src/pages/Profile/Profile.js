@@ -49,10 +49,7 @@ restrictedAreaOptions.forEach((area) => {
         //console.log("Selected Area: " + selectedArea.name);
         settings.current['restrictedAreas'] = selectedAreas;
         try {
-            var idName = 'restrictedPets'
-            idName = idName.concat(selectedArea.name)
-            console.log('Multilist ID Name: ' + idName)
-        setMultiList(multiList.concat(<div id={idName} ><h3>Restricted Pet for {selectedArea.name}</h3>
+        setMultiList(multiList.concat(<div id={'restrictedPetSelect'.concat(selectedArea.name)} ><h3>Restricted Pet for {selectedArea.name}</h3>
         <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']} 
         onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={(selectedPets, removedItem) => onRemovePet(selectedPets, removedItem, selectedArea)} displayValue="name" placeholder="Select pets to restrict" /></div>));
         } catch (e) {
@@ -71,7 +68,9 @@ restrictedAreaOptions.forEach((area) => {
         
 
         try{
+            console.log('MULTILIST: ' + JSON.stringify(multiList));
             var itemIndex = multiList.findIndex(item => item.props.id === "restrictedPetSelect" + removedItem.name);
+            console.log("ITEM INDEX: " + itemIndex)
             console.log("SELECTED ITEM: " + JSON.stringify(multiList[itemIndex]['props']['children'][1]['props']['options'][1]));
             setMultiList(multiList = multiList.filter(function (list, index) { return index !== itemIndex;}));
         } catch(e) {
