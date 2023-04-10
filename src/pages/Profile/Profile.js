@@ -49,8 +49,8 @@ restrictedAreaOptions.forEach((area) => {
         //console.log("Selected Area: " + selectedArea.name);
         settings.current['restrictedAreas'] = selectedAreas;
         try {
-            let idName = restrictedPets
-            idName.concat(selectedArea.name)
+            var idName = 'restrictedPets'
+            idName = idName.concat(selectedArea.name)
             console.log('Multilist ID Name: ' + idName)
         setMultiList(multiList.concat(<div id={idName} ><h3>Restricted Pet for {selectedArea.name}</h3>
         <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']} 
