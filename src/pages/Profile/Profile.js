@@ -49,6 +49,9 @@ restrictedAreaOptions.forEach((area) => {
         //console.log("Selected Area: " + selectedArea.name);
         settings.current['restrictedAreas'] = selectedAreas;
         try {
+            let idName = restrictedPets
+            idName.concat(selectedArea.name)
+            console.log('Multilist ID Name: ' + idName)
         setMultiList(multiList.concat(<div id={idName} ><h3>Restricted Pet for {selectedArea.name}</h3>
         <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']} 
         onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={(selectedPets, removedItem) => onRemovePet(selectedPets, removedItem, selectedArea)} displayValue="name" placeholder="Select pets to restrict" /></div>));
@@ -113,7 +116,7 @@ restrictedAreaOptions.forEach((area) => {
         <>
             <h1>Profile</h1>
             {/*Put User Information Form Here*/}
-            
+
             <h1>Settings</h1>
             <h2>Record Clips</h2>
             <SwitchField

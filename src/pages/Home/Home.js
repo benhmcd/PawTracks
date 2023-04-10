@@ -162,9 +162,11 @@ function Home() {
     function petOnBed(detections) {
         var petBox = null;
         var bedBox = null;
+        var typeOfPet = null;
         detections.forEach(prediction => {
             if (prediction['class'] === 'dog' || prediction['class'] === 'cat' || prediction['class'] === 'bird') {
                 petBox = prediction['bbox']
+                typeOfPet = prediction['class']
             }
             if (prediction['class'] === 'bed') {
                 bedBox = prediction['bbox']
@@ -175,7 +177,7 @@ function Home() {
             if (bedBox[0] < petBox[0] && bedBox[1] < petBox[1]) {
                 if (((petBox[0] + petBox[2]) < (bedBox[0] + bedBox[2]))
                     && ((petBox[1] + petBox[3]) < (bedBox[1] + bedBox[3]))) {
-                    alert("A " + prediction['class'] +  "IS ON THE BED!!!!");
+                    alert("A " + typeOfPet +  "IS ON THE BED!!!!");
                     return true;
                 }
             }
