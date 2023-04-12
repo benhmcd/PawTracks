@@ -69,9 +69,6 @@ function Pet(props) {
   return (
     <div className='edit-pet-container'>
       <h1>Edit Pet: {pet.name}</h1>
-      <hr />
-      <br />
-      <h2>Pet Image:</h2>
       <br />
       <PhotoUpload />
       <br />
