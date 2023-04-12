@@ -9,7 +9,7 @@ function OpenMicSet(props) {
     return(props.trigger) ? (
         <div className="Mic-set-window">
             <div className="Mic-set-content">
-                <button className='Close-Mic-set' 
+                <button className='Close-Mic-set' id='Exit-btn'
                 onClick={() => props.setTrigger(false)}>Exit</button>
                 { props.children }
             <button id='Mic-Record-btn' onClick={startRecording}>Start Recording</button>
@@ -27,7 +27,7 @@ export function startRecording()
     }).catch((error) => {
       console.error(error);
     });
-
+    document.getElementById("Exit-btn").disabled = true;
     document.getElementById("Mic-Record-btn").hidden = true;
     document.getElementById("Mic-Stop-btn").hidden = false;
   }
@@ -53,6 +53,7 @@ export function stopRecording()
       console.error(error);
     });
 
+    document.getElementById("Exit-btn").disabled = false;
     document.getElementById("Mic-Stop-btn").hidden = true;
     document.getElementById("Mic-Record-btn").hidden = false;
   }

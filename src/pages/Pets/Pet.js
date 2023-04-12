@@ -10,11 +10,7 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
-import AudioRecord from '../../controllers/AudioRecord';
-import AudioPlayer from '../../controllers/AudioPlayer';
-
 import './Pet.css';
-
 
 function Pet(props) {
   
@@ -64,13 +60,22 @@ function Pet(props) {
     }
   };
 
+  // Define the handleCancel function
+  const handleCancel = async (fields) => {
+    try {
+      navigate('/pets');
+    } catch (error) {
+      console.log('Cancellation error: ', error);
+    }
+  }
 
   // Render the pet information on the page
   return (
     <div className='edit-pet-container'>
       <h1>Edit Pet: {pet.name}</h1>
       <br />
-      <PhotoUpload />
+      {console.log("PET ID: " + petId)}
+      <PhotoUpload id={petId}/>
       <br />
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} padding={'0'} />
     </div>

@@ -14,18 +14,23 @@ const updatedTheme = createTheme({
   name: "my-theme-updates",
   tokens: {
     components: {
-    button: {
-      primary: {
-        backgroundColor: {
-          value: "var(--secondaryColor)"
-        },
-        color: {
-          value: "var(--backgroundColor)"
+      button: {
+        primary: {
+          backgroundColor: {
+            value: "var(--secondaryColor)"
+          },
+          color: {
+            value: "var(--backgroundColor)"
+          },
+          _hover : {
+            backgroundColor: {
+              value: "black"
+            }
+          }
         }
       }
     }
   }
-}
 }, studioTheme)
 
 

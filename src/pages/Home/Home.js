@@ -318,7 +318,7 @@ function Home() {
 
     async function handleSessionEnd() {
         // Save session to datastore
-        console.log(clips)
+        //console.log(clips)
         console.log("DateStore" + Object.isFrozen(clips.Clips.length - 1))
         await SaveSession(clips, sessionStartTime, sessionEndTime);
         //console.log("Session saved to datastore");
@@ -333,7 +333,7 @@ function Home() {
                 <video className='video-prop' id="webcam" autoPlay playsInline muted ref={videoElement} />
                 <button id='home-btn' onClick={() => {
                     sessionStartTime = new Date();
-                    console.log("Session Start: " + new Date());
+                    console.log("SESSION Start: " + sessionStartTime);
                     shouldRecordRef.current = true;
                     homeButtonElement.current.setAttribute("hidden", true);
                     awayButtonElement.current.removeAttribute("hidden");
@@ -341,13 +341,12 @@ function Home() {
                 }} ref={homeButtonElement}><AiOutlineHome /> Home</button>
                 <button id='away-btn' onClick={() => {
                     sessionEndTime = new Date();
-                    console.log("Session End: " + new Date());
+                    console.log("SESSION END: " + sessionEndTime.toLocaleString());
                     shouldRecordRef.current = false;
                     awayButtonElement.current.setAttribute("hidden", true);
                     homeButtonElement.current.removeAttribute("hidden");
-                    console.log("CLips" + clips);
                     stopRecording();
-                    console.log("CLips" + clips);
+                    console.log("Clips" + clips);
                     handleSessionEnd();
                 }} ref={awayButtonElement}><BiCar /> Away</button>
                 <button id="swap-cam" onClick={() => {
