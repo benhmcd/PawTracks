@@ -6,13 +6,6 @@ html {
   box-sizing: inherit;
 }
 
-:root{
-  --mainColor: #8FC1E3;
-  --secondaryColor: #3170BE;
-  --backgroundColor: #F7F9FB;
-  --textColor: #000000;
-}
-
 h1 {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */

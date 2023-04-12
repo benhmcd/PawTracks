@@ -11,6 +11,9 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
+import AudioRecord from '../../controllers/AudioRecord';
+import AudioPlayer from '../../controllers/AudioPlayer';
+
 import './Pet.css';
 
 
@@ -20,6 +23,7 @@ function Pet(props) {
 
   // Get the ID parameter from the URL using `useParams` hook
   const { id } = useParams();
+  const [showForm, setShowForm] = useState(true)
 
   let navigate = useNavigate();
 
@@ -63,6 +67,7 @@ function Pet(props) {
     }
   };
 
+
   // Render the pet information on the page
   return (
     <>
@@ -72,11 +77,12 @@ function Pet(props) {
       <br />
       <hr />
       <PhotoUpload />
-      <PhotoDownload />
+      
       <br />
       <hr />
-      <VideoUpload />
-      <VideoDownload />
+      <AudioRecord />
+      <br />
+      <AudioPlayer />
       <br />
     </>
   )
