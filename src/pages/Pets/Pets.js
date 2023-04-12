@@ -18,7 +18,7 @@ import { IconContext } from "react-icons";
 
 function Pets() {
 
-  const [pet, setPet] = useState([]);
+  const [pets, setPet] = useState([]);
   const [imageURLs, setImageURLs] = useState({});
   const [isLoading, setIsLoading] = useState(true); // add a loading state
 
@@ -32,7 +32,7 @@ function Pets() {
       // observe changes to the PetModel and update the state
       const subscription = DataStore.observeQuery(PetModel).subscribe(({ items }) => {
         setPet(items)
-        console.log(items)
+        console.log(item)
       });
     };
     // call the function to fetch the data
@@ -59,8 +59,8 @@ function Pets() {
         console.error('Error fetching image URL:', error);
       }
     };
-    pet.forEach((item) => getImageURL(item.id));
-  }, [pet]);
+    pets.forEach((item) => getImageURL(item.id));
+  }, [pets]);
 
   const handleDelete = async (petDelete) => {
     try {
@@ -84,33 +84,33 @@ function Pets() {
         <Link to='/pets/addPet'><button className="add-button">Add Pets</button></Link>
       </div>
       <div className="cards">
-        {pet.map((items) => (
+        {pets.map((item) => (
           <Card className="pet-card">
             <div className='pet-content'>
               <div className="pet-head">
                 <header className='pet-name'>
-                  {items.name}
+                  {item.name}
                 </header>
               </div>
               <Divider />
-              {imageURLs[items.id] && (
+              {imageURLs[item.id] && (
                 <div className="pet-image-container">
-                  <img src={imageURLs[items.id]} alt={items.name} className="pet-image" />
+                  <img src={imageURLs[item.id]} alt={item.name} className="pet-image" />
                 </div>
               )}
               <div className='pet-info'>
-                <h5>{items.image}</h5>
-                <h5>Type:</h5> <p>{items.type[0].toUpperCase() + items.type.slice(1).toLowerCase()}</p>
-                <h5>Weight:</h5> <p>{items.weight}</p>
-                <h5>Age:</h5> <p>{items.age}</p>
+                <h5>{item.image}</h5>
+                <h5>Type:</h5> <p>{item.type[0].toUpperCase() + item.type.slice(1).toLowerCase()}</p>
+                <h5>Weight:</h5> <p>{item.weight}</p>
+                <h5>Age:</h5> <p>{item.age}</p>
               </div>
               <div className="pet-buttons">
-                <Link to={`/pets/${items.id}`} key={items.id} className="edit-link">
+                <Link to={`/pets/${item.id}`} key={item.id} className="edit-link">
                   <IconContext.Provider value={{ className: "edit-icon" }}>
                     <MdOutlineEdit />
                   </IconContext.Provider>
                 </Link>
-                <button className='delete-button' onClick={() => handleDelete(items)}>
+                <button className='delete-button' onClick={() => handleDelete(item)}>
                   <IconContext.Provider value={{ className: "delete-icon" }}>
                     <RiDeleteBin5Line />
                   </IconContext.Provider>

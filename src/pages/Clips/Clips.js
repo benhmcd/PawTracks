@@ -69,22 +69,25 @@ function Clips() {
                 <Expander type='single' isCollapsible={true}>
                     {clip.map((session) => (
                         <Expander type='multiple' isCollapsible={true} key={session.id}>
-                            <ExpanderItem title={`Session ${session.id}: ${session.start} - ${session.end}`} value='session-expander'>
+                            {console.log('SESSION ID: ' + session.id)}
+                            <ExpanderItem title={`Session #${clip.findIndex(item => item.id === session.id) + 1}: ${new Date(session.start).toLocaleString()} - ${new Date(session.end).toLocaleString()}`} value='session-expander'>
+                                {/* multiList.findIndex(item => item.props.id === "restrictedPetSelect" + removedItem.name); */}
                                 {session.clip.Clips.map((clip) => (
                                     <Expander type='multiple' isCollapsible={true} key={clip.fileName}>
-                                        <ExpanderItem title={`Clip: ${clip.start} - ${clip.end}`} value='clip-expander'>
+                                        <ExpanderItem title={`Clip #${session.clip.Clips.findIndex(item => item.fileName === clip.fileName) + 1}: ${new Date(clip.start).toLocaleString()} - ${new Date(clip.end).toLocaleString()}`} value='clip-expander'>
                                             <Link to={`/clips/${clip.fileName}`}>
                                                 <Card className="pet-card">
                                                     {videoData && videoData[clip.fileName] && (
                                                         <video controls src={videoData[clip.fileName]} className="clip-video" />
                                                     )}
-                                                    <Badge className='petOnBedBadge' variation='warning'>Alert Type</Badge>
+                                                    <Badge className='petOnBedBadge'>Alert Type</Badge>
                                                 </Card>
                                             </Link>
                                         </ExpanderItem>
                                     </Expander>
                                 ))}
-                                <DeleteSession session={session} />
+                                <br/>
+                                <DeleteSession session={session} className='deleteSessionBtn'/>
                             </ExpanderItem>
                         </Expander>
                     ))}
