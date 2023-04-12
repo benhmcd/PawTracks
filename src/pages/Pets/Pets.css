@@ -1,0 +1,259 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1 {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.addPet-container {
+  display: flex;
+  height: 2.5rem;
+  width: auto;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-button {
+  background-color: var(--secondaryColor);
+  color: var(--backgroundColor);
+  padding:  5px 15px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.add-button:hover {
+  background-color: #255DAF;
+  padding: 7px 25px;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: baseline;
+  align-content: space-around;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 125px;
+}
+
+@media (max-width: 767px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pet-card {
+  border: 3px solid #020202;
+  border-radius: 9px;
+  width: 275px;
+  height: auto;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 4px 4px #000000;
+  position: relative;
+  margin: 0 5px 50px 0;
+  transition: 0.425s;
+  padding: 10px;
+}
+
+.pet-card:hover {
+  /* border: 3px solid var(--secondaryColor); */
+  width: 325px;
+  box-shadow: 8px 8px var(--mainColor);
+}
+
+.pet-content {
+  border-radius: 9px;
+  padding: 5px 0;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.pet-head {
+  display: grid;
+  grid-template-columns: 25px auto 25px;
+}
+
+.pet-name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  grid-column: 2;
+}
+
+.pet-image-container {
+  height: 200px;
+  width: 200px;
+  border: 5px solid #ffffff;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+
+.pet-card .pet-image-container {
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-image-container {
+  width: 250px;
+  height: 250px;
+  border-radius: 25px;
+}
+
+.pet-image {
+  object-fit: cover;
+  width: 120%;
+  margin: auto;
+  display: block;
+  filter: opacity(80%);
+}
+
+.pet-card .pet-image-container .pet-image {
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-image-container .pet-image {
+  width: 100%;
+  filter: opacity(100%);
+}
+
+.pet-info {
+  display: grid;
+  grid-template-columns: 52.5% auto;
+  column-gap: 0.25rem;
+  row-gap: 0.25rem;
+  padding: 0;
+}
+
+.pet-info h5 {
+  grid-column: 1;
+  text-align: right;
+  vertical-align: baseline;
+  font-size: 1rem;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.pet-info p {
+  grid-column: 2;
+  text-align: left;
+  vertical-align: baseline;
+  font-size: 1rem;
+}
+
+.pet-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.edit-button {
+  position: relative;
+  z-index: 1; /* add z-index */
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.delete-button {
+  position: relative;
+  z-index: 1; /* add z-index */
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.edit-button .edit-icon, .delete-button .delete-icon {
+  color: #000000;
+  border: 3px solid #ffffff;
+  transition: 0.3s;
+}
+
+.edit-button:hover .edit-icon, .delete-button:hover .delete-icon {
+  color: var(--secondaryColor);
+  border: 3px solid var(--secondaryColor);
+  border-radius: 9px;
+}
+
+.pet-card .pet-content .pet-buttons .edit-icon, .pet-card .pet-content .pet-buttons .delete-button .delete-icon  {
+  font-size: 2rem;
+  transition: 0.3s;
+}
+
+.pet-card:hover .pet-content .pet-buttons .edit-icon, .pet-card:hover .pet-content .pet-buttons .delete-button .delete-icon  {
+  font-size: 2.5rem;
+}
+
+.pet-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 0.5rem;
+  outline: none;
+  padding: 1rem;
+}
+
+.pet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(1rem);
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}

@@ -1,105 +1,96 @@
-// Import dependencies
+// Import required dependencies
 import React, { useRef, useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as tf from "@tensorflow/tfjs";
-
-// Import required model here
-import * as cocossd from "@tensorflow-models/coco-ssd";
-import Webcam from "react-webcam";
 import "./App.css";
 
-// Import drawing utility here
-import { drawRectangle } from "./utilities";
+import AddPet from "./pages/Pets/AddPet";
+import Clip from "./pages/Clips/Clip"
+import Clips from "./pages/Clips/Clips";
+import Footer from "./pages/Footer/Footer";
+import Home from "./pages/Home/Home";
+import Navbar from "./pages/Navbar/Navbar";
+import NotFound from "./pages/NotFound/NotFound";
+import Pet from "./pages/Pets/Pet";
+import Pets from "./pages/Pets/Pets";
+import Profile from "./pages/Profile/Profile";
+import Test from "./pages/Test/Test";
+import Trick from "./pages/Tricks/Trick";
+import Tricks from "./pages/Tricks/Tricks";
 
-function App() {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
+// Import Amplify Package's and Auth
+import { Amplify, API, Auth } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+// Amplify DataStore
+import { DataStore } from '@aws-amplify/datastore';
 
-  // Main function
-  const runCoco = async () => {
-    // Load network 
-    const net = await cocossd.load();
 
-    //  Loop and detect
-    setInterval(() => {
-      detect(net);
-    }, 16.7);
-  };
-
-  const detect = async (net) => {
-    // Check data is available
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
-    ) {
-      // Get Video Properties
-      const video = webcamRef.current.video;
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
-      //alert(videoWidth + " x " + videoHeight);
-
-      // Set video width
-      webcamRef.current.video.width = videoWidth;
-      webcamRef.current.video.height = videoHeight;
-
-      // Set canvas height and width
-      canvasRef.current.width = videoWidth;
-      canvasRef.current.height = videoHeight;
-
-      // Make Detections
-      const obj = await net.detect(video);
-      console.log(obj);
-
-      // Draw mesh
-      const canvas = canvasRef.current.getContext("2d");
-
-      // Update drawing utility
-      drawRectangle(obj, canvas);
+// Main function
+function App({ user }) {
+  // Function to handle the auth state change
+  const handleAuthStateChange = (authState) => {
+    if (authState === 'signedout') {
+      console.log('User is signed out');
+      // Clear the DataStore when the user signs out, this prevents data leaking from one user to the next
+      DataStore.clear();
+      console.log('Data cleared afer signed out');
     }
+  }
+
+  // Function to sign out the user
+  const signOut = () => {
+    Auth.signOut()
+      .then(() => {
+        // Call handleAuthStateChange when the user signs out
+        handleAuthStateChange('signedout');
+      })
+      .catch((error) => {
+        console.log('Error signing out:', error);
+      });
   };
 
-  useEffect(()=>{runCoco()},[]);
-
+  const tricks = {
+    Dog: {
+        Sit: {name: 'Sit', embedId: "EDgi2sLlWAU", description: 'Teach your dog how to sit on command.'},
+        Shake: {name: 'Shake', embedId: "G3-hec29wII", description: 'Teach your dog how to shake on command.'},
+        Lay: {name: 'Lay', embedId: "hHKtUp9-xbc", description: 'Teach your dog how to lay on command.'}
+    },
+    Cat: {
+        Come: {name: 'Come', embedId: "OFjlF7zQF_g", description: 'Teach your cat how to come on command.'},
+        HighFive: {name: 'High Five', embedId: "4NWS0mtjMuw", description: 'Teach your cat how to high five on command.'},
+        Stay: {name: 'Stay', embedId: "WLetRnjCEtU", description: 'Teach your cat how to stay on command.'}
+    },
+    Bird: {
+        Talk: {name: 'Talk', embedId: "PiPk8GS8UqM", description: 'Teach your bird how to talk on command.'},
+        PlayDead: {name: 'Play Dead', embedId: "RZ4dJ7nV1wI", description: 'Teach your bird how to play dead on command.'},
+        Fly: {name: 'Fly', embedId: "oHFkF4ZQp_4", description: 'Teach your bird how to fly on command.'}
+    }
+}
+  //Return app Router Navigation
   return (
     <div className="App">
-      <h1>
-        <img src='/pawTracksLogo192.png' alt='logo' height='32px' width='32px'/>
-        Paw Tracks
-        </h1>
-      <header className="App-header">
-        <Webcam
-          ref={webcamRef}
-          muted={true} 
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            zindex: 9,
-            width: 640,
-            height: 480,
-          }}
-        />
-
-        <canvas
-          ref={canvasRef}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            zindex: 8,
-            width: 640,
-            height: 480,
-          }}
-        />
-      </header>
+      <Router>
+        <Navbar firstName={user.attributes.name.split(' ')[0]} signOut={signOut}> </Navbar>
+        <img src='pawTrack.png' className='bigPawTrack'></img>
+        <div className='mainContent'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/clips' element={<Clips />} />
+          <Route path='/clips/:id' element={<Clip />} />
+          <Route path='/pets' element={<Pets />} />
+          <Route path='/pets/addPet' element={<AddPet />} />
+          <Route path='/pets/:id' element={<Pet />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/test' element={<Test />} />
+          <Route path='/tricks' element={<Tricks tricks={tricks} />} />
+          <Route path='/tricks/:trick' element={<Trick tricks={tricks} />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        </div>
+        <Footer />
+      </Router>
     </div>
   );
 }
-
-export default App;
+export default withAuthenticator(App);

@@ -3,23 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/ui-react": "^4.3.4",
     "@tensorflow-models/coco-ssd": "^2.1.0",
     "@tensorflow/tfjs": "^2.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "aws-amplify": "^5.0.11",
+    "mic-recorder-to-mp3": "^2.2.2",
+    "multiselect-react-dropdown": "^2.0.25",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^4.7.1",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.7.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^5.0.1",
     "react-webcam": "^5.2.0",
     "styled-components": "^5.3.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -36,5 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^6.3.0",
+    "mocha": "^10.2.0",
+    "mochawesome": "^4.1.0",
+    "start-server-and-test": "^2.0.0"
   }
 }
