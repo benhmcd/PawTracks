@@ -11,6 +11,9 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
+import AudioRecord from '../../controllers/AudioRecord';
+import AudioPlayer from '../../controllers/AudioPlayer';
+
 import './Pet.css';
 
 
@@ -75,6 +78,11 @@ function Pet() {
       <hr />
       <PhotoUpload />
       
+      <br />
+      <hr />
+      <AudioRecord />
+      <br />
+      <AudioPlayer />
       <br />
     </>
   )
