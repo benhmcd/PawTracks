@@ -27,14 +27,14 @@ function Pet(props) {
   useEffect(() => {
     const getDate = async () => {
       // Use the `query` method to retrieve the pet data from DataStore
-      const post = await DataStore.query(PetModel, id);
+      const post = await DataStore.query(PetModel, petId);
       // Update the `pet` state variable with the retrieved data
       setPet(post)
       // Log the retrieved pet data to the console
       console.log(post)
     }
     getDate();
-  }, [])
+  }, [petId])
   // Define the handleUpdate function
   const handleUpdate = async (fields) => {
     try {
