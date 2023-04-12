@@ -32,6 +32,7 @@ function Pet(props) {
       setPet(post)
       // Log the retrieved pet data to the console
       console.log(post)
+      console.log('petId:', petId);
     }
     getDate();
   }, [petId])
@@ -66,15 +67,6 @@ function Pet(props) {
       <h1>Edit Pet: {pet.name}</h1>
   
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} />
-      <br />
-      <hr />
-      <PhotoUpload />
-      <PhotoDownload />
-      <br />
-      <hr />
-      <VideoUpload />
-      <VideoDownload />
-      <br />
     </>
   )
 }
