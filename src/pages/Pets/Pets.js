@@ -27,6 +27,7 @@ function Pets() {
   const [editPetIsOpen, setEditPetIsOpen] = useState(false);
   const [pet, setPet] = useState([]);
   const [imageURLs, setImageURLs] = useState({});
+  const [currentPet, setCurrentPet] = useState([]);
 
   useEffect(() => {
     // an async function to fetch the data and subscribe to changes
@@ -77,7 +78,8 @@ function Pets() {
     togglePetAdd();
   }
 
-  const togglePetEdit = () => {
+  const togglePetEdit = (currentPetId) => {
+    setCurrentPet(currentPetId);
     setEditPetIsOpen(!editPetIsOpen);
   }
 
@@ -112,7 +114,7 @@ function Pets() {
           overlayClassName='pet-overlay'
           closeTimeoutMS={500}
         >
-          <EditPet onFormClose={onEditPetFormClose} />
+          <EditPet onFormClose={onEditPetFormClose} petId={currentPet} />
         </ReactModal>
         <div className="cards">
           {pet.map((items) => (
@@ -141,7 +143,7 @@ function Pets() {
                       <MdOutlineEdit />
                     </IconContext.Provider>
                   </Link> */}
-                  <button className='edit-button' onClick={() => togglePetEdit()}>
+                  <button className='edit-button' onClick={() => togglePetEdit(items.id)}>
                     <IconContext.Provider value={{ className: "edit-icon" }}>
                       <MdOutlineEdit />
                     </IconContext.Provider>
