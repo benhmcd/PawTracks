@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 
 import './Pet.css';
 
-
 function Pet(props) {
   
   const {onFormClose, petId} = props;
@@ -70,13 +69,13 @@ function Pet(props) {
     }
   }
 
-
   // Render the pet information on the page
   return (
     <div className='edit-pet-container'>
       <h1>Edit Pet: {pet.name}</h1>
       <br />
-      <PhotoUpload />
+      {console.log("PET ID: " + petId)}
+      <PhotoUpload id={petId}/>
       <br />
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} padding={'0'} />
     </div>

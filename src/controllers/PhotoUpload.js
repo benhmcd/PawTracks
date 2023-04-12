@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Storage } from "@aws-amplify/storage";
 
-const PhotoUpload = () => {
+const PhotoUpload = ({id}) => {
     // Declare a state variable to store the selected file
     const [file, setFile] = useState(null);
-
-    // Get the ID parameter from the URL using `useParams` hook
-    const { id } = useParams();
+    
 
     // Event handler for file selection
     const handleFileChange = (event) => {
