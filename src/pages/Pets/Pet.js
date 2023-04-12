@@ -67,21 +67,16 @@ function Pet(props) {
 
   // Render the pet information on the page
   return (
-    <>
+    <div className='edit-pet-container'>
       <h1>Edit Pet: {pet.name}</h1>
-  
-      <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} />
-      <br />
       <hr />
+      <br />
+      <h2>Pet Image:</h2>
+      <br />
       <PhotoUpload />
-      
       <br />
-      <hr />
-      <AudioRecord />
-      <br />
-      <AudioPlayer />
-      <br />
-    </>
+      <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} padding={'0'} />
+    </div>
   )
 }
 export default Pet
