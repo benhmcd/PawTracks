@@ -10,6 +10,9 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
+import AudioRecord from '../../controllers/AudioRecord';
+import AudioPlayer from '../../controllers/AudioPlayer';
+
 import './Pet.css';
 
 
@@ -61,12 +64,23 @@ function Pet(props) {
     }
   };
 
+
   // Render the pet information on the page
   return (
     <>
       <h1>Edit Pet: {pet.name}</h1>
   
       <PetUpdateForm pet={pet} onSubmit={handleUpdate} onCancel={onFormClose} onSuccess={onFormClose} />
+      <br />
+      <hr />
+      <PhotoUpload />
+      
+      <br />
+      <hr />
+      <AudioRecord />
+      <br />
+      <AudioPlayer />
+      <br />
     </>
   )
 }

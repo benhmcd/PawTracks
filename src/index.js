@@ -7,25 +7,25 @@ import App from './App';
 import { Amplify, AuthModeStrategyType } from 'aws-amplify'
 import awsconfig from './aws-exports'
 
-import {ThemeProvider, createTheme } from "@aws-amplify/ui-react"
+import { ThemeProvider, createTheme } from "@aws-amplify/ui-react"
 import { studioTheme } from './ui-components';
 
 const updatedTheme = createTheme({
   name: "my-theme-updates",
   tokens: {
     components: {
-      button: {
-        primary: {
-          backgroundColor: {
-            value: "var(--secondaryColor)"
-          },
-          color: {
-            value: "var(--backgroundColor)"
-          }
+    button: {
+      primary: {
+        backgroundColor: {
+          value: "var(--secondaryColor)"
+        },
+        color: {
+          value: "var(--backgroundColor)"
         }
       }
     }
   }
+}
 }, studioTheme)
 
 
@@ -42,7 +42,7 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </React.StrictMode>,
-  
+
   document.getElementById('root')
 );
 
