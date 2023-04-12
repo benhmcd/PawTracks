@@ -1,7 +1,6 @@
 // Import required dependencies
 import React, { useEffect, useState } from 'react';
 import { DataStore } from '@aws-amplify/datastore';
-import { useParams } from 'react-router-dom';
 import { Pet as PetModel } from '../../models';
 import PhotoUpload from '../../controllers/PhotoUpload';
 import PhotoDownload from '../../controllers/PhotoDownload';
@@ -16,10 +15,8 @@ import './Pet.css';
 
 function Pet(props) {
   
-  const {onFormClose} = props;
-
-  // Get the ID parameter from the URL using `useParams` hook
-  const { id } = useParams();
+  const {onFormClose, petId} = props;
+  console.log('props.petId', props.petId);
 
   let navigate = useNavigate();
 
