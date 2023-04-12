@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import './Profile.css';
 import { SliderField, SwitchField } from '@aws-amplify/ui-react';
 import Multiselect from 'multiselect-react-dropdown';
+import AudioRecord from '../../controllers/AudioRecord';
+import AudioPlayer from '../../controllers/AudioPlayer';
 import { ConsoleLogger } from '@aws-amplify/core';
 import { mul } from '@tensorflow/tfjs';
 
@@ -145,6 +147,13 @@ restrictedAreaOptions.forEach((area) => {
                 placeholder='Select areas to restrict'
             />
             {multiList}
+            <br />
+            <hr/>
+            <br />
+            <AudioRecord />
+            <br />
+            <AudioPlayer />
+            <br />
         </>
     )
 

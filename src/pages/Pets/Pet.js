@@ -11,9 +11,6 @@ import { PetUpdateForm } from '../../ui-components';
 
 import { useNavigate } from 'react-router-dom';
 
-import AudioRecord from '../../controllers/AudioRecord';
-import AudioPlayer from '../../controllers/AudioPlayer';
-
 import './Pet.css';
 
 
@@ -64,26 +61,28 @@ function Pet() {
     }
   };
 
+  // Define the handleCancel function
+  const handleCancel = async (fields) => {
+    try {
+      navigate('/pets');
+    } catch (error) {
+      console.log('Cancellation error: ', error);
+    }
+  }
+
 
   // Render the pet information on the page
   return (
     <>
       <h1>Edit Pet: {pet.name}</h1>
     <div className= 'PetUpdateForm-container'>
-      <PetUpdateForm pet={pet}  onSubmit={handleUpdate} onSuccess={() => {
+      <PetUpdateForm pet={pet}  onSubmit={handleUpdate} onCancel={handleCancel} onSuccess={() => {
         setShowForm(false)
       }} />
       </div>
       
       <hr />
       <PhotoUpload />
-      
-      <br />
-      <hr />
-      <AudioRecord />
-      <br />
-      <AudioPlayer />
-      <br />
     </>
   )
 }
