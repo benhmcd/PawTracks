@@ -121,7 +121,6 @@ function Pets() {
 
   return (
     <>
-
       <h1>Pets</h1>
       <br />
       <div className='addPet-container'>
