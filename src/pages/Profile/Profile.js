@@ -67,10 +67,8 @@ function Profile() {
         console.log("SELECTED AREAS: " + JSON.stringify(settings.current['restrictedAreas']));
 
         console.log("Restricted Pets Before Removal: " + settings.current['restrictedAreas'].find(item => item.name === removedItem.name)['restrictedPets']); */
-
         settings.current['restrictedAreas'].find(item => item.name === removedItem.name)['restrictedPets'] = [];
         settings.current['restrictedAreas'] = selectedAreas;
-        
         try {
             console.log('MULTILIST: ' + JSON.stringify(multiList));
             var itemIndex = multiList.findIndex(item => item.props.id === "restrictedPetSelect" + removedItem.name);
@@ -87,7 +85,6 @@ function Profile() {
         console.log("MULTILIST----------" + JSON.stringify(multiList[0]['props']['children'][1]['props']['id']));
         console.log("SELECTED VALUES----------" + JSON.stringify(multiList[0]['props']['children'][1]['props']['selectedValues']));
     }
-
     /*
     console.log(selectedArea);
         var result = settings.current['restrictedAreas'].find(item => item.name === 'Bed');
