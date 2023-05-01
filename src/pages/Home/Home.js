@@ -3,7 +3,7 @@ import './Home.css';
 import React, { useRef, useEffect, useState } from 'react';
 
 import * as cocossd from "@tensorflow-models/coco-ssd";
-
+import ReactDOM from "react-dom";
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiCar } from 'react-icons/bi';
 import { IoCameraReverse } from 'react-icons/io5';
@@ -11,6 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import VideoUploadExtended from '../../controllers/VideoUploadExtended';
 import { SaveSession } from '../../controllers/SaveSession';
+import { playAudioOnEvent } from '../../controllers/AudioPlayerV2';
+//import useAudioPlayer from '../../controllers/AudioPlayer';
 
 
 // Global vars for percitent data
@@ -179,7 +181,7 @@ function Home() {
             if (bedBox[0] < petBox[0] && bedBox[1] < petBox[1]) {
                 if (((petBox[0] + petBox[2]) < (bedBox[0] + bedBox[2]))
                     && ((petBox[1] + petBox[3]) < (bedBox[1] + bedBox[3]))) {
-                    alert("A " + typeOfPet +  "IS ON THE BED!!!!");
+                    alert("A " + typeOfPet + "IS ON THE BED!!!!");
                     return true;
                 }
             }
@@ -205,6 +207,8 @@ function Home() {
         if (recordingRef.current) {
             return; // If so, exit the function
         }
+        //Play users STOP audio rrecording recording
+        playAudioOnEvent();
         // Set a flag to indicate that a recording is in progress
         recordingRef.current = true;
         // Create a new Date object to mark the start time of the clip
@@ -238,8 +242,8 @@ function Home() {
             try {
                 clips.Clips[clips.Clips.length - 1].fileName = `${title}.mp4`;
                 clips.Clips[clips.Clips.length - 1].end = new Date();
-                clips.Clips[clips.Clips.length - 1].IncidentList = [];
-            //TODO: Add IncidentList here and pray that the data doesnt freeze and not update :)
+
+                //TODO: Add IncidentList here and pray that the data doesnt freeze and not update :)
 
             } catch (error) {
                 console.log("Could not update last title, refrence was in use" + error)

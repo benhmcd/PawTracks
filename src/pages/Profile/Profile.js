@@ -7,12 +7,15 @@ import AudioRecord from '../../controllers/AudioRecord';
 import AudioPlayer from '../../controllers/AudioPlayer';
 import { ConsoleLogger } from '@aws-amplify/core';
 import { mul } from '@tensorflow/tfjs';
+import saveSettings from '../../controllers/SaveSettings';
 
 function Profile() {
     const [isRecordClipsChecked, setIsRecordClipsChecked] = useState(true);
     const [isPersonDetectionChecked, setIsPersonDetectionChecked] = useState(true);
     const [sliderValue, setSliderValue] = useState(0);
     var [multiList, setMultiList] = useState([]);
+
+    const [jsonData, setJsonData] = useState({}); // Used to save state of settings as json data -BP
 
     var restrictedAreaOptions = [{ name: 'Bed', id: 0, restrictedPets: [] }, { name: 'Couch', id: 1, restrictedPets: [] }, { name: 'Chair', id: 2, restrictedPets: [] },];
 
@@ -65,11 +68,8 @@ function Profile() {
         console.log("SELECTED AREAS: " + JSON.stringify(settings.current['restrictedAreas']));
 
         console.log("Restricted Pets Before Removal: " + settings.current['restrictedAreas'].find(item => item.name === removedItem.name)['restrictedPets']); */
-
         settings.current['restrictedAreas'].find(item => item.name === removedItem.name)['restrictedPets'] = [];
         settings.current['restrictedAreas'] = selectedAreas;
-
-
         try {
             console.log('MULTILIST: ' + JSON.stringify(multiList));
             var itemIndex = multiList.findIndex(item => item.props.id === "restrictedPetSelect" + removedItem.name);
@@ -79,16 +79,13 @@ function Profile() {
         } catch (e) {
             console.error(e);
         }
-
         settings.current['restrictedAreas'].forEach((area) => {
             console.log("Settings on Removal: " + area['name'] + "Restricted Pets:" + JSON.stringify(area['restrictedPets']));
         })
         console.log("Settings on Removal: " + JSON.stringify(settings.current['restrictedAreas']));
         console.log("MULTILIST----------" + JSON.stringify(multiList[0]['props']['children'][1]['props']['id']));
         console.log("SELECTED VALUES----------" + JSON.stringify(multiList[0]['props']['children'][1]['props']['selectedValues']));
-
     }
-
     /*
     console.log(selectedArea);
         var result = settings.current['restrictedAreas'].find(item => item.name === 'Bed');
@@ -96,7 +93,6 @@ function Profile() {
     */
 
     // PET FUNCTIONS
-
 
     function onSelectPet(selectedPets, selectedItem, selectedArea) {
         settings.current['restrictedAreas'].find(item => item.name === selectedArea.name)['restrictedPets'] = selectedPets;
@@ -113,6 +109,16 @@ function Profile() {
             console.log(area['name'] + " Restricted Pets (Remove): " + JSON.stringify(area['restrictedPets']));
         })
     }
+
+    // Used to save the current json settings to the database -BP
+    const handleSave = async () => {
+        const jsonData = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "age": 19
+        };
+        await saveSettings(jsonData);
+    };
 
     return (
         <>
@@ -168,9 +174,9 @@ function Profile() {
             <br />
             <AudioPlayer />
             <br />
+            <h1>Save User Settings</h1>
+            <button onClick={handleSave}>Save</button>
         </>
     )
-
 }
-
 export default Profile
