@@ -52,7 +52,7 @@ function Profile() {
         //console.log("Selected Area: " + selectedArea.name);
         settings.current['restrictedAreas'] = selectedAreas;
         try {
-            setMultiList(multiList.concat(<div id={'restrictedPetSelect'.concat(selectedArea.name)} ><h3>Restricted Pet for {selectedArea.name}</h3>
+            setMultiList(multiList.concat(<div id={'restrictedPetSelect'.concat(selectedArea.name)} ><h3>Pets Not Allowed On The {selectedArea.name}</h3>
                 <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']}
                     onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={(selectedPets, removedItem) => onRemovePet(selectedPets, removedItem, selectedArea)} displayValue="name" placeholder="Select pets to restrict" /></div>));
         } catch (e) {
