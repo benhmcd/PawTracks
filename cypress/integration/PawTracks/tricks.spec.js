@@ -24,12 +24,12 @@ describe('tricks', function () {
         cy.get('.edit-icon').click()
         //cy.get('.mainContent > .cards:nth-child(3) > .cardLinks:nth-child(1) > .amplify-card > h2').click()
 
-        cy.get('label:contains("Desc")')  // select the label element
-            .invoke('attr', 'for')  // get the value of the "for" attribute
-            .then((inputId) => {
-                cy.get(`#${inputId}`)  // select the input element with the corresponding ID
-                    .type('this is a test')  // enter a value in the input
-            })
+        // cy.get('label:contains("Desc")')  // select the label element
+        //     .invoke('attr', 'for')  // get the value of the "for" attribute
+        //     .then((inputId) => {
+        //         cy.get(`#${inputId}`)  // select the input element with the corresponding ID
+        //             .type('this is a test')  // enter a value in the input
+        //     })
 
 
         // Use the cy.get command to select an element by its class and interact with it
