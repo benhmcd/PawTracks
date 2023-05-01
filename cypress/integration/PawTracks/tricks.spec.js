@@ -19,9 +19,9 @@ describe('tricks', function () {
         //cy.get('form').submit();
 
 
-        cy.get('.navbar > .mobileNavBar > #mainWrap > .navItem:nth-child(2) > .linkText').click()
-        cy.wait(1000)
-        cy.get('.edit-icon').click()
+        // cy.get('.navbar > .mobileNavBar > #mainWrap > .navItem:nth-child(2) > .linkText').click()
+        // cy.wait(1000)
+        // cy.get('.edit-icon').click()
         //cy.get('.mainContent > .cards:nth-child(3) > .cardLinks:nth-child(1) > .amplify-card > h2').click()
 
         // cy.get('label:contains("Desc")')  // select the label element
