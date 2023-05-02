@@ -10,13 +10,35 @@ import { mul } from '@tensorflow/tfjs';
 import saveSettings from '../../controllers/SaveSettings';
 
 function Profile() {
-    const settings = useRef([
+    // Default Settings
+    const settings = useRef(
         {
             "recordClips": true,
             "minimumConfidence": 0,
             "personDetection": true,
-            "restrictedAreas": [] },
-    ]);
+            "restrictedAreas": [] }
+        );
+    
+   /*
+    const settings = useRef({
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "recordClips": true,
+        "minimumConfidence": 0,
+        "personDetectiong": true,
+        "restrictedAreas": [
+            { "name": "Bed", "id": 0, "restrictedPets": [{ "name": "Dog", "id": 1 }, { "name": "Cat", "id": 2 }, { "name": "Bird", "id": 3 }] },
+            { "name": "Couch", "id": 1, "restrictedPets": [{ "name": "Dog", "id": 1 }, { "name": "Cat", "id": 2 }, { "name": "Bird", "id": 3 }] },
+            { "name": "Chair", "id": 2, "restrictedPets": [{ "name": "Dog", "id": 1 }, { "name": "Cat", "id": 2 }, { "name": "Bird", "id": 3 }] }
+        ]
+    });
+
+    console.log(JSON.stringify(settings.current['restrictedAreas'][0]['restrictedPets']));
+    */
+    
+    
+
 
     const [isRecordClipsChecked, setIsRecordClipsChecked] = useState(true);
     const [isPersonDetectionChecked, setIsPersonDetectionChecked] = useState(true);
@@ -29,7 +51,7 @@ function Profile() {
 
     var restrictedPetOptions = [{ name: 'Dog', id: 1 }, { name: 'Cat', id: 2 }, { name: 'Bird', id: 3 },];
 
-    
+
 
     /*
     "name": "John Doe",
@@ -75,7 +97,7 @@ function Profile() {
         settings.current['restrictedAreas'] = selectedAreas;
         try {
             setMultiList(multiList.concat(<div key={selectedArea.name} id={'restrictedPetSelect'.concat(selectedArea.name)} ><h3>Pets Not Allowed On The {selectedArea.name}</h3>
-                <Multiselect className="restrictedPetSelect"  id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']}
+                <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']}
                     onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={(selectedPets, removedItem) => onRemovePet(selectedPets, removedItem, selectedArea)} displayValue="name" placeholder="Select pets to restrict" /></div>));
         } catch (e) {
             console.error(e);
