@@ -180,7 +180,7 @@ function Test() {
                             console.error(error);
                         }
                         prepare_video();
-                        detectFrame();
+                        //detectFrame();
                     }}>
                     Video Two: Dog On Bed
                     </MenuItem>
