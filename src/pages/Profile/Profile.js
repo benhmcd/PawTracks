@@ -10,6 +10,14 @@ import { mul } from '@tensorflow/tfjs';
 import saveSettings from '../../controllers/SaveSettings';
 
 function Profile() {
+    const settings = useRef([
+        {
+            "recordClips": true,
+            "minimumConfidence": 0,
+            "personDetection": true,
+            "restrictedAreas": [] },
+    ]);
+
     const [isRecordClipsChecked, setIsRecordClipsChecked] = useState(true);
     const [isPersonDetectionChecked, setIsPersonDetectionChecked] = useState(true);
     const [sliderValue, setSliderValue] = useState(0);
@@ -21,10 +29,21 @@ function Profile() {
 
     var restrictedPetOptions = [{ name: 'Dog', id: 1 }, { name: 'Cat', id: 2 }, { name: 'Bird', id: 3 },];
 
-    const settings = useRef([
-        { minimumConfidence: 0 },
-        { restrictedAreas: [] },
-    ]);
+    
+
+    /*
+    "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "recordClips": true,
+        "minimumConfidence": 0,
+        "personDetectiong": true,
+        "restrictedAreas": [
+            {"name":"Bed","id":0,"restrictedPets":[{"name":"Dog","id":1},{"name":"Cat","id":2},{"name":"Bird","id":3}]},
+            {"name":"Couch","id":1,"restrictedPets":[{"name":"Dog","id":1},{"name":"Cat","id":2},{"name":"Bird","id":3}]},
+            {"name":"Chair","id":2,"restrictedPets":[{"name":"Dog","id":1},{"name":"Cat","id":2},{"name":"Bird","id":3}]}
+            ]
+        */
 
     /*
     restrictedAreaOptions.forEach((area) => {
@@ -55,8 +74,8 @@ function Profile() {
         //console.log("Selected Area: " + selectedArea.name);
         settings.current['restrictedAreas'] = selectedAreas;
         try {
-            setMultiList(multiList.concat(<div id={'restrictedPetSelect'.concat(selectedArea.name)} ><h3>Pets Not Allowed On The {selectedArea.name}</h3>
-                <Multiselect className="restrictedPetSelect" id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']}
+            setMultiList(multiList.concat(<div key={selectedArea.name} id={'restrictedPetSelect'.concat(selectedArea.name)} ><h3>Pets Not Allowed On The {selectedArea.name}</h3>
+                <Multiselect className="restrictedPetSelect"  id={"restrictedPetSelect".concat(selectedArea.name)} options={restrictedPetOptions} selectedValues={selectedAreas.find(item => item.name === selectedArea.name)['restrictedPets']}
                     onSelect={(selectedPets, selectedItem) => onSelectPet(selectedPets, selectedItem, selectedArea)/*functions.find(item => item.name === selectedArea.name)['onSelectFunction']*/} onRemove={(selectedPets, removedItem) => onRemovePet(selectedPets, removedItem, selectedArea)} displayValue="name" placeholder="Select pets to restrict" /></div>));
         } catch (e) {
             console.error(e);
@@ -109,7 +128,22 @@ function Profile() {
             console.log(area['name'] + " Restricted Pets (Remove): " + JSON.stringify(area['restrictedPets']));
         })
     }
-
+    /* Example JSON Data
+    {   
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "RecordClips": true,
+        "MinimumConfidence": 0,
+        "PersonDetectiong": true,
+        "RestrictedAreas": [
+            {"name":"Bed","id":0,"restrictedPets":[{"name":"Dog","id":1},{"name":"Cat","id":2},{"name":"Bird","id":3}]},
+            {"name":"Couch","id":1,"restrictedPets":[{"name":"Dog","id":1},{"name":"Cat","id":2},{"name":"Bird","id":3}]},
+            {"name":"Chair","id":2,"restrictedPets":[{"name":"Dog","id":1},{"name":"Cat","id":2},{"name":"Bird","id":3}]}
+            ]
+    
+    }
+    */
     // Used to save the current json settings to the database -BP
     const handleSave = async () => {
         const jsonData = {
