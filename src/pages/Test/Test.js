@@ -18,7 +18,21 @@ function Test() {
     const [videoSrc, setVideoSrc] = useState([]);
     const inputRef = useRef(null);
 
+    
+    const settings = useRef({
+        "minimumConfidence": 0,
+        "personDetectiong": true,
+        "restrictedAreas": [
+            { "name": "Bed", "id": 0, "restrictedPets": [{ "name": "Dog", "id": 1 }, { "name": "Cat", "id": 2 }, { "name": "Bird", "id": 3 }] },
+            { "name": "Couch", "id": 1, "restrictedPets": [{ "name": "Dog", "id": 1 }, { "name": "Cat", "id": 2 }, { "name": "Bird", "id": 3 }] },
+            { "name": "Chair", "id": 2, "restrictedPets": [{ "name": "Dog", "id": 1 }, { "name": "Cat", "id": 2 }, { "name": "Bird", "id": 3 }] }
+        ]
+    });
 
+    console.log(JSON.stringify(settings.current['restrictedAreas'][0]['restrictedPets']));
+    
+
+    /*
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         let videoElement = document.getElementById('video');
@@ -34,6 +48,7 @@ function Test() {
         const url = URL.createObjectURL(file);
         setVideoSrc(url);
     };
+    */
 
     async function prepare_video() {
         try {
@@ -165,6 +180,7 @@ function Test() {
                             console.error(error);
                         }
                         prepare_video();
+                        detectFrame();
                     }}>
                     Video Two: Dog On Bed
                     </MenuItem>
