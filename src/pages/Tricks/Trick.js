@@ -7,6 +7,7 @@ function Trick(props) {
     console.log('Tricks: ' + Object.keys(props));
     const {trick} = useParams();
     var embedId;
+    var title;
 
     let tricks = props.tricks;
     /* let tricks = {
@@ -31,13 +32,14 @@ function Trick(props) {
         for(var y in tricks[x]) {
             if(y === trick) {
                 embedId = tricks[x][y]["embedId"];
+                title = tricks[x][y]["title"];
             }
         }
     }
     
     return (
         <>
-            <h1>{trick}</h1>
+            <h1>{title}</h1>
             <YoutubeEmbed embedId={embedId}/>
         </>
     )
