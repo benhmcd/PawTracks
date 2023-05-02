@@ -24,7 +24,7 @@ var incidentList = [];
 var incidentType = "";
 
 var confidenceMin = 0.4;
-var personDetection = false;
+var personDetection = true;
 var recordClips = true;
 
 function Home() {
