@@ -40,9 +40,11 @@ function Trick(props) {
             <div className="video-container" style={{ height: containerHeight }}>
                 <YoutubeEmbed embedId={embedId}/>
             </div>
-            <h2>{headerText}</h2>
-            <br />
-            <p>{bodyText}</p>
+            <div class="text-container">
+                <h2>{headerText}</h2>
+                <br />
+                <p>{bodyText}</p>  
+            </div>
             <br /> <br />
         </>
     )
