@@ -67,19 +67,23 @@ function Test() {
         canvasRef.current.width = width;
         canvasRef.current.height = height;
         // Detects objects in our videoElement using our model
-        const detections = await netRef.current.detect(document.getElementById('video')); //Should have minScore
+        try {
+            const detections = await netRef.current.detect(document.getElementById('video'));
+            detectionsRef.current = detections;
+            console.debug(detections);
+            const canvas = canvasRef.current.getContext("2d");
+
+            // Calls the bbox drawing function, passing in our detections and canvas obj
+            drawBbox(detections, canvas);
+        } catch (error) {
+            console.error(error);
+        }
+        //Should have minScore
         /*let filteredDetections = detections.filter(prediction => {
             return categories.includes(prediction.class);
         });
         detectionsRef.current = filteredDetections;*/
-        detectionsRef.current = detections;
-        console.debug(detections);
-
         // Draws the canvas
-        const canvas = canvasRef.current.getContext("2d");
-
-        // Calls the bbox drawing function, passing in our detections and canvas obj
-        drawBbox(detections, canvas);
     }
 
     function drawBbox(detections, canvas) {
