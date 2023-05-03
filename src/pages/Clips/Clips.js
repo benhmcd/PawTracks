@@ -80,7 +80,10 @@ function Clips() {
                                                     {videoData && videoData[clip.fileName] && (
                                                         <video controls src={videoData[clip.fileName]} className="clip-video" />
                                                     )}
-                                                    <Badge className='petOnBedBadge'>Alert Type</Badge>
+                                                    {clip.IncidentList.map((incident) => (
+                                                            <Badge id={incident.concat("Badge")}>{incident}</Badge>
+                                                        ))
+                                                    }
                                                 </Card>
                                             </Link>
                                         </ExpanderItem>

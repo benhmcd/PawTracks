@@ -7,6 +7,7 @@ function Trick(props) {
     const {trick} = useParams();
     var embedId, bodyText, headerText;
 
+
     let tricks = props.tricks;
     
     for(var x in tricks) {

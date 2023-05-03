@@ -51,6 +51,7 @@ function App({ user }) {
       });
   };
 
+
   const tricks = tricksData
   //Return app Router Navigation
   return (

@@ -162,7 +162,15 @@ function Pets() {
                 <div className="pet-image-container">
                   <img src={imageURLs[item.id]} alt={item.name} className="pet-image" 
                   onError={(e) => {
-                    e.target.src = "/pawTracksCircleLogo512.png";
+                    if(item.type == 'DOG') {
+                      e.target.src = "/defaultDog.png";
+                    } else if(item.type == 'CAT') {
+                      e.target.src = "/defaultCat.png";
+                    } else if(item.type == 'BIRD') {
+                      e.target.src = "/defaultBird.png";
+                    } else {
+                      e.target.src = "/pawTracksCircleLogo512.png";
+                    }
                     e.target.style.width = "95%"; // Set the width of the error image to 50%
                     e.target.style.height = "auto"; //Auto scale with width
                   }}
