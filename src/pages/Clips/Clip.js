@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Storage } from 'aws-amplify';
+import './Clip.css'
 
 function Clip() {
     const { id } = useParams();
@@ -14,18 +15,13 @@ function Clip() {
         fetchVideoUrl();
     }, [id]);
 
-    if (!videoUrl) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <>
             <h1>Single Clip Page: {id}</h1>
-            <div>
+            <div className="video-container">
                 <video controls src={videoUrl}></video>
             </div>
         </>
     )
 }
-
 export default Clip
